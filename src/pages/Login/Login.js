@@ -44,19 +44,21 @@ const Login = () => {
       console.log(user.data);
       setUsername('');
       setPassword('');
+      window.localStorage.setItem(
+        'loggedUserTroveStore', JSON.stringify(user.data)
+      ) 
       setIncorrectCredentials(`Welcome ${user.data.username}`);
       setTimeout(() => {
         setIncorrectCredentials('');
-      }, 3000);
+      }, 4000);
     } catch (error) {
       console.log(error);
       setIncorrectCredentials('Incorrect username or password');
       setTimeout(() => {
         setIncorrectCredentials('');
-      }, 3000);
+      }, 4000);
     }
   };
-  
 
   return (
     <LoginForm onSubmit={handleSubmit}>
