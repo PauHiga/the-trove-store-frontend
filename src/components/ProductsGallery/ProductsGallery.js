@@ -1,6 +1,8 @@
 import React from 'react'
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ProductCard from '../ProductCard/ProductCard';
+import productsService from '../../services/productsService';
 
 const mock = [
   {
@@ -187,9 +189,16 @@ const StyledProductsGallery = styled.div`
 `;
 
 const ProductsGallery = () => {
+
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    productsService.getAll().then((blogs) => setProducts(blogs))
+  }, [])
+
   return (
     <StyledProductsGallery>
-        {mock.map(item => <ProductCard key={item.id}product={item}/>)}
+        {products.map(item => <ProductCard key={item.id}product={item}/>)}
     </StyledProductsGallery>
   )
 }
