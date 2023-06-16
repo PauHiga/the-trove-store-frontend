@@ -20,7 +20,6 @@ const StyledProductCard = styled.nav`
 `;
 
 const ProductCard = ({product}) => {
-  console.log(product)
   return (
       <StyledProductCard>
         <Link to={`/products/${product.id}/${product.name}`}>
