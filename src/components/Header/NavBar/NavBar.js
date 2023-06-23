@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import iconSearch from './icons/iconSearch.svg'
 import iconLogin from './icons/iconLogin.svg'
 import iconFav from './icons/iconFav.svg'
 import iconCart from './icons/iconCart.svg'
+
 
 const StyledNavBar = styled.nav`
   font-variant: small-caps;
@@ -40,6 +42,7 @@ const StyledNavBar = styled.nav`
 `;
 
 const NavBar = () => {
+  const user = useSelector(state => state.user)
   return (
       <StyledNavBar>
         <ul>
@@ -50,7 +53,10 @@ const NavBar = () => {
             <Link to="/fav"><img src={iconFav} alt="icon search" />Favorites</Link>          
           </li>
           <li>
-            <Link to="/login"><img src={iconLogin} alt="icon search" />Login</Link>           
+            {user ? 
+            <Link to="/login"><img src={iconLogin} alt="icon search" />{user.username} logged in</Link>           
+            : <Link to="/login"><img src={iconLogin} alt="icon search" />Login</Link>           
+            }
           </li>
           <li>
             <Link to="/cart"><img src={iconCart} alt="icon search" />Cart</Link>           

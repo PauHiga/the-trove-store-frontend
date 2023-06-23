@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import loginService from '../../services/loginService';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../reducers/userReducer';
 
 const LoginForm = styled.form`
   display: flex;
@@ -36,18 +39,22 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [IncorrectCredentials, setIncorrectCredentials] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const user = await loginService.login({ username, password });
-      console.log(user.data);
       setUsername('');
       setPassword('');
       window.localStorage.setItem(
         'loggedUserTroveStore', JSON.stringify(user.data)
       ) 
-      setIncorrectCredentials(`Welcome ${user.data.username}`);
+      dispatch(setUser(JSON.stringify(user.data)))
+
+      navigate('/');
       setTimeout(() => {
         setIncorrectCredentials('');
       }, 4000);

@@ -4,6 +4,7 @@ import ServicesBar from '../../components/ServicesBar/ServicesBar'
 import FeaturedCategories from './FeaturedCategories/FeaturedCategories';
 import ProductsGallery from '../../components/ProductsGallery/ProductsGallery';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux'
 
 const StyledHome = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const StyledHome = styled.div`
 `;
 
 const Home = () => {
+  const allProducts = useSelector(state => state.products)
   return (
     <StyledHome>
       <Hero/>
@@ -27,7 +29,7 @@ const Home = () => {
       <div className='bar'></div>
       <div className='bar'></div>
       <h2>Our Selection</h2>
-      <ProductsGallery/>
+      <ProductsGallery products={allProducts}/>
     </StyledHome>
   )
 }

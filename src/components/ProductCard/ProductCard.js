@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import mock from './mockImage/mock.png'
 import { Link } from 'react-router-dom'
 
+
 const StyledProductCard = styled.nav`
   margin: 10px;
   font-variant: small-caps;
@@ -22,7 +23,7 @@ const StyledProductCard = styled.nav`
 const ProductCard = ({product}) => {
   return (
       <StyledProductCard>
-        <Link to={`/products/${product.id}/${product.name}`}>
+        <Link to={`/products/${product.id}`}>
           <img src={mock} alt="" />
           <h4>{product.name}</h4>
           <p>${product.price}</p>
