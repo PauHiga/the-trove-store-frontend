@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import productsService from '../../services/productsService';
 import categoryService from '../../services/categoryService';
-import { deleteCategoryReducer, createCategoryReducer } from '../../reducers/categoriesReducer';
+import { createCategoryReducer, editCategoryReducer } from '../../reducers/categoriesReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct } from '../../reducers/productsReducer';
 import { useNavigate } from 'react-router-dom';
@@ -27,6 +27,8 @@ const AdminSectionContainer = styled.div`
   const AdminSection = (id) => {
 
     const[newCategory, setNewCategory] = useState('')
+    const[editCategoryOn, setEditCategoryOn] = useState('')
+    const[editedCategory, setEditedCategory] = useState('')
 
     const categories = useSelector(state => state.categories)
     console.log(categories)
@@ -50,15 +52,34 @@ const AdminSectionContainer = styled.div`
         console.log(error)
       }
   }
-
-  const handleDeleteCategory = async (item) => {
-    const confirm = window.confirm(`Are you sure you want to delete ${item.category}?`)
-    if(confirm){
-      await categoryService.deleteCategory(item.id)
-      dispatch(deleteCategoryReducer(item.id))
+ 
+  const editButtonHandler = (item) => {
+    if (editedCategory !== item.id){
+      setEditCategoryOn(item.id)
+      setEditedCategory(item.category)
+    }
+    else{
+      setEditCategoryOn('0')
     }
   }
-  
+
+  const handleEditCategory = async (category) => {
+    try{
+      console.log(category);
+      const categoryToEdit = {category: editedCategory}
+      const successfullyEditedCategory = await categoryService.editCategory(categoryToEdit, category.id)
+      dispatch(editCategoryReducer(successfullyEditedCategory))
+      setEditedCategory('')
+    }
+    catch (error){
+      console.log(error)
+    }
+}
+
+const handleCancelEditCategory = async () => {
+  setEditCategoryOn('')
+}
+
   const handleDeleteProduct = async (item) => {
     const confirm = window.confirm(`Are you sure you want to delete ${item.name}?`)
     if(confirm){
@@ -80,7 +101,15 @@ const AdminSectionContainer = styled.div`
         <label htmlFor="">Add category</label><input type="text" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} />
         <button onClick={()=> handleAddCategory()}>Add Category</button>
         <ul>
-          {categories.map(item => <li key={item.id}>{item.category}<button onClick={()=> handleDeleteCategory(item)}>Delete</button></li>)}
+          {categories.map(item => {
+          return(
+            <>
+              <li key={item.id}>{item.category}<button onClick={()=> editButtonHandler(item)}>Edit</button></li>
+              {editCategoryOn === item.id ? <><input type="text" value={editedCategory} onChange={(e) => setEditedCategory(e.target.value)} />
+            <button onClick={()=> handleEditCategory(item)}>Edit Category</button><button onClick={()=> handleCancelEditCategory()}>Cancel</button></> : '' }
+            </>
+            )})
+          }
         </ul>
       </div>
       <div>
