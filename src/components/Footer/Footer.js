@@ -8,7 +8,7 @@ const StyledFooter = styled.footer`
   background-color: #ce9124;
   padding:3% 0% 3% 0%;
   width: 100%;
-  height: 140px;
+  height: 180px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;

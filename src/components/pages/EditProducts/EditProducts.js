@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import productsService from '../../services/productsService';
+import productsService from '../../../services/productsService';
 import { useParams} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { editProduct } from '../../reducers/productsReducer';
+import { editProduct } from '../../../reducers/productsReducer';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import CategoriesCheckboxes from '../../components/CategoriesCheckboxes/CategoriesCheckboxes';
+import CategoriesCheckboxes from '../../CategoriesCheckboxes/CategoriesCheckboxes';
 
 const EditProductsForm = styled.form`
   display: flex;
@@ -39,20 +39,18 @@ const SubmitButton = styled.button`
 
 const EditProducts = () => {
     const id = useParams().id
+    console.log(id);
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(state => state.user)
     
-    // const currentProduct = useSelector(state => state.products)
-    // const currentProduct = useSelector(state => state.products.find(item => item.id === id))
-    const currentProduct = useSelector(state => state.products.name)
+    const currentProduct = useSelector(state => state.products.find(item => item.id === id))
+
     console.log(currentProduct)
     
   const [name, setName] = useState(currentProduct.name)
   const [featureImg, setFeatureImg] = useState(currentProduct.featureImg)
-  // const [galleryImg, setGalleryImg] = useState(currentProduct.galleryImg)
   const [description, setDescription] = useState(currentProduct.description)
-  const [descriptionL, setDescriptionL] = useState(currentProduct.descriptionL)
   const [price, setPrice] = useState(currentProduct.price)
   const [stockS, setStockS] = useState(currentProduct.stockS)
   const [stockM, setStockM] = useState(currentProduct.stockM)
@@ -94,7 +92,7 @@ const EditProducts = () => {
   const handleCancel = () => {
     const confirm = window.confirm("Are you sure you want to cancel? No changes will be submitted")
     if(confirm){
-      navigate('/admin-section')
+      navigate('/user-section')
     }
   }
 

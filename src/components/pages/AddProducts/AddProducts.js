@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import productsService from '../../services/productsService';
-import { createProduct } from '../../reducers/productsReducer';
-import CategoriesCheckboxes from '../../components/CategoriesCheckboxes/CategoriesCheckboxes';
+import productsService from '../../../services/productsService';
+import { createProduct } from '../../../reducers/productsReducer';
+import CategoriesCheckboxes from '../../CategoriesCheckboxes/CategoriesCheckboxes';
 
 const AddProductsForm = styled.form`
   display: flex;

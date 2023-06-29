@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import loginService from '../../services/loginService';
+import loginService from '../../../services/loginService';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../reducers/userReducer';
+import { setUser } from '../../../reducers/userReducer';
 
 const LoginForm = styled.form`
   display: flex;

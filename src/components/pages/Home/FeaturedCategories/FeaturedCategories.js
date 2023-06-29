@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
-import cat1 from '../../../images/cat1.png'
-import cat2 from '../../../images/cat2.png'
-import cat3 from '../../../images/cat3.png'
-import banner from '../../../images/banner.png'
+import cat1 from '../../../../images/cat1.png'
+import cat2 from '../../../../images/cat2.png'
+import cat3 from '../../../../images/cat3.png'
+import banner from '../../../../images/banner.png'
 
 const StyledFeaturedCategories = styled.nav`
   font-variant: small-caps;

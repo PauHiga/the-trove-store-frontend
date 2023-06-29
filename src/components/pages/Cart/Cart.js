@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import AddSubtractCart from '../../components/AddSubtractCart/AddSubtractCart';
+import AddSubtractCart from '../../AddSubtractCart/AddSubtractCart';
 
 const CartContainer = styled.div`
   // display: flex;

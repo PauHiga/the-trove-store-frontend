@@ -46,15 +46,18 @@ const NavBar = () => {
   return (
       <StyledNavBar>
         <ul>
-          <li>
+          
+          {/* <li>
             <Link to="/search"><img src={iconSearch} alt="icon search" />Search</Link>
-          </li>
+          </li> 
           <li>
             <Link to="/fav"><img src={iconFav} alt="icon search" />Favorites</Link>          
           </li>
+          */}
+
           <li>
             {user ? 
-            <Link to="/login"><img src={iconLogin} alt="icon search" />{user.username} logged in</Link>           
+            <Link to="/user-section"><img src={iconLogin} alt="icon search" />{user.username} logged in</Link>           
             : <Link to="/login"><img src={iconLogin} alt="icon search" />Login</Link>           
             }
           </li>

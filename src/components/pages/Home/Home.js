@@ -1,10 +1,11 @@
 import React from 'react'
 import Hero from './Hero/Hero'
-import ServicesBar from '../../components/ServicesBar/ServicesBar'
+import ServicesBar from '../../ServicesBar/ServicesBar'
 import FeaturedCategories from './FeaturedCategories/FeaturedCategories';
-import ProductsGallery from '../../components/ProductsGallery/ProductsGallery';
+import ProductsGallery from '../../ProductsGallery/ProductsGallery';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux'
+import ScrollToTop from '../../ScrollToTop/ScrollToTop';
 
 const StyledHome = styled.div`
   display: flex;
@@ -23,6 +24,7 @@ const Home = () => {
   const allProducts = useSelector(state => state.products)
   return (
     <StyledHome>
+      <ScrollToTop />
       <Hero/>
       <ServicesBar/>
       <FeaturedCategories/>

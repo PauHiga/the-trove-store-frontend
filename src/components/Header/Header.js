@@ -6,14 +6,26 @@ import Title from './Title/Title';
 const StyledHeader = styled.header`
   display: flex;
   justify-content: space-around;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background-color: white;
+`;
+
+const Top = styled.header`
+  width: 100%;
+  height: 50px;
 `;
 
 const Header = () => {
   return (
-    <StyledHeader>
-      <Title/>
-      <NavBar/>
-    </StyledHeader>
+    <Top>
+      <StyledHeader>
+        <Title/>
+        <NavBar/>
+      </StyledHeader>
+    </Top>
   )
 }
 

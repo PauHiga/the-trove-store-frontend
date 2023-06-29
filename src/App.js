@@ -3,18 +3,20 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { initializeProducts } from './reducers/productsReducer'
 import { initializeCategories } from './reducers/categoriesReducer'
+import './App.css'
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import Home from './pages/Home/Home';
-import About from './pages/About/About';
-import Login from './pages/Login/Login';
-import AddProducts from './pages/AddProducts/AddProducts';
-import EditProducts from './pages/EditProducts/EditProducts';
-import NotFound from './pages/NotFound/NotFound'
-import AdminSection from './pages/AdminSection/AdminSection';
-import ProductPage from './pages/ProductPage/ProductPage'
-import Cart from './pages/Cart/Cart'
+import Home from './components/pages/Home/Home';
+import About from './components/pages/About/About';
+import Login from './components/pages/Login/Login';
+import AddProducts from './components/pages/AddProducts/AddProducts';
+import EditProducts from './components/pages/EditProducts/EditProducts';
+import NotFound from './components/pages/NotFound/NotFound'
+import UserSection from './components/pages/UserSection/UserSection';
+import ProductPage from './components/pages/ProductPage/ProductPage'
+import Cart from './components/pages/Cart/Cart'
 import { setUser } from './reducers/userReducer';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 function App() {
   const dispatch = useDispatch()
@@ -33,13 +35,15 @@ function App() {
 
   
   return (
+    
     <Router>
+      <ScrollToTop />
       <Header/>
         <Routes>
           <Route element={<Home/>} path="/"/>
           <Route element={<About/>} path="/about"/>
           <Route element={<Login/>} path="/login"/>
-          <Route element={<AdminSection/>} path="/admin-section"/>
+          <Route element={<UserSection/>} path="/user-section"/>
           <Route element={<AddProducts/>} path="/add-products"/>
           <Route element={<EditProducts/>} path="/edit-products/:id"/>
           <Route element={<ProductPage/>} path="/products/:id"/>

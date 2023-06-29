@@ -27,9 +27,9 @@ const ProductsGallery = ({ products }) => {
     <StyledProductsGallery>
         {products.map(item => {
           return(
-          <div>
-            <ProductCard key={item.id} product={item}/>
-            <button onClick={handleAddtoCart(item)}>Add to Cart</button>
+          <div key={item.id}>
+            <ProductCard  product={item}/>
+            <button onClick={()=>handleAddtoCart(item)}>Add to Cart</button>
           </div>
           )
         })
