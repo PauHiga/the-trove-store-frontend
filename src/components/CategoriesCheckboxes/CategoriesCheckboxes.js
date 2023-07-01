@@ -17,16 +17,17 @@ const CategoriesCheckboxes = ({ selectedCategories, setSelectedCategories }) => 
     }
   };
 
+
   return (
     <div>
-      {categories.map(category =>{
+      {categories.map((category) =>{
         return(
           <label key={category.id}>
           <input
             type="checkbox"
-            value={category.category}
+            value={category.id}
             onChange={handleCheckboxChange}
-            checked={selectedCategories.includes(category.category)}
+            checked={selectedCategories.includes(category.id)}
           />
           {category.category}
         </label>

@@ -28,6 +28,7 @@ const ProductsGallery = ({ products }) => {
         {products.map(item => {
           return(
           <div key={item.id}>
+            <p>{item.id}</p>
             <ProductCard  product={item}/>
             <button onClick={()=>handleAddtoCart(item)}>Add to Cart</button>
           </div>

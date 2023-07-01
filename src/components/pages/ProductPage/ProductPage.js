@@ -22,6 +22,7 @@ const ProductPageContainer = styled.div`
 `;
 
 const ProductPage = () => {
+
   const id = useParams().id
   const dispatch = useDispatch()
   

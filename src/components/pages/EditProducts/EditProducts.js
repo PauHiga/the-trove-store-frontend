@@ -38,7 +38,9 @@ const SubmitButton = styled.button`
 `;
 
 const EditProducts = () => {
-    const id = useParams().id
+
+    // const id = useParams().id
+    const id = "6496266fbbb32abc3047758d"
     console.log(id);
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -46,18 +48,26 @@ const EditProducts = () => {
     
     const currentProduct = useSelector(state => state.products.find(item => item.id === id))
 
-    console.log(currentProduct)
+    const state = useSelector(state => state.products)
+
+    console.log("state", state);
+
+    const arrayOfCategoriesID = currentProduct.category.map(item=> item.id)
     
+    // console.log('currentProduct', currentProduct)
+    // console.log('currentProduct.category', currentProduct.category)
+    // console.log('arrayOfCategoriesID', arrayOfCategoriesID)
+
   const [name, setName] = useState(currentProduct.name)
   const [featureImg, setFeatureImg] = useState(currentProduct.featureImg)
   const [description, setDescription] = useState(currentProduct.description)
   const [price, setPrice] = useState(currentProduct.price)
-  const [stockS, setStockS] = useState(currentProduct.stockS)
-  const [stockM, setStockM] = useState(currentProduct.stockM)
-  const [stockL, setStockL] = useState(currentProduct.stockL)
-  const [stockXL, setStockXL] = useState(currentProduct.stockXL)
+  const [stockS, setStockS] = useState(currentProduct.stock.S)
+  const [stockM, setStockM] = useState(currentProduct.stock.M)
+  const [stockL, setStockL] = useState(currentProduct.stock.L)
+  const [stockXL, setStockXL] = useState(currentProduct.stock.XL)
   const [section, setSection] = useState(currentProduct.section)
-  const [selectedCategories, setSelectedCategories] = useState(currentProduct.category)
+  const [selectedCategories, setSelectedCategories] = useState(arrayOfCategoriesID)
   const [discount, setDiscount] = useState(currentProduct.discount)
 
 
@@ -81,9 +91,12 @@ const EditProducts = () => {
         category: selectedCategories,
         discount:discount,
       }
+      // console.log("selectedCategories", selectedCategories);
+      // console.log("productToEdit", productToEdit);
       const editedProduct = await productsService.editProduct(productToEdit, id);
       dispatch(editProduct(productToEdit))
-      console.log("editedProduct", editedProduct);
+      // console.log("editedProduct", editedProduct);
+      navigate('/user-section')
     } catch (error) {
       console.log(error);
     }
@@ -95,6 +108,8 @@ const EditProducts = () => {
       navigate('/user-section')
     }
   }
+
+  console.log(selectedCategories)
 
   return (
   

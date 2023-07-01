@@ -32,13 +32,14 @@ const AdminProductsContainer = styled.div`
   }
   `;
   
-  const AdminProducts = (id) => {
+  const AdminProducts = () => {
 
     const user = useSelector(state => state.user)
     productsService.setToken(user.token)
     categoryService.setToken(user.token)
     
   const allProducts = useSelector(state => state.products)
+  console.log("allProducts", allProducts);
   const dispatch = useDispatch()
   const navigate = useNavigate()
 

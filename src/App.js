@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { initializeProducts } from './reducers/productsReducer'
 import { initializeCategories } from './reducers/categoriesReducer'
 import './App.css'
@@ -20,7 +20,9 @@ import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 function App() {
   const dispatch = useDispatch()
+  
   useEffect(() => {
+    console.log("inuseEffect")
     dispatch(initializeProducts())
     dispatch(initializeCategories())
   }, [dispatch])
@@ -33,9 +35,10 @@ function App() {
     }
   }, [dispatch]);
 
-  
+  const state = useSelector(state => state.products)
+  console.log(state)
+
   return (
-    
     <Router>
       <ScrollToTop />
       <Header/>
