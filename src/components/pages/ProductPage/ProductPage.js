@@ -6,18 +6,46 @@ import mock from '../../../images/img1.png'
 import { useDispatch } from 'react-redux';
 import { addProductToCart } from '../../../reducers/cartReducer';
 import AddSubtractCart from '../../AddSubtractCart/AddSubtractCart';
+import SectionHeader from '../../sectionHeader/SectionHeader';
+import SectionsBar from '../../SectionsBar/SectionsBar';
+import Button from '../../Button/Button';
 
 const ProductPageContainer = styled.div`
-  width: 70%;
-  max-width: 1100px;
+  display:flex;
+  min-height:65vh;
+  align-items: center;
   justify-content: center;
-  font-variant: small-caps;
+  flex-direction: column;
   color: #ce9124;
-  padding:20px;
+  font-variant: small-caps;
+  .productContainer{
+    display:flex;
+  }
+  .imageContainer{
+    width:40vw;
+    display: flex;
+    justify-content: flex-end;
+  }
   img {
-    width: 232px;
-    height: 330px;
+    max-height: 50vh;
     margin-bottom:10px;
+  }
+  .productInfo{
+    width:60vw;
+    padding:30px;
+  }
+  .description {
+    width:50vh;
+    margin:10px 0px;
+  }
+
+  .inline{
+    display:flex;
+    align-items: center;
+    margin: 10px 0px;
+    .sizes{
+      margin-left:20px;
+    }
   }
 `;
 
@@ -33,15 +61,37 @@ const ProductPage = () => {
     dispatch(addProductToCart(currentProduct))
   }       
 
+  const section = currentProduct.section.charAt(0).toUpperCase() + currentProduct.section.slice(1);
+
+  const availableSizes = Object.keys(currentProduct.stock).filter(key => currentProduct.stock[key] > 0);
+
+  console.log(availableSizes);
+
   return (
-    <ProductPageContainer>
-      <h2>{currentProduct.name}</h2>
-      <img src={mock} alt="mock" />
-      <p>{currentProduct.description}</p>
-      <p>{currentProduct.price}</p>
-      <button onClick={handleAddtoCart}>Add to Cart</button>
-      {cartProduct && cartProduct.amount > 0 && (<AddSubtractCart productId={currentProduct.id}/>)}
-    </ProductPageContainer>
+    <div>
+      <SectionHeader text={section}/>
+      <SectionsBar/>
+      <ProductPageContainer>
+        <div className="productContainer">
+          <div className="imageContainer">
+            <img src={mock} alt="mock" />
+          </div>
+          <div className="productInfo">
+            <h2>{currentProduct.name}</h2>
+            <h3>$ {currentProduct.price}</h3>
+            <div className="inline"> 
+              <Button onClick={handleAddtoCart} text="Add to Cart"/>
+              {cartProduct && cartProduct.amount > 0 && (<AddSubtractCart productId={currentProduct.id}/>)}
+            </div>
+            <div className="inline"> 
+              <p>Available sizes:</p>
+              {availableSizes.map(item => <p className="sizes">{item}</p>)}
+            </div>
+            <p className="description">{currentProduct.description}</p>
+          </div>
+        </div>
+      </ProductPageContainer>
+    </div>
   );
 };
 

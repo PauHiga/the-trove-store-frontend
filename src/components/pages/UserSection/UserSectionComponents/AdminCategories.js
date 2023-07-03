@@ -16,6 +16,7 @@ const StyledAdminCategories = styled.div`
   }
   .inline{
     display:flex;
+    margin: 10px 0px;
   }
   
   .toggle-add-category {
@@ -29,6 +30,9 @@ const StyledAdminCategories = styled.div`
     width:150px;
   }
   h3 {
+    margin-top:20px;
+  }
+  h4 {
     margin-top:20px;
   }
   `;
@@ -84,9 +88,8 @@ const StyledAdminCategories = styled.div`
                 <p>{errorMessage}</p>
               </div>
             </div>
-
             <div>
-            <h3>Current Categories</h3>
+              <h4>Current Categories</h4>
               <ul>
                 {categories.map(item => <EditCategories item={item} key={item.id}/>)}
               </ul>

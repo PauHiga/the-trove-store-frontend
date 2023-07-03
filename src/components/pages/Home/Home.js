@@ -16,6 +16,9 @@ const StyledHome = styled.div`
     padding: 1px;
     border-bottom: 1px solid #ce9124;
   }
+  h2{
+    padding:30px 0px 10px 0px;
+  }
   font-variant: small-caps;
   color: #ce9124;
 `;

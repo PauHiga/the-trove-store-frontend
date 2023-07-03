@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const StyledButton = styled.button`
+const StyledButtonLink = styled.div`
   font-variant: small-caps;
   align-items: center;
   background-color: #ce9124;
@@ -9,13 +10,14 @@ const StyledButton = styled.button`
   border: none;
   padding: 5px 10px 5px 10px;
   margin:3px;
-
 `;
 
-const Button = ({onClick, text}) => {
+const ButtonLink = ({url, text}) => {
   return (
-    <StyledButton onClick={onClick}>{text}</StyledButton>
+    <StyledButtonLink>
+      <Link to={url}>{text}</Link>
+    </StyledButtonLink>
   )
 }
 
-export default Button
+export default ButtonLink

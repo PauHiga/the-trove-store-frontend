@@ -28,11 +28,11 @@ const FeaturedCategories = () => {
       <StyledFeaturedCategories>
         <div>
           <div>
-              <Link to="/search"><img src={cat1} alt="category women" /></Link>
-              <Link to="/search"><img src={cat2} alt="category men" /></Link>          
-              <Link to="/search"><img src={cat3} alt="category accessories" /></Link>           
+              <Link to="/category/women"><img src={cat1} alt="category women" /></Link>
+              <Link to="/category/girls"><img src={cat1} alt="category girls" /></Link>          
+              <Link to="/category/accessories"><img src={cat3} alt="category accessories" /></Link>           
           </div>
-          <Link to="/search"><img className='banner' src={banner} alt="category sale" /></Link>           
+          <Link to="/category/on-sale"><img className='banner' src={banner} alt="category discounts" /></Link>           
         </div>
       </StyledFeaturedCategories>
   )

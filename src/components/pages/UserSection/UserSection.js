@@ -22,13 +22,13 @@ const UserSectionContainer = styled.div`
   const UserSection = (id) => {
 
     const user = useSelector(state => state.user)
+    console.log(user)
     productsService.setToken(user.token)
     categoryService.setToken(user.token)
-    
 
    return (
     <>
-      <SectionHeader text={"Welcome Admin"}/>
+      <SectionHeader text={"Welcome " + user.username}/>
       <UserSectionContainer>
         <AdminCategories/>
         <AdminProducts/>

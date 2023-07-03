@@ -8,7 +8,7 @@ import Button from '../../../Button/Button';
 
 const StyledEditCategories = styled.div`
   margin: 10px;
-  min-height: 30px;
+  min-height: 20px;
   p{
     margin:0;
   `;
@@ -39,9 +39,9 @@ const EditCategories = ({item}) => {
 
   return (
     <StyledEditCategories>
-      <h4 data-bs-toggle="collapse" data-bs-target={"#" + item.category} aria-controls="collapseExample">
+      <h5 data-bs-toggle="collapse" data-bs-target={"#" + item.category} aria-controls="collapseExample">
       {item.category}
-      </h4>
+      </h5>
       <div className="collapse" id={item.category}>
         <div>
           <input type="text" value={editedCategory} onChange={(e) => setEditedCategory(e.target.value)} />

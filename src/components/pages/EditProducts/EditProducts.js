@@ -39,9 +39,7 @@ const SubmitButton = styled.button`
 
 const EditProducts = () => {
 
-    // const id = useParams().id
-    const id = "6496266fbbb32abc3047758d"
-    console.log(id);
+    const id = useParams().id
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(state => state.user)

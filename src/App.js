@@ -7,11 +7,11 @@ import './App.css'
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Home from './components/pages/Home/Home';
-import About from './components/pages/About/About';
 import Login from './components/pages/Login/Login';
 import AddProducts from './components/pages/AddProducts/AddProducts';
 import EditProducts from './components/pages/EditProducts/EditProducts';
 import NotFound from './components/pages/NotFound/NotFound'
+import Sections from './components/pages/Sections/Sections'
 import UserSection from './components/pages/UserSection/UserSection';
 import ProductPage from './components/pages/ProductPage/ProductPage'
 import Cart from './components/pages/Cart/Cart'
@@ -44,10 +44,10 @@ function App() {
       <Header/>
         <Routes>
           <Route element={<Home/>} path="/"/>
-          <Route element={<About/>} path="/about"/>
           <Route element={<Login/>} path="/login"/>
           <Route element={<UserSection/>} path="/user-section"/>
           <Route element={<AddProducts/>} path="/add-products"/>
+          <Route element={<Sections/>} path="/category/:section"/>
           <Route element={<EditProducts/>} path="/edit-products/:id"/>
           <Route element={<ProductPage/>} path="/products/:id"/>
           <Route element={<Cart/>} path="/cart"/>

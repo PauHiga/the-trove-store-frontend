@@ -4,24 +4,17 @@ import categoryService from '../../../../services/categoryService';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct } from '../../../../reducers/productsReducer';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import Button from '../../../Button/Button';
+import ButtonLink from '../../../ButtonLink/ButtonLink';
 import ProductCard from '../../../ProductCard/ProductCard';
 
 const AdminProductsContainer = styled.div`
   margin-top:50px;
   .inline{
     display:flex;
-  }
-  .add-new-product{
-    font-variant: small-caps;
-    align-items: center;
-    background-color: #ce9124;
-    color: white;
-    border: none;
-    padding: 7px 10px 7px 10px;
-    margin-left:30px;
-    width:150px;
+    h2{
+      margin-right:20px;
+    }
   }
   h3 {
     margin-top:30px;
@@ -62,7 +55,7 @@ const AdminProductsContainer = styled.div`
         <AdminProductsContainer>
           <div className="inline">
             <h2>Products</h2>
-            <Link className="add-new-product" to="/add-products">Add New Product</Link>
+            <ButtonLink url="/add-products" text="Add New product"/>
           </div>
           <h3>All products</h3>
             <div className="displayAllProducts">
