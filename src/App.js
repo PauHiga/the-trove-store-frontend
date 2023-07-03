@@ -35,8 +35,8 @@ function App() {
     }
   }, [dispatch]);
 
-  const state = useSelector(state => state.products)
-  console.log(state)
+  let productsState = useSelector(state => state.products)
+  console.log(productsState)
 
   return (
     <Router>

@@ -34,7 +34,6 @@ const ProductPage = () => {
   }       
 
   return (
- 
     <ProductPageContainer>
       <h2>{currentProduct.name}</h2>
       <img src={mock} alt="mock" />
@@ -42,7 +41,6 @@ const ProductPage = () => {
       <p>{currentProduct.price}</p>
       <button onClick={handleAddtoCart}>Add to Cart</button>
       {cartProduct && cartProduct.amount > 0 && (<AddSubtractCart productId={currentProduct.id}/>)}
-
     </ProductPageContainer>
   );
 };
