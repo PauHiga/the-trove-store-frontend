@@ -1,4 +1,7 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../reducers/userReducer';
 import styled from 'styled-components';
 import Button from '../Button/Button';
 
@@ -21,15 +24,19 @@ const StyledSectionHeader = styled.div`
 `;
 
 const SectionHeader = ({text, logout=1}) => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleLogout = () => {
-    
+    window.localStorage.removeItem('loggedUserTroveStore');
+    dispatch(setUser(''))
+    navigate('/');
   }
 
   return (
     <StyledSectionHeader>
       <h1>{text}</h1>
-      {logout ===0 ? <Button onClick={()=> handleLogout} text="Logout"/> : ""}
+      {logout ==="0" ? <Button onClick={handleLogout} text="Logout"/> : ""}
     </StyledSectionHeader>
   )
 }

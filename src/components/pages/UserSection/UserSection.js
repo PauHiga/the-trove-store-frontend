@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import SectionHeader from '../../sectionHeader/SectionHeader';
 import AdminCategories from './UserSectionComponents/AdminCategories';
 import AdminProducts from './UserSectionComponents/AdminProducts';
+import UserInfo from './UserSectionComponents/UserInfo';
 
 const UserSectionContainer = styled.div`
   display: flex;
@@ -28,10 +29,14 @@ const UserSectionContainer = styled.div`
 
    return (
     <>
-      <SectionHeader text={"Welcome " + user.username}/>
+      <SectionHeader text={"Welcome " + user.username} logout="0" />
       <UserSectionContainer>
-        <AdminCategories/>
-        <AdminProducts/>
+        {user.role === 1? 
+        <>
+          <AdminCategories/>
+          <AdminProducts/>
+        </>
+        : <UserInfo/>}
       </UserSectionContainer>  
     </>
 

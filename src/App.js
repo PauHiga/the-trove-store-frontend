@@ -17,6 +17,7 @@ import ProductPage from './components/pages/ProductPage/ProductPage'
 import Cart from './components/pages/Cart/Cart'
 import { setUser } from './reducers/userReducer';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
+import Register from './components/pages/Register/Register';
 
 function App() {
   const dispatch = useDispatch()
@@ -45,6 +46,7 @@ function App() {
         <Routes>
           <Route element={<Home/>} path="/"/>
           <Route element={<Login/>} path="/login"/>
+          <Route element={<Register/>} path="/register"/>
           <Route element={<UserSection/>} path="/user-section"/>
           <Route element={<AddProducts/>} path="/add-products"/>
           <Route element={<Sections/>} path="/category/:section"/>

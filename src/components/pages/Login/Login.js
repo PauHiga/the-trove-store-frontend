@@ -4,35 +4,42 @@ import loginService from '../../../services/loginService';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../../reducers/userReducer';
+import ScrollToTop from '../../ScrollToTop/ScrollToTop';
+import SectionHeader from '../../sectionHeader/SectionHeader';
+import ButtonLink from '../../ButtonLink/ButtonLink';
 
-const LoginForm = styled.form`
+const ContainerLoginForm = styled.div`
+  min-height:60vh;
+  form{
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: 0 auto;
+    padding:40px; 
+  }
+  .FormGroup{
+    margin-bottom: 1rem;
+  }
+  input {
+    margin-bottom:20px;
+  }
+  button {
+    font-variant: small-caps;
+    align-items: center;
+    background-color: #ce9124;
+    color: white;
+    border: none;
+    padding: 7px 10px 7px 10px;
+    margin-left:30px;
+    width:150px;
+  }
+`;
+
+const Register = styled.div`
   display: flex;
-  flex-direction: column;
-  max-width: 300px;
   margin: 0 auto;
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: 1rem;
-`;
-
-const Label = styled.label`
-  font-weight: bold;
-`;
-
-const Input = styled.input`
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const SubmitButton = styled.button`
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  max-width: 300px;
+  padding-bottom:40px;
 `;
 
 const Login = () => {
@@ -52,7 +59,7 @@ const Login = () => {
       window.localStorage.setItem(
         'loggedUserTroveStore', JSON.stringify(user.data)
       ) 
-      dispatch(setUser(JSON.stringify(user.data)))
+      dispatch(setUser(user.data))
 
       navigate('/');
       setTimeout(() => {
@@ -68,28 +75,38 @@ const Login = () => {
   };
 
   return (
-    <LoginForm onSubmit={handleSubmit}>
-      <FormGroup>
-        <Label htmlFor="username">Username:</Label>
-        <Input
-          type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="password">Password:</Label>
-        <Input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </FormGroup>
-      {IncorrectCredentials}
-      <SubmitButton type="submit">Log In</SubmitButton>
-    </LoginForm>
+    <>
+      <ScrollToTop/>
+      <SectionHeader text="Login"/>
+      <ContainerLoginForm>
+        <form onSubmit={handleSubmit}>
+          <div className="Formgroup">
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div className="Formgroup">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              />
+          </div>
+          {IncorrectCredentials}
+          <button type="submit">Log In</button>
+        </form>
+        <Register>
+          <p>Register a new account: </p>
+          <ButtonLink url='/register' text='Register'/>
+        </Register>
+      </ContainerLoginForm>
+    </>
   );
 };
 
