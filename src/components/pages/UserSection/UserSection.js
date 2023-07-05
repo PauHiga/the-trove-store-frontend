@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import productsService from '../../../services/productsService';
 import categoryService from '../../../services/categoryService';
+import userService from '../../../services/userService';
 import { useSelector } from 'react-redux';
 
 import SectionHeader from '../../sectionHeader/SectionHeader';
@@ -26,18 +27,21 @@ const UserSectionContainer = styled.div`
     console.log(user)
     productsService.setToken(user.token)
     categoryService.setToken(user.token)
+    userService.setToken(user.token)
 
    return (
     <>
       <SectionHeader text={"Welcome " + user.username} logout="0" />
       <UserSectionContainer>
-        {user.role === 1? 
+        {user.role === 0? 
+        <UserInfo/>
+        :
         <>
           <AdminCategories/>
           <AdminProducts/>
         </>
-        : <UserInfo/>}
-      </UserSectionContainer>  
+        }
+      </UserSectionContainer>
     </>
 
 

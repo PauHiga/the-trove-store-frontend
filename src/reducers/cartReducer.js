@@ -8,10 +8,21 @@ const cartSlice = createSlice({
       return []
     },
     addProductToCart(state, action){
+      console.log("ap", action.payload)
       const newCartItemId = action.payload.id
-      const isRepeated = state.find(item => item.id === newCartItemId)
+      const newCartItemSize = action.payload.selectedSize
+      // const isRepeated = state.find(item => item.id === newCartItemId && item.selectedSize === newCartItemSize)
+      const isRepeated = state.find(item => {
+        if (item.id === newCartItemId && item.selectedSize ===  newCartItemSize){
+          return true
+        }
+        else{
+          return false
+        }
+      })
+      console.log(isRepeated)
       if(isRepeated){
-        return state.map(item => item.id !== newCartItemId ? item : {...item, amount:item.amount + 1})
+        return state.map(item => item.id !== newCartItemId && item.selectedSize !==  newCartItemSize ? item : {...item, amount:item.amount + 1})
       }
       else {
         const content = {...action.payload, amount:1}
@@ -22,17 +33,41 @@ const cartSlice = createSlice({
       }
     },
     addAnotherUnitToCart(state, action){   
-      const id = action.payload
-      return state.map(item => item.id !== id ? item : {...item, amount:item.amount + 1})
+      const newCartItemId = action.payload.id
+      const newCartItemSize = action.payload.selectedSize
+      return state.map(item => {
+        if (item.id === newCartItemId && item.selectedSize ===  newCartItemSize){
+          return {...item, amount:item.amount + 1}
+        }
+        else{
+          return item
+        }
+      })
     },
     subtractUnitFromCart(state, action){   
-      const id = action.payload
-      return state.map(item => item.id !== id ? item : {...item, amount:item.amount - 1})
+      const newCartItemId = action.payload.id
+      const newCartItemSize = action.payload.selectedSize
+      return state.map(item => {
+        if (item.id === newCartItemId && item.selectedSize ===  newCartItemSize){
+          return {...item, amount:item.amount - 1}
+        }
+        else{
+          return item
+        }
+      })
     },
 
     removeFromCart(state, action){
-      const id = action.payload
-      return state.filter(item => item.id !== id)
+      const newCartItemId = action.payload.id
+      const newCartItemSize = action.payload.selectedSize
+      return state.filter(item => {
+        if (item.id === newCartItemId && item.selectedSize ===  newCartItemSize){
+          return false
+        }
+        else{
+          return true
+        }
+      })
     }
   },
 })

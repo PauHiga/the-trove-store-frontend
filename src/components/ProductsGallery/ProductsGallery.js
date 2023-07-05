@@ -25,6 +25,8 @@ const ProductsGallery = ({ products }) => {
   const handleAddtoCart = (product) =>{
     dispatch(addProductToCart(product))
   }
+
+
   
   return (
     <StyledProductsGallery>
@@ -32,7 +34,7 @@ const ProductsGallery = ({ products }) => {
           return(
           <div className="product" key={item.id}>
             <ProductCard  product={item}/>
-            <Button onClick={()=>handleAddtoCart(item)} text="Add to Cart"/>
+            {/* <Button onClick={()=>handleAddtoCart(item)} text="Add to Cart"/> */}
           </div>
           )
         })

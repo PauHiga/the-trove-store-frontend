@@ -22,48 +22,6 @@ const initial = [
   ],
   discount: 10,
   id: "6496266fbbb32abc3047758d"
-  },
-  {
-  name: "White Skirt Women",
-  featureImg: "img url",
-  description: "White skirt for Women",
-  price: 30,
-  stock: {
-  S: 10,
-  M: 10,
-  L: 10,
-  XL: 10
-  },
-  section: "women",
-  category: [
-  {
-  category: "Skirt",
-  id: "649f5411198131e81471f901"
-  }
-  ],
-  discount: 0,
-  id: "649f3bdb670c54c9d0c57070"
-  },
-  {
-  name: "Summer shoes",
-  featureImg: "img01",
-  description: "Green shoes for summer",
-  price: 10,
-  stock: {
-  S: "10",
-  M: "10",
-  L: "10",
-  XL: "10"
-  },
-  section: "girls",
-  category: [
-  {
-  category: "Dress",
-  id: "649f540c198131e81471f8fd"
-  }
-  ],
-  discount: 10,
-  id: "649f5d1e198131e81471f927"
   }
   ]
 

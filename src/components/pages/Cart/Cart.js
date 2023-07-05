@@ -17,20 +17,22 @@ const ItemInCart = ({product}) => {
   return(
     <div>
       {product.name}
-      <AddSubtractCart productId={product.id}/>
+      {product.selectedSize}
+      <AddSubtractCart product={product}/>
     </div>
   )
 }
 
 const Cart = (id) => {
   const currentCart = useSelector(state => state.cart)
+  console.log("currentCart", currentCart)
   return (
     <CartContainer>
       <h2>Cart</h2>
       <div>
         {currentCart.length === 0 ? 'The cart is empty!' : ''}
       <ul>
-        {currentCart.map(item => <ItemInCart key={item.id} product={item}/>)}
+        {currentCart.map(item => <ItemInCart key={`${item.id}${item.selectedSize}`} product={item}/>)}
       </ul>
       </div>
     </CartContainer>
