@@ -6,7 +6,7 @@ import { addAnotherUnitToCart, subtractUnitFromCart, removeFromCart } from '../.
 const StyledAddSubtract = styled.div`
   display:flex;
   width:50px;
-  font-size:20px;
+  font-size:15px;
   justify-content: space-around;
   height:30px;
 `;

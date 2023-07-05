@@ -76,7 +76,8 @@ const ProductPage = () => {
     else{
       dispatch(addProductToCart({...currentProduct, selectedSize:selectedSize}))
       setUserMessage("Product added to cart")
-      setTimeout(()=>setUserMessage(''), 3000)
+      setTimeout(()=>setUserMessage(''), 2000)
+      setSelectedSize('')
     }
   }       
 
