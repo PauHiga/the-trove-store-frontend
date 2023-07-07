@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import CryptoJS from 'crypto-js';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { setUser } from '../../../../reducers/userReducer';
 import userService from '../../../../services/userService';
 import ScrollToTop from '../../../ScrollToTop/ScrollToTop';

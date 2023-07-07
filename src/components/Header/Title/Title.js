@@ -7,6 +7,7 @@ const StyledTitle = styled.div`
   font-family: 'Zeyada', cursive;
   display: flex;
   align-items: center;
+  height: 50px;
   a {
   display: flex;
   }

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { initializeProducts } from './reducers/productsReducer'
 import { initializeCategories } from './reducers/categoriesReducer'
-import './App.css'
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Home from './components/pages/Home/Home';

@@ -9,7 +9,8 @@ const StyledHeader = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  padding-top:5px;
+  height:50px;
+  // padding-top:5px;
   background-color: white;
 `;
 

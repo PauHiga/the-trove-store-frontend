@@ -16,8 +16,13 @@ const userSlice = createSlice({
 
 export const getUserInfo = () => {
   return async (dispatch) => {
-    const data = await userService.userInfo()
-    dispatch(updateUser(data))
+    try{
+      const data = await userService.userInfo()
+      dispatch(updateUser(data))
+    }
+    catch(error){
+      console.log(error)
+    }
   }
 }
 

@@ -22,7 +22,7 @@ const Label = styled.label`
 
 const Input = styled.input`
   padding: 0.5rem;
-  border: 1px solid #ccc;
+  // border: 1px solid #ccc;
   border-radius: 4px;
 `;
 
@@ -40,7 +40,7 @@ const AddProducts = () => {
   const [featureImg, setFeatureImg] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState(0)
-  const [stockAcces, setStockSAcces] = useState(0)
+  const [stockU, setStockU] = useState(0)
   const [stockS, setStockS] = useState(0)
   const [stockM, setStockM] = useState(0)
   const [stockL, setStockL] = useState(0)
@@ -81,7 +81,7 @@ const AddProducts = () => {
     }
   };
   
-  console.log(section);
+  console.log(featureImg);
   return (
     <div>
       <h2>Add New Product</h2>
@@ -96,13 +96,22 @@ const AddProducts = () => {
           />
         </FormGroup>
         <FormGroup>
-          <Label htmlFor="featureImg">Image url:</Label>
+          <Label htmlFor="featureImg">Image url:
+          {featureImg ? featureImg.name : " Upload image"}
           <Input
-            type="text"
+            type="file"
             id="featureImg"
-            value={featureImg}
-            onChange={(e) => setFeatureImg(e.target.value)}
+            accept="image/*"
+            // value={featureImg}
+            onChange={(e) => setFeatureImg(e.target.files[0])}
+            hidden
           />
+          </Label>
+          <div>
+            {featureImg &&
+            <img src={URL.createObjectURL(featureImg)} alt="product_photo" height={'200px'} />
+            }
+          </div>
         </FormGroup>
         <FormGroup>
           <Label htmlFor="description">Product description:</Label>
@@ -167,7 +176,7 @@ const AddProducts = () => {
           </select>
         </FormGroup>
         <FormGroup>
-          <Label htmlFor="selectedCategories">selectedCategories:</Label>
+          <Label htmlFor="selectedCategories">Select categories:</Label>
           <CategoriesCheckboxes selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
         </FormGroup>
         <FormGroup>
