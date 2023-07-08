@@ -57,24 +57,36 @@ const AddProducts = () => {
     try {
       productsService.setToken(user.token)
 
-      const newProduct = {
-        name: name,
-        featureImg: featureImg,
-        description: description,
-        price: price,
-        stock: {
-          "S": stockS,
-          "M": stockM,
-          "L": stockL,
-          "XL": stockXL
-      },
-        section: section,
-        category: selectedCategories,
-        discount:discount,
-      }
+      const featureImg = e.target.files[0];
 
-      const createdProduct = await productsService.createProduct(newProduct);
-      dispatch(createProduct(newProduct))
+      const formData  = new FormData();
+      formData.append('featureImg', featureImg);
+      formData.append('name', name);
+      formData.append('description', description);
+      formData.append('price', price);
+      formData.append('stock', {"S": stockS,"M": stockM,"L": stockL,"XL": stockXL });
+      formData.append('section', section);
+      formData.append('category', selectedCategories);
+      formData.append('discount', discount);
+
+      // const newProduct = {
+      //   name: name,
+      //   featureImg: featureImg,
+      //   description: description,
+      //   price: price,
+      //   stock: {
+      //     "S": stockS,
+      //     "M": stockM,
+      //     "L": stockL,
+      //     "XL": stockXL
+      // },
+      //   section: section,
+      //   category: selectedCategories,
+      //   discount:discount,
+      // }
+
+      const createdProduct = await productsService.createProduct(formData);
+      dispatch(createProduct(createdProduct))
       console.log("createdProduct", createdProduct);
     } catch (error) {
       console.log(error);
