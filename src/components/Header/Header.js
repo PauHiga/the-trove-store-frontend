@@ -10,7 +10,6 @@ const StyledHeader = styled.header`
   top: 0;
   width: 100%;
   height:50px;
-  // padding-top:5px;
   background-color: white;
 `;
 
