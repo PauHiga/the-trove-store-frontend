@@ -17,6 +17,7 @@ const StyledRegister = styled.div`
   flex-direction: column;
   font-variant: small-caps;
   margin:20px;
+  font-size: 20px;
   h2{
     color: #ce9124;
   }  
@@ -38,20 +39,16 @@ const RegisterForm = styled.form`
   flex-direction: column;
   align-items: center;
   margin:20px;
-  font-size:17px;
-  input {
-    margin: 5px;
-  }
+
   .form-entry{
     display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
-  }
-  label{
-    width:100px;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 5px 0px
   }
   input{
     width:250px;
+    margin: 1px 0px
   }
 `;
 

@@ -11,6 +11,8 @@ import Button from '../../Button/Button';
 
 const ContainerLoginForm = styled.div`
   min-height:60vh;
+  font-variant: small-caps;
+  font-size: 20px;
   form{
     display: flex;
     flex-direction: column;
