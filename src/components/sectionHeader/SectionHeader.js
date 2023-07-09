@@ -10,6 +10,7 @@ const StyledSectionHeader = styled.div`
   font-variant: small-caps;
   align-items: center;
   background-color: #eae9e4;
+  justify-content: space-around;
   h1 {
     color: #ce9124;
     font-size:30px;

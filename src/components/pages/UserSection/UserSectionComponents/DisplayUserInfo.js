@@ -8,7 +8,7 @@ padding:20px;
   font-size:20px;
 }
 .userInfoKey{
-  width:20%;
+  width:130px;
 }
 .userInfoValue{
   width:70%;
