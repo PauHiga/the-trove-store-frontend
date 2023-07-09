@@ -57,7 +57,7 @@ const AddProducts = () => {
     try {
       productsService.setToken(user.token)
 
-      const featureImg = e.target.files[0];
+      // const photo = e.target.files[0];
 
       const formData  = new FormData();
       formData.append('featureImg', featureImg);
