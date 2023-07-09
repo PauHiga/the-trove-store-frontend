@@ -18,7 +18,6 @@ const StyledSectionHeader = styled.div`
   }
   width 100%;
   height: 80px;
-  padding-left: 5vw;
   button {
     margin-left: 15px;
   }
