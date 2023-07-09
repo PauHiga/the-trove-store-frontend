@@ -121,49 +121,49 @@ const StyledUserInfo = styled.div`
         <DisplayUserInfo name={name} address={address} phone={phone} email={email}/>
         <div className="toggle-edit-user" data-bs-toggle="collapse" data-bs-target="#collapse-add-category" aria-controls="collapse-add-category">
             Edit
+        </div>
+        <div className="collapse" id="collapse-add-category">
+          <RegisterForm onSubmit={handleSubmit}>
+            <div className="form-entry">
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
-          <div className="collapse" id="collapse-add-category">
-            <RegisterForm onSubmit={handleSubmit}>
-              <div className="form-entry">
-                <label htmlFor="name">Name:</label>
-                <input
-                  type="text"
-                  id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="form-entry">
-                <label htmlFor="email">E-mail:</label>
-                <input
-                  type="text"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="form-entry">
-                <label htmlFor="address">Address:</label>
-                <input
-                  type="text"
-                  id="address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </div>
-              <div className="form-entry">
-                <label htmlFor="phone">Phone:</label>
-                <input
-                  type="text"
-                  id="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-              {errorMessage}
-              <button type="submit">Save changes</button>
-            </RegisterForm>
-          </div>
+            <div className="form-entry">
+              <label htmlFor="email">E-mail:</label>
+              <input
+                type="text"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="form-entry">
+              <label htmlFor="address">Address:</label>
+              <input
+                type="text"
+                id="address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+            <div className="form-entry">
+              <label htmlFor="phone">Phone:</label>
+              <input
+                type="text"
+                id="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            {errorMessage}
+            <button type="submit">Save changes</button>
+          </RegisterForm>
+        </div>
         </StyledUserInfo>
       </>
     );

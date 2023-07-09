@@ -7,30 +7,26 @@ import { setUser } from '../../../reducers/userReducer';
 import ScrollToTop from '../../ScrollToTop/ScrollToTop';
 import SectionHeader from '../../sectionHeader/SectionHeader';
 import ButtonLink from '../../ButtonLink/ButtonLink';
+import Button from '../../Button/Button';
 
 const ContainerLoginForm = styled.div`
   min-height:60vh;
   form{
     display: flex;
     flex-direction: column;
-    max-width: 300px;
+    align-items: center;
     margin: 0 auto;
     padding:40px; 
   }
-  .FormGroup{
-    margin-bottom: 1rem;
+  .formGroup{
+    display: flex;
+    flex-direction: column;
   }
   input {
     margin-bottom:20px;
   }
   button {
-    font-variant: small-caps;
-    align-items: center;
-    background-color: #ce9124;
-    color: white;
-    border: none;
     padding: 7px 10px 7px 10px;
-    margin-left:30px;
     width:150px;
   }
 `;
@@ -40,6 +36,8 @@ const Register = styled.div`
   margin: 0 auto;
   max-width: 300px;
   padding-bottom:40px;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Login = () => {
@@ -79,8 +77,8 @@ const Login = () => {
       <ScrollToTop/>
       <SectionHeader text="Login"/>
       <ContainerLoginForm>
-        <form onSubmit={handleSubmit}>
-          <div className="Formgroup">
+        <form>
+          <div className="formGroup">
             <label htmlFor="username">Username:</label>
             <input
               type="text"
@@ -89,7 +87,7 @@ const Login = () => {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-          <div className="Formgroup">
+          <div className="formGroup">
             <label htmlFor="password">Password:</label>
             <input
               type="password"
@@ -99,7 +97,7 @@ const Login = () => {
               />
           </div>
           {IncorrectCredentials}
-          <button type="submit">Log In</button>
+          <Button onClick={handleSubmit} text={"Log In"}/>
         </form>
         <Register>
           <p>Register a new account: </p>
