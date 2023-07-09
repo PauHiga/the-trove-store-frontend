@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import userService from '../../../services/userService';
 import ScrollToTop from '../../ScrollToTop/ScrollToTop';
 import SectionHeader from '../../sectionHeader/SectionHeader';
+import Button from '../../Button/Button';
 
 const StyledRegister = styled.div`
   display:flex;
@@ -117,7 +118,7 @@ const Register = () => {
       <SectionHeader text="Register"/>    
       <StyledRegister>
         <h2>New User</h2>
-        <RegisterForm onSubmit={handleSubmit}>
+        <RegisterForm>
           <div className="form-entry">
             <label htmlFor="username">Username:</label>
             <input
@@ -173,7 +174,7 @@ const Register = () => {
             />
           </div>
           {errorMessage}
-          <button type="submit">Register</button>
+          <Button onClick={handleSubmit} text={"Register"}/>
         </RegisterForm>
       </StyledRegister>
     </>

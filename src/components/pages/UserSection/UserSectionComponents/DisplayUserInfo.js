@@ -7,8 +7,9 @@ grid-template-columns: auto auto;
 justify-content: start;
 gap: 10px;
 width: max-content;
-margin: 0 auto 20px auto;
+margin: 10px auto 20px auto;
 grid-column-gap: 25px;
+font-size:20px;
 
 .line{
   display: grid;
