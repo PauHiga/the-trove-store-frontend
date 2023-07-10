@@ -69,22 +69,6 @@ const AddProducts = () => {
       formData.append('category', selectedCategories);
       formData.append('discount', discount);
 
-      // const newProduct = {
-      //   name: name,
-      //   featureImg: featureImg,
-      //   description: description,
-      //   price: price,
-      //   stock: {
-      //     "S": stockS,
-      //     "M": stockM,
-      //     "L": stockL,
-      //     "XL": stockXL
-      // },
-      //   section: section,
-      //   category: selectedCategories,
-      //   discount:discount,
-      // }
-
       const createdProduct = await productsService.createProduct(formData);
       console.log(createdProduct);
       dispatch(createProduct(createdProduct))
