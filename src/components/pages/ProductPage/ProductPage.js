@@ -92,7 +92,7 @@ const ProductPage = () => {
       <ProductPageContainer>
         <div className="productContainer">
           <div className="imageContainer">
-            <img src={mock} alt="mock" />
+            <img src={currentProduct.featureImg} alt="mock" />
           </div>
           <div className="productInfo">
             <h2>{currentProduct.name}</h2>

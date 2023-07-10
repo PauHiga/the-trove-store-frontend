@@ -33,13 +33,13 @@ const UserSectionContainer = styled.div`
     <>
       <SectionHeader text={"Welcome " + user.username} logout="0" />
       <UserSectionContainer>
-        {user.role === 0? 
-        <UserInfo/>
-        :
+        {user.role !== 0? 
         <>
           <AdminCategories/>
           <AdminProducts/>
         </>
+        :
+        <UserInfo/>
         }
       </UserSectionContainer>
     </>

@@ -47,7 +47,7 @@ const AddProducts = () => {
   const [stockXL, setStockXL] = useState(0)
   const [section, setSection] = useState('women')
   const [selectedCategories, setSelectedCategories] = useState([])
-  const [discount, setDiscount] = useState('')
+  const [discount, setDiscount] = useState(0)
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
@@ -68,30 +68,14 @@ const AddProducts = () => {
       formData.append('section', section);
       formData.append('category', selectedCategories);
       formData.append('discount', discount);
-
-      // const newProduct = {
-      //   name: name,
-      //   featureImg: featureImg,
-      //   description: description,
-      //   price: price,
-      //   stock: {
-      //     "S": stockS,
-      //     "M": stockM,
-      //     "L": stockL,
-      //     "XL": stockXL
-      // },
-      //   section: section,
-      //   category: selectedCategories,
-      //   discount:discount,
-      // }
-
+      
       const createdProduct = await productsService.createProduct(formData);
-      console.log(createdProduct);
       dispatch(createProduct(createdProduct))
       console.log("createdProduct", createdProduct);
     } catch (error) {
       console.log(error);
-    }
+    }  
+    
   };
   
   console.log(featureImg);
@@ -115,7 +99,6 @@ const AddProducts = () => {
             type="file"
             id="featureImg"
             accept="image/*"
-            // value={featureImg}
             onChange={(e) => setFeatureImg(e.target.files[0])}
             hidden
           />
