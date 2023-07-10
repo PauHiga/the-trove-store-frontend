@@ -31,6 +31,7 @@ const ProductsGallery = ({ products }) => {
   return (
     <StyledProductsGallery>
         {products.map(item => {
+          console.log(item)
           return(
           <div className="product" key={item.id}>
             <ProductCard  product={item}/>

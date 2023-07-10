@@ -34,9 +34,8 @@ const productSlice = createSlice({
     },
     createProduct(state, action){
       const content = action.payload
-      state.push({
-        content
-      })
+      console.log('createProduct content', content);
+      state.push({...content})
     },
     editProduct(state, action){
       const editedProduct = action.payload

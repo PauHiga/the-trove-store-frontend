@@ -46,18 +46,19 @@ const EditProducts = () => {
     
     const currentProduct = useSelector(state => state.products.find(item => item.id === id))
 
+    console.log(currentProduct);
+
     const state = useSelector(state => state.products)
 
     console.log("state", state);
 
     const arrayOfCategoriesID = currentProduct.category.map(item=> item.id)
     
-    // console.log('currentProduct', currentProduct)
-    // console.log('currentProduct.category', currentProduct.category)
-    // console.log('arrayOfCategoriesID', arrayOfCategoriesID)
+console.log('currentProduct.category', currentProduct.category );
+console.log('arrayOfCategoriesID', arrayOfCategoriesID );
 
   const [name, setName] = useState(currentProduct.name)
-  const [featureImg, setFeatureImg] = useState(currentProduct.featureImg)
+  const [featureImg, setFeatureImg] = useState('')
   const [description, setDescription] = useState(currentProduct.description)
   const [price, setPrice] = useState(currentProduct.price)
   const [stockS, setStockS] = useState(currentProduct.stock.S)
@@ -68,32 +69,44 @@ const EditProducts = () => {
   const [selectedCategories, setSelectedCategories] = useState(arrayOfCategoriesID)
   const [discount, setDiscount] = useState(currentProduct.discount)
 
+  console.log('selectedCategories', selectedCategories );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {     
       productsService.setToken(user.token)
 
-      const productToEdit = {
-        name: name,
-        featureImg: featureImg,
-        description: description,
-        price: price,
-        stock: {
-          "S": stockS,
-          "M": stockM,
-          "L": stockL,
-          "XL": stockXL
-      },
-        section: section,
-        category: selectedCategories,
-        discount:discount,
-      }
-      // console.log("selectedCategories", selectedCategories);
-      // console.log("productToEdit", productToEdit);
-      const editedProduct = await productsService.editProduct(productToEdit, id);
-      dispatch(editProduct(productToEdit))
-      // console.log("editedProduct", editedProduct);
+      const stock = {"S": stockS,"M": stockM,"L": stockL,"XL": stockXL }
+
+      const formData  = new FormData();
+      formData.append('name', name);
+      formData.append('featureImg', featureImg);
+      formData.append('imagePublicID', currentProduct.imagePublicID);
+      formData.append('description', description);
+      formData.append('price', price);
+      formData.append('stock', JSON.stringify(stock));
+      formData.append('section', section);
+      formData.append('category', selectedCategories);
+      formData.append('discount', discount);
+
+      // const productToEdit = {
+      //   name: name,
+      //   featureImg: featureImg,
+      //   description: description,
+      //   price: price,
+      //   stock: {
+      //     "S": stockS,
+      //     "M": stockM,
+      //     "L": stockL,
+      //     "XL": stockXL
+      // },
+      //   section: section,
+      //   category: selectedCategories,
+      //   discount:discount,
+      // }
+
+      const editedProduct = await productsService.editProduct(formData, id);
+      dispatch(editProduct(editedProduct))
       navigate('/user-section')
     } catch (error) {
       console.log(error);
@@ -124,13 +137,21 @@ const EditProducts = () => {
           />
         </FormGroup>
         <FormGroup>
-          <Label htmlFor="featureImg">Image url:</Label>
+          <Label htmlFor="featureImg">Image url:
+          {featureImg ? featureImg.name : " Upload image"}
           <Input
-            type="text"
+            type="file"
             id="featureImg"
-            value={featureImg}
-            onChange={(e) => setFeatureImg(e.target.value)}
+            accept="image/*"
+            // value={featureImg}
+            onChange={(e) => setFeatureImg(e.target.files[0])}
+            hidden
           />
+          </Label>
+          <div>
+            {featureImg !== ''? <img src={URL.createObjectURL(featureImg)} alt="new_product_photo" height={'200px'} /> : <img src={currentProduct.featureImg} alt="old_product_photo" height={'200px'}/>
+            }
+          </div>
         </FormGroup>
         <FormGroup>
           <Label htmlFor="description">Product description:</Label>

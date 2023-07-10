@@ -57,14 +57,14 @@ const AddProducts = () => {
     try {
       productsService.setToken(user.token)
 
-      // const photo = e.target.files[0];
+      const stock = {"S": stockS,"M": stockM,"L": stockL,"XL": stockXL }
 
       const formData  = new FormData();
-      formData.append('featureImg', featureImg);
       formData.append('name', name);
+      formData.append('featureImg', featureImg);
       formData.append('description', description);
       formData.append('price', price);
-      formData.append('stock', {"S": stockS,"M": stockM,"L": stockL,"XL": stockXL });
+      formData.append('stock', JSON.stringify(stock));
       formData.append('section', section);
       formData.append('category', selectedCategories);
       formData.append('discount', discount);
@@ -86,6 +86,7 @@ const AddProducts = () => {
       // }
 
       const createdProduct = await productsService.createProduct(formData);
+      console.log(createdProduct);
       dispatch(createProduct(createdProduct))
       console.log("createdProduct", createdProduct);
     } catch (error) {

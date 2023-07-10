@@ -8,6 +8,8 @@ const CategoriesCheckboxes = ({ selectedCategories, setSelectedCategories }) => 
     const optionValue = event.target.value;
     const isChecked = event.target.checked;
 
+    console.log('selectedCategories', selectedCategories);
+
     if (isChecked) {
       setSelectedCategories((prevSelectedOptions) => [...prevSelectedOptions, optionValue]);
     } else {
