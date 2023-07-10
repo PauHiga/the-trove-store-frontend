@@ -27,14 +27,11 @@ const DisplayUserInfo = ({name, address, phone, email}) => {
         <div className="userInfoKey">Name</div>
         <div className="userInfoValue">{name}</div>
 
-
         <div className="userInfoKey">E-mail</div>
         <div className="userInfoValue">{email}</div>
 
-
         <div className="userInfoKey">Address</div>
         <div className="userInfoValue">{address}</div>
-
 
         <div className="userInfoKey">Phone</div>
         <div className="userInfoValue">{phone}</div>

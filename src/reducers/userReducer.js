@@ -19,6 +19,7 @@ export const getUserInfo = () => {
     try{
       const data = await userService.userInfo()
       dispatch(updateUser(data))
+      return data
     }
     catch(error){
       console.log(error)

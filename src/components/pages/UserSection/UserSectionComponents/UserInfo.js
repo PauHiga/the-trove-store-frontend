@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CryptoJS from 'crypto-js';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../../../reducers/userReducer';
+import { getUserInfo, updateUser } from '../../../../reducers/userReducer';
 import userService from '../../../../services/userService';
 import ScrollToTop from '../../../ScrollToTop/ScrollToTop';
 import DisplayUserInfo from './DisplayUserInfo';
@@ -56,23 +56,41 @@ const StyledUserInfo = styled.div`
 `;
 
   const UserInfo = () => {
+    const [isLoading, setIsLoading] = useState(true)
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [address, setAddress] = useState('')
+    const [phone, setPhone] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
 
-    const user = useSelector(state => state.user)
-
+    const dispatch = useDispatch()
+    
     const decrypt = (string) => {
       const bytes = CryptoJS.AES.decrypt(string,'TroveStore')
       return bytes.toString(CryptoJS.enc.Utf8)
     }
-    
-    const [name, setName] = useState(decrypt(user.name))
-    const [email, setEmail] = useState(decrypt(user.email))
-    const [address, setAddress] = useState(decrypt(user.address))
-    const [phone, setPhone] = useState(decrypt(user.phone))
-    const [errorMessage, setErrorMessage] = useState(decrypt(''))
-  
-    const dispatch = useDispatch()
-  
-  
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const localUser = window.localStorage.getItem("loggedUserTroveStore");
+          if (localUser) {
+            const parseUser = JSON.parse(localUser);
+            userService.setToken(parseUser.token);
+            const data = await dispatch(getUserInfo());
+            setName(decrypt(data.name))
+            setEmail(decrypt(data.email))
+            setAddress(decrypt(data.address))
+            setPhone(decrypt(data.phone))
+          }
+          setIsLoading(false);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchData();
+    }, [dispatch]);
+        
     const handleSubmit = async (e) => {
       e.preventDefault();
       if (!name || !email || !address || !phone){
@@ -95,7 +113,7 @@ const StyledUserInfo = styled.div`
     
           const updatedUser = await userService.editUser(userToUpdate);
           console.log("updatedUser", updatedUser);
-          dispatch(setUser(updatedUser.data))
+          dispatch(updateUser(updatedUser.data))
   
         } catch (error) {
           console.log(error);
@@ -103,16 +121,19 @@ const StyledUserInfo = styled.div`
       }
     };
   
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+
     return (
       <>
         <StyledUserInfo>
           <div className="center">
-
               <ScrollToTop/>
               <h2>User Information</h2>
               <DisplayUserInfo name={name} address={address} phone={phone} email={email}/>
               <div className="toggle-edit-user" data-bs-toggle="collapse" data-bs-target="#collapse-add-category" aria-controls="collapse-add-category">
-                  <Button onClick={null} text={"Edit changes"}/>
+                  <Button onClick={null} text={"Edit User"}/>
               </div>
           </div>
           <div className="collapse" id="collapse-add-category">
@@ -129,7 +150,7 @@ const StyledUserInfo = styled.div`
               <div className="form-entry">
                 <label htmlFor="email">E-mail:</label>
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -147,7 +168,7 @@ const StyledUserInfo = styled.div`
               <div className="form-entry">
                 <label htmlFor="phone">Phone:</label>
                 <input
-                  type="text"
+                  type="tel"
                   id="phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -161,5 +182,6 @@ const StyledUserInfo = styled.div`
       </>
     );
   };
+
 
 export default UserInfo

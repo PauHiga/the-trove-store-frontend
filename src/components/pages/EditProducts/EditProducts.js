@@ -89,22 +89,6 @@ console.log('arrayOfCategoriesID', arrayOfCategoriesID );
       formData.append('category', selectedCategories);
       formData.append('discount', discount);
 
-      // const productToEdit = {
-      //   name: name,
-      //   featureImg: featureImg,
-      //   description: description,
-      //   price: price,
-      //   stock: {
-      //     "S": stockS,
-      //     "M": stockM,
-      //     "L": stockL,
-      //     "XL": stockXL
-      // },
-      //   section: section,
-      //   category: selectedCategories,
-      //   discount:discount,
-      // }
-
       const editedProduct = await productsService.editProduct(formData, id);
       dispatch(editProduct(editedProduct))
       navigate('/user-section')
@@ -143,7 +127,6 @@ console.log('arrayOfCategoriesID', arrayOfCategoriesID );
             type="file"
             id="featureImg"
             accept="image/*"
-            // value={featureImg}
             onChange={(e) => setFeatureImg(e.target.files[0])}
             hidden
           />
