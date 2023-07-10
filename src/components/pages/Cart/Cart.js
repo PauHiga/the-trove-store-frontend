@@ -5,6 +5,7 @@ import ButtonLink from '../../ButtonLink/ButtonLink'
 import Button from '../../Button/Button';
 import CartProductCard from './CartComponents/CartProductCard';
 import EmptyCart from './CartComponents/EmptyCart';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const CartContainer = styled.div`
   display: flex;
@@ -57,9 +58,30 @@ const Cart = () => {
       </div>
       <div className="totalCart">
         Total Cart: $ {total}
-        <Button text='Checkout'/>
+        {/* <Button text='Checkout'/> */}
+        <PayPalScriptProvider options={{ clientId: "ASlBjK72gVSNfNr-1LPmlzCrOMeLPVMit6mLzuwAbGsAMfdEiaix68uFZHBL7giUjiijxVwTHzimYNoK" }}>
+            <PayPalButtons
+                createOrder={(data, actions) => {
+                    return actions.order.create({
+                        purchase_units: [
+                            {
+                                amount: {
+                                    value: total,
+                                },
+                            },
+                        ],
+                    });
+                }}
+                onApprove={(data, actions) => {
+                    return actions.order.capture().then((details) => {
+                        const name = details.payer.name.given_name;
+                        alert(`Transaction completed by ${name}`);
+                    });
+                }}
+            />
+        </PayPalScriptProvider>
         <div className="emptyCart">
-          <Button text='Empty Cart'/>
+          {/* <Button text='Empty Cart'/> */}
         </div>
       </div>
     </CartContainer>
