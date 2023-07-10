@@ -6,8 +6,18 @@ import { setUser } from '../../../../reducers/userReducer';
 import userService from '../../../../services/userService';
 import ScrollToTop from '../../../ScrollToTop/ScrollToTop';
 import DisplayUserInfo from './DisplayUserInfo';
+import Button from '../../../Button/Button';
 
 const StyledUserInfo = styled.div`
+
+  .center {
+    display:flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0px 10px 0px;
+  }
+
   min-height: 55vh;
   label {
     margin-right:20px;
@@ -20,27 +30,7 @@ const StyledUserInfo = styled.div`
     margin: 10px 0px;
     align-items: center;
   }
-  
-  .toggle-edit-user {
-    font-variant: small-caps;
-    align-items: center;
-    background-color: #ce9124;
-    color: white;
-    border: none;
-    padding: 4px 10px 7px 10px;
-    width:50px;
-    height:30px;
-  }
 
-  button{
-    font-variant: small-caps;
-    align-items: center;
-    background-color: #ce9124;
-    color: white;
-    border: none;
-    padding: 4px 10px 7px 10px;
-    margin-left:30px;
-  }
   `;
   
   const RegisterForm = styled.form`
@@ -116,14 +106,17 @@ const StyledUserInfo = styled.div`
     return (
       <>
         <StyledUserInfo>
-        <ScrollToTop/>
-        <h2>User Information</h2>
-        <DisplayUserInfo name={name} address={address} phone={phone} email={email}/>
-        <div className="toggle-edit-user" data-bs-toggle="collapse" data-bs-target="#collapse-add-category" aria-controls="collapse-add-category">
-            Edit
-            </div>
+          <div className="center">
+
+              <ScrollToTop/>
+              <h2>User Information</h2>
+              <DisplayUserInfo name={name} address={address} phone={phone} email={email}/>
+              <div className="toggle-edit-user" data-bs-toggle="collapse" data-bs-target="#collapse-add-category" aria-controls="collapse-add-category">
+                  <Button onClick={null} text={"Edit changes"}/>
+              </div>
+          </div>
           <div className="collapse" id="collapse-add-category">
-            <RegisterForm onSubmit={handleSubmit}>
+            <RegisterForm>
               <div className="form-entry">
                 <label htmlFor="name">Name:</label>
                 <input
@@ -161,7 +154,7 @@ const StyledUserInfo = styled.div`
                 />
               </div>
               {errorMessage}
-              <button type="submit">Save changes</button>
+              <Button onClick={handleSubmit} text={"Save changes"}/>
             </RegisterForm>
           </div>
         </StyledUserInfo>

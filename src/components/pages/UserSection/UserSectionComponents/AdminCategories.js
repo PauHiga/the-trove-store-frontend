@@ -20,15 +20,9 @@ const StyledAdminCategories = styled.div`
   }
   
   .toggle-add-category {
-    font-variant: small-caps;
-    align-items: center;
-    background-color: #ce9124;
-    color: white;
-    border: none;
-    padding: 7px 10px 7px 10px;
-    margin-left:30px;
-    width:150px;
+    margin-left: 20px
   }
+  
   h3 {
     margin-top:20px;
   }
@@ -78,7 +72,7 @@ const StyledAdminCategories = styled.div`
             <div className="inline">
               <h2>Categories</h2>
               <div className="toggle-add-category" data-bs-toggle="collapse" data-bs-target="#collapse-add-category" aria-controls="collapse-add-category">
-                Add New Category
+                <Button onClick={handleAddCategory} text={"Add New Category"}/>
               </div>
             </div>
             <div className="collapse" id="collapse-add-category">

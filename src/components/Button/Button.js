@@ -9,7 +9,6 @@ const StyledButton = styled.button`
   border: none;
   padding: 5px 10px 5px 10px;
   margin:3px;
-
 `;
 
 const Button = ({onClick, text}) => {

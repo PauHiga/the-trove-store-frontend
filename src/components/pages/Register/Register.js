@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import userService from '../../../services/userService';
 import ScrollToTop from '../../ScrollToTop/ScrollToTop';
 import SectionHeader from '../../sectionHeader/SectionHeader';
+import Button from '../../Button/Button';
 
 const StyledRegister = styled.div`
   display:flex;
@@ -16,6 +17,7 @@ const StyledRegister = styled.div`
   flex-direction: column;
   font-variant: small-caps;
   margin:20px;
+  font-size: 20px;
   h2{
     color: #ce9124;
   }  
@@ -37,20 +39,16 @@ const RegisterForm = styled.form`
   flex-direction: column;
   align-items: center;
   margin:20px;
-  font-size:17px;
-  input {
-    margin: 5px;
-  }
+
   .form-entry{
     display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
-  }
-  label{
-    width:100px;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 5px 0px
   }
   input{
     width:250px;
+    margin: 1px 0px
   }
 `;
 
@@ -117,7 +115,7 @@ const Register = () => {
       <SectionHeader text="Register"/>    
       <StyledRegister>
         <h2>New User</h2>
-        <RegisterForm onSubmit={handleSubmit}>
+        <RegisterForm>
           <div className="form-entry">
             <label htmlFor="username">Username:</label>
             <input
@@ -173,7 +171,7 @@ const Register = () => {
             />
           </div>
           {errorMessage}
-          <button type="submit">Register</button>
+          <Button onClick={handleSubmit} text={"Register"}/>
         </RegisterForm>
       </StyledRegister>
     </>
