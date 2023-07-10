@@ -1,24 +1,21 @@
 import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
-const StyledButtonLink = styled.div`
-  a{
-    font-variant: small-caps;
-    align-items: center;
-    background-color: #ce9124;
-    color: white;
-    border: none;
-    padding: 5px 10px 5px 10px;
-    margin:3px;
-  }
-`;
+import Button from '../Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 const ButtonLink = ({url, text}) => {
+
+  console.log(url)
+
+  const navigate = useNavigate()
+
+  const buttonHandler = () => {
+    navigate('/register')
+  }
+
   return (
-    <StyledButtonLink>
-      <Link to={url}>{text}</Link>
-    </StyledButtonLink>
+    <Button text={text} onClick={buttonHandler}/>
   )
 }
 

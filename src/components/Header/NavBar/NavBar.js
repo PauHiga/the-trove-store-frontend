@@ -42,6 +42,12 @@ const StyledNavBar = styled.nav`
       }
     }
   }
+
+  @media (max-width: 480px) { /* Apply styles for mobile devices */
+  p {
+    display: none
+  }
+
 `;
 
 const NavBar = () => {
@@ -54,13 +60,13 @@ const NavBar = () => {
           <ul>
             <li>
               {user ? 
-              <Link to="/user-section"><img src={iconLogin} alt="icon search" />{user.username} logged in</Link>           
-              : <Link to="/login"><img src={iconLogin} alt="icon search" />Login</Link>           
+              <Link to="/user-section"><img src={iconLogin} alt="icon search" /><p>{user.username} logged in</p></Link>           
+              : <Link to="/login"><img src={iconLogin} alt="icon search" /><p>Login</p></Link>           
               }
             </li>
             <li>
               <Badge count={amountItemsInCart} color='#ce9124' offset={[-10,0]}>
-              <Link to="/cart"><img src={iconCart} alt="icon search" />Cart</Link>           
+              <Link to="/cart"><img src={iconCart} alt="icon search" /><p>Cart</p></Link>           
             </Badge>
             </li>
           </ul>
