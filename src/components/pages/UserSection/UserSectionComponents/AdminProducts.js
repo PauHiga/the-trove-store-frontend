@@ -48,8 +48,6 @@ const AdminProductsContainer = styled.div`
     navigate(`/edit-products/${id}`);
   }
 
-
-
    return (
     <>
         <AdminProductsContainer>
