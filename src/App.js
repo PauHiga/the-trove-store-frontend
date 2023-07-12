@@ -18,6 +18,7 @@ import { setUser } from './reducers/userReducer';
 import userService from './services/userService';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Register from './components/pages/Register/Register';
+import Loading from './components/Loading/Loading';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +48,7 @@ function App() {
   // console.log(productsState)
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
   
   return (
