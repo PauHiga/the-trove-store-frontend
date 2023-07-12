@@ -44,7 +44,7 @@ const StyledNavBar = styled.nav`
   }
 
   @media (max-width: 480px) { /* Apply styles for mobile devices */
-  p {
+  .navbar-label {
     display: none
   }
 
@@ -60,13 +60,13 @@ const NavBar = () => {
           <ul>
             <li>
               {user ? 
-              <Link to="/user-section"><img src={iconLogin} alt="icon search" /><p>{user.username} logged in</p></Link>           
-              : <Link to="/login"><img src={iconLogin} alt="icon search" /><p>Login</p></Link>           
+              <Link to="/user-section"><img src={iconLogin} alt="icon search" /><span className='navbar-label'>{user.username} logged in</span></Link>           
+              : <Link to="/login"><img src={iconLogin} alt="icon search" /><span className='navbar-label'>Login</span></Link>           
               }
             </li>
             <li>
               <Badge count={amountItemsInCart} color='#ce9124' offset={[-10,0]}>
-              <Link to="/cart"><img src={iconCart} alt="icon search" /><p>Cart</p></Link>           
+              <Link to="/cart"><img src={iconCart} alt="icon search" /><span className='navbar-label'>Cart</span></Link>           
             </Badge>
             </li>
           </ul>
