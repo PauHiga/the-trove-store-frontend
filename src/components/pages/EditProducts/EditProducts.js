@@ -42,10 +42,8 @@ const EditProducts = () => {
 
     console.log("state", state);
 
-    const arrayOfCategoriesID = currentProduct.category.map(item=> item.id)
-    
 console.log('currentProduct.category', currentProduct.category );
-console.log('arrayOfCategoriesID', arrayOfCategoriesID );
+
 
   const [name, setName] = useState(currentProduct.name)
   const [featureImg, setFeatureImg] = useState('')
@@ -57,7 +55,7 @@ console.log('arrayOfCategoriesID', arrayOfCategoriesID );
   const [stockL, setStockL] = useState(currentProduct.stock.L)
   const [stockXL, setStockXL] = useState(currentProduct.stock.XL)
   const [section, setSection] = useState(currentProduct.section)
-  const [selectedCategories, setSelectedCategories] = useState(arrayOfCategoriesID)
+  const [selectedCategories, setSelectedCategories] = useState(currentProduct.category)
   const [discount, setDiscount] = useState(currentProduct.discount)
   const [productWithSize, setProductWithSize] = useState(true)
 
@@ -83,7 +81,7 @@ console.log('arrayOfCategoriesID', arrayOfCategoriesID );
     const keysArray = Object.keys(stock)
     const stockLargerThanZero = keysArray.reduce((sum, item) => sum + stock[item], 0)
 
-    if(name === '' || featureImg === '' || description=== ''|| stockLargerThanZero === 0){
+    if(name === '' || description=== ''|| stockLargerThanZero === 0){
       console.log("please fill name, featureImg, description and make stock larger than 0")
     }
     else{
