@@ -15,6 +15,10 @@ const StyledHeader = styled.header`
 
   @media (max-width: 480px) { /* Apply styles for mobile devices */
   width: 100%;
+
+  @media (max-width: 340px) { /* Apply styles for mobile devices */
+  justify-content: space-between;
+  padding: 0px 0px 0px 15px;
 `;
 
 const Header = () => {
