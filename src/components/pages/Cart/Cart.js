@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import orderService from '../../../services/orderService';
 import SectionHeader from '../../sectionHeader/SectionHeader';
 import CartProductCard from './CartComponents/CartProductCard';
 import EmptyCart from './CartComponents/EmptyCart';
+import Button from '../../Button/Button';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const CartContainer = styled.div`
@@ -35,10 +37,11 @@ const CartContainer = styled.div`
 `;
 
 const Cart = () => {
+  const navigate = useNavigate()
   const user = useSelector(state => state.user)
   orderService.setToken(user.token)
 
-  console.log(user);
+  console.log('user', user);
 
   const currentCart = useSelector(state => state.cart)
   console.log("currentCart", currentCart)
@@ -54,6 +57,10 @@ const Cart = () => {
 
   const total = currentCart.reduce((sum, item) => sum + item.price, 0)
 
+  const loginHandler = () => {
+    navigate('/login')
+  }
+
   const orderHandler = async () => {
     const products = currentCart.map((item)=> `${item.name - item.selectedSize}`)
     const order = {
@@ -68,6 +75,7 @@ const Cart = () => {
     <>
     <SectionHeader text="Cart"/>
     <CartContainer>
+      {user? 
       <div className="totalCart">
         Total Cart: $ {total}
         <PayPalScriptProvider options={{ clientId: "test" }}>
@@ -96,6 +104,7 @@ const Cart = () => {
         <div className="emptyCart">
         </div>
       </div>
+      :<Button onClick={loginHandler} text="Login to checkout"/>}
       <div className="productsList">
         {currentCart.map(item => <CartProductCard key={`${item.id}${item.selectedSize}`} product={item}/>)}
       </div>
