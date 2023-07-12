@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { initializeProducts } from './reducers/productsReducer'
 import { initializeCategories } from './reducers/categoriesReducer'
 import Header from './components/Header/Header';
@@ -14,7 +14,7 @@ import Sections from './components/pages/Sections/Sections'
 import UserSection from './components/pages/UserSection/UserSection';
 import ProductPage from './components/pages/ProductPage/ProductPage'
 import Cart from './components/pages/Cart/Cart'
-import { getUserInfo} from './reducers/userReducer';
+import { setUser } from './reducers/userReducer';
 import userService from './services/userService';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Register from './components/pages/Register/Register';
@@ -31,8 +31,9 @@ function App() {
         const localUser = window.localStorage.getItem("loggedUserTroveStore");
         if (localUser) {
           const parseUser = JSON.parse(localUser);
-          userService.setToken(parseUser.token);
-          await dispatch(getUserInfo());
+          dispatch(setUser(parseUser))
+          // userService.setToken(parseUser.token);
+          // await dispatch(getUserInfo());
         }
         setIsLoading(false);
       } catch (error) {
@@ -42,8 +43,6 @@ function App() {
     fetchData();
   }, [dispatch]);
   
-
-
   // let productsState = useSelector(state => state)
   // console.log(productsState)
 

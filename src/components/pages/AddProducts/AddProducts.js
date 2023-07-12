@@ -3,39 +3,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import productsService from '../../../services/productsService';
 import { createProduct } from '../../../reducers/productsReducer';
+import { useNavigate } from 'react-router-dom';
 import CategoriesCheckboxes from '../../CategoriesCheckboxes/CategoriesCheckboxes';
+import Button from '../../Button/Button'
 
 const AddProductsForm = styled.form`
   display: flex;
   flex-direction: column;
-  max-width: 300px;
+  max-width: 70vw;
   margin: 0 auto;
-`;
+  .form-entry{
+    margin-bottom: 1rem;
+  }
+  input{
+    padding: 0.5rem;
+    // border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .stock{
+    display:flex;
 
-const FormGroup = styled.div`
-  margin-bottom: 1rem;
-`;
-
-const Label = styled.label`
-  font-weight: bold;
-`;
-
-const Input = styled.input`
-  padding: 0.5rem;
-  // border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const SubmitButton = styled.button`
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  }
 `;
 
 const AddProducts = () => {
+
   const [name, setName] = useState('')
   const [featureImg, setFeatureImg] = useState('')
   const [description, setDescription] = useState('')
@@ -47,164 +39,199 @@ const AddProducts = () => {
   const [stockXL, setStockXL] = useState(0)
   const [section, setSection] = useState('women')
   const [selectedCategories, setSelectedCategories] = useState([])
-  const [discount, setDiscount] = useState('')
+  const [discount, setDiscount] = useState(0)
+  const [productWithSize, setProductWithSize] = useState(true)
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const user = useSelector(state => state.user)
+
+  const allowProductWithSize = () => {
+    setProductWithSize(true)
+  }
+  const allowProductWithUniqueSize = () => {
+    setProductWithSize(false)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      productsService.setToken(user.token)
-
-      const stock = {"S": stockS,"M": stockM,"L": stockL,"XL": stockXL }
-
-      const formData  = new FormData();
-      formData.append('name', name);
-      formData.append('featureImg', featureImg);
-      formData.append('description', description);
-      formData.append('price', price);
-      formData.append('stock', JSON.stringify(stock));
-      formData.append('section', section);
-      formData.append('category', selectedCategories);
-      formData.append('discount', discount);
-
-      // const newProduct = {
-      //   name: name,
-      //   featureImg: featureImg,
-      //   description: description,
-      //   price: price,
-      //   stock: {
-      //     "S": stockS,
-      //     "M": stockM,
-      //     "L": stockL,
-      //     "XL": stockXL
-      // },
-      //   section: section,
-      //   category: selectedCategories,
-      //   discount:discount,
-      // }
-
-      const createdProduct = await productsService.createProduct(formData);
-      console.log(createdProduct);
-      dispatch(createProduct(createdProduct))
-      console.log("createdProduct", createdProduct);
-    } catch (error) {
-      console.log(error);
+    let stock = {}
+    if (productWithSize) {
+      stock = {"U":0, "S": stockS,"M": stockM,"L": stockL,"XL": stockXL }
     }
+    else{
+      stock = {"U": stockU, "S": 0,"M": 0,"L": 0,"XL": 0 }
+    }
+
+    const keysArray = Object.keys(stock)
+    const stockLargerThanZero = keysArray.reduce((sum, item) => sum + stock[item], 0)
+
+    if(name === '' || featureImg === '' || description=== ''|| stockLargerThanZero === 0){
+      console.log("please fill name, featureImg, description and make stock larger than 0")
+    }
+    else{
+      try {
+        productsService.setToken(user.token)
+          
+        const formData  = new FormData();
+        formData.append('name', name);
+        formData.append('featureImg', featureImg);
+        formData.append('description', description);
+        formData.append('price', price);
+        formData.append('stock', JSON.stringify(stock));
+        formData.append('section', section);
+        formData.append('category', selectedCategories);
+        formData.append('discount', discount);
+        
+        const createdProduct = await productsService.createProduct(formData);
+        dispatch(createProduct(createdProduct))
+        console.log("createdProduct", createdProduct);
+        navigate('/user-section')
+      } catch (error) {
+        console.log(error);
+      }  
+    }
+    
   };
   
+  const handleCancel = () => {
+    const confirm = window.confirm("Are you sure you want to cancel? No changes will be submitted")
+    if(confirm){
+      navigate('/user-section')
+    }
+  }
+
   console.log(featureImg);
   return (
     <div>
       <h2>Add New Product</h2>
       <AddProductsForm onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label htmlFor="name">Product name:</Label>
-          <Input
+        <div className="form-entry">
+          <label htmlFor="name">Product name:</label>
+          <input
             type="text"
             id="productName"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="featureImg">Image url:
+        </div>
+        <div className="form-entry">
+          <label htmlFor="featureImg">Image url:
           {featureImg ? featureImg.name : " Upload image"}
-          <Input
+          <input
             type="file"
             id="featureImg"
             accept="image/*"
-            // value={featureImg}
             onChange={(e) => setFeatureImg(e.target.files[0])}
             hidden
           />
-          </Label>
+          </label>
           <div>
             {featureImg &&
             <img src={URL.createObjectURL(featureImg)} alt="product_photo" height={'200px'} />
             }
           </div>
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="description">Product description:</Label>
-          <Input
+        </div>
+        <div className="form-entry">
+          <label htmlFor="description">Product description:</label>
+          <input
             type="text"
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="price">Product price: (numbers only)</Label>
-          <Input
+        </div>
+        <div className="form-entry">
+          <label htmlFor="price">Product price: (numbers only)</label>
+          <input
             type="text"
             id="price"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
-        </FormGroup>
-          <FormGroup>
-            <Label htmlFor="stockS">Product stock S: (numbers only)</Label>
-            <Input
-              type="text"
-              id="price"
-              value={stockS}
-              onChange={(e) => setStockS(e.target.value)}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="stockS">Product stock M: (numbers only)</Label>
-            <Input
-              type="text"
-              id="price"
-              value={stockM}
-              onChange={(e) => setStockM(e.target.value)}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="stockL">Product stock L: (numbers only)</Label>
-            <Input
-              type="text"
-              id="price"
-              value={stockL}
-              onChange={(e) => setStockL(e.target.value)}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="stockXL">Product stock XL: (numbers only)</Label>
-            <Input
-              type="text"
-              id="price"
-              value={stockXL}
-              onChange={(e) => setStockXL(e.target.value)}
-            />
-          </FormGroup>
-        <FormGroup>
-          <Label htmlFor="Section">Section</Label>
+        </div>
+        <div className="stock">
+          <div className="stock-option" onClick={allowProductWithUniqueSize}>
+            <div className="form-entry">
+              <label htmlFor="stockU">Product stock: (numbers only)</label>
+              <input
+                disabled={productWithSize}
+                type="text"
+                id="price"
+                value={stockU}
+                onChange={(e) => setStockU(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="stock-option" onClick={allowProductWithSize}>
+            <div className="form-entry">
+              <label htmlFor="stockS">Product stock S: (numbers only)</label>
+              <input
+                disabled={!productWithSize}
+                type="text"
+                id="price"
+                value={stockS}
+                onChange={(e) => setStockS(e.target.value)}
+              />
+            </div>
+            <div className="form-entry">
+              <label htmlFor="stockS">Product stock M: (numbers only)</label>
+              <input
+                disabled={!productWithSize}
+                type="text"
+                id="price"
+                value={stockM}
+                onChange={(e) => setStockM(e.target.value)}
+              />
+            </div>
+            <div className="form-entry">
+              <label htmlFor="stockL">Product stock L: (numbers only)</label>
+              <input
+                disabled={!productWithSize}              
+                type="text"
+                id="price"
+                value={stockL}
+                onChange={(e) => setStockL(e.target.value)}
+              />
+            </div>
+            <div className="form-entry">
+              <label htmlFor="stockXL">Product stock XL: (numbers only)</label>
+              <input
+                disabled={!productWithSize}              
+                type="text"
+                id="price"
+                value={stockXL}
+                onChange={(e) => setStockXL(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="form-entry">
+          <label htmlFor="Section">Section</label>
           <select value={section} onChange={(e) => setSection(e.target.value)}>
             <option value="women">Women</option>
             <option value="girls">Girls</option>
             <option value="accessories">Accessories</option>
           </select>
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="selectedCategories">Select categories:</Label>
+        </div>
+        <div className="form-entry">
+          <label htmlFor="selectedCategories">Select categories:</label>
           <CategoriesCheckboxes selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
-        </FormGroup>
-        <FormGroup>
+        </div>
+        <div className="form-entry">
           <div>
-          <Label htmlFor="name">Discount: (numbers only)</Label>
+          <label htmlFor="name">Discount: (numbers only)</label>
 
           </div>
-          <Input
+          <input
             type="text"
             id="discount"
             value={discount}
             onChange={(e) => setDiscount(e.target.value)}
           />
-        </FormGroup>
-        <SubmitButton type="submit">Add product</SubmitButton>
+        </div>
+        <Button type="submit" text="Add product"/>
+        <Button text="Cancel" onClick={()=> handleCancel}/>
       </AddProductsForm>
 
     </div>
