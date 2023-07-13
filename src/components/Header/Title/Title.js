@@ -26,7 +26,7 @@ const StyledTitle = styled.div`
   }
 
 
-  @media (max-width: 340px) { /* Apply styles for mobile devices */
+  @media (max-width: 340px) { 
   h1 {
     display: none
   }
@@ -39,10 +39,10 @@ const StyledTitle = styled.div`
 
 const Title = () => {
   return (
-      <StyledTitle>
-        <Link to="/"><img src={logo} alt="icon search" />
+    <StyledTitle>
+      <Link to="/"><img src={logo} alt="icon search" />
         <h1>The Trove Store</h1></Link>
-      </StyledTitle>
+    </StyledTitle>
   )
 }
 

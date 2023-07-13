@@ -13,22 +13,22 @@ const StyledHeader = styled.header`
   height:50px;
   background-color: white;
 
-  @media (max-width: 480px) { /* Apply styles for mobile devices */
+  @media (max-width: 480px) { 
   width: 100%;
 
-  @media (max-width: 340px) { /* Apply styles for mobile devices */
+  @media (max-width: 340px) { 
   justify-content: space-between;
   padding: 0px 0px 0px 15px;
 `;
 
 const Header = () => {
   return (
-  <>
-    <StyledHeader>
-      <Title/>
-      <NavBar/>
-    </StyledHeader>
-  </>
+    <>
+      <StyledHeader>
+        <Title />
+        <NavBar />
+      </StyledHeader>
+    </>
   )
 }
 

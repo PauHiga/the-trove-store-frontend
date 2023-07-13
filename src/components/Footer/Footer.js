@@ -74,7 +74,7 @@ const StyledFooter = styled.footer`
     padding-right:20px;
   }
 
-  @media (max-width: 820px) { /* Apply styles for mobile devices */
+  @media (max-width: 820px) { 
   .footer-content {
     display: flex;
     flex-direction: column;
@@ -106,7 +106,7 @@ const StyledFooter = styled.footer`
     font-size: 20px;
   }
 
-  @media (max-width: 480px) { /* Apply styles for mobile devices */
+  @media (max-width: 480px) { 
 
   .footer-links {
     margin: 0px 0px 0px 0px;
@@ -162,7 +162,7 @@ const Footer = () => {
               <li><Link to='/shop-policies'>Shop Policies</Link></li>
             </ul>
           </div>
-          <div>        
+          <div>
             <ul>
               <li><Link to='/FAQ'>FAQ</Link></li>
               <li><Link to='/legals'>Legals</Link></li>

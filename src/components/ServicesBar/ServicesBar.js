@@ -29,7 +29,7 @@ const StyledServicesBar = styled.div`
     margin: 5px;
   }
 
-  @media (max-width: 480px) { /* Apply styles for mobile devices */
+  @media (max-width: 480px) { 
   flex-wrap: wrap;
 
   div {

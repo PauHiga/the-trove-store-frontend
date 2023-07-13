@@ -11,6 +11,10 @@ import AdminOrders from './UserSectionComponents/AdminOrders';
 import UserInfo from './UserSectionComponents/UserInfo';
 
 const UserSectionContainer = styled.div`
+  @media (max-width: 480px) { 
+    margin-left:5px;
+  }
+
   display: flex;
   flex-direction: column;
   font-variant: small-caps;

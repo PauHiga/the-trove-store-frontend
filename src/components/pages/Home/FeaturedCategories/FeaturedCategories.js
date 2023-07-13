@@ -29,7 +29,7 @@ const StyledFeaturedCategories = styled.nav`
     display: none;
   }  
 
-  @media (max-width: 950px) { /* Apply styles for mobile devices */
+  @media (max-width: 950px) { 
 
   img {
     width: 220px;
@@ -42,7 +42,7 @@ const StyledFeaturedCategories = styled.nav`
     height: auto;
   }
 
-  @media (max-width: 680px) { /* Apply styles for mobile devices */
+  @media (max-width: 680px) { 
   display: flex;
   flex-wrap: wrap;
 
@@ -66,7 +66,7 @@ const StyledFeaturedCategories = styled.nav`
     display: inline;
   }  
 
-  @media (max-width: 480px) { /* Apply styles for mobile devices */
+  @media (max-width: 480px) { 
   display: flex;
   flex-direction: column;
 
@@ -79,15 +79,15 @@ const StyledFeaturedCategories = styled.nav`
 
 const FeaturedCategories = () => {
   return (
-      <StyledFeaturedCategories>
-          <div className='cat-container'>
-              <Link to="/category/women"><img src={cat1} alt="category women" /></Link>
-              <Link to="/category/girls"><img src={cat2} alt="category girls" /></Link>          
-              <Link to="/category/accessories"><img src={cat3} alt="category accessories" /></Link>           
-              <Link to="/category/on-sale"><img className='banner2' src={banner2} alt="category discounts" /></Link>           
-          </div>
-          <Link to="/category/on-sale"><img className='banner' src={banner} alt="category discounts" /></Link>           
-      </StyledFeaturedCategories>
+    <StyledFeaturedCategories>
+      <div className='cat-container'>
+        <Link to="/category/women"><img src={cat1} alt="category women" /></Link>
+        <Link to="/category/girls"><img src={cat2} alt="category girls" /></Link>
+        <Link to="/category/accessories"><img src={cat3} alt="category accessories" /></Link>
+        <Link to="/category/on-sale"><img className='banner2' src={banner2} alt="category discounts" /></Link>
+      </div>
+      <Link to="/category/on-sale"><img className='banner' src={banner} alt="category discounts" /></Link>
+    </StyledFeaturedCategories>
   )
 }
 
