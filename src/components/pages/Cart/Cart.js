@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import orderService from '../../../services/orderService';
 import SectionHeader from '../../sectionHeader/SectionHeader';
-import ButtonLink from '../../ButtonLink/ButtonLink'
-import Button from '../../Button/Button';
 import CartProductCard from './CartComponents/CartProductCard';
 import EmptyCart from './CartComponents/EmptyCart';
+import Button from '../../Button/Button';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const CartContainer = styled.div`
@@ -23,6 +24,7 @@ const CartContainer = styled.div`
   .totalCart{
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding-top:40px;
     width:200px;
     font-size:20px;
@@ -35,6 +37,12 @@ const CartContainer = styled.div`
 `;
 
 const Cart = () => {
+  const navigate = useNavigate()
+  const user = useSelector(state => state.user)
+  orderService.setToken(user.token)
+
+  console.log('user', user);
+
   const currentCart = useSelector(state => state.cart)
   console.log("currentCart", currentCart)
 
@@ -49,17 +57,32 @@ const Cart = () => {
 
   const total = currentCart.reduce((sum, item) => sum + item.price, 0)
 
+  const loginHandler = () => {
+    navigate('/login')
+  }
+
+  const orderHandler = async () => {
+    const products = currentCart.map((item)=> {
+      return `${item.name} - ${item.selectedSize}`
+    })
+
+    console.log("user.id",user.id)
+    const order = {
+      products: products,
+      completed: false
+    }
+    const placedOrder = await orderService.createOrder(order)
+    console.log('placedOrder', placedOrder)
+  }
+
   return (
     <>
     <SectionHeader text="Cart"/>
     <CartContainer>
-      <div className="productsList">
-        {currentCart.map(item => <CartProductCard key={`${item.id}${item.selectedSize}`} product={item}/>)}
-      </div>
+      {user? 
       <div className="totalCart">
         Total Cart: $ {total}
-        {/* <Button text='Checkout'/> */}
-        <PayPalScriptProvider options={{ clientId: "ASlBjK72gVSNfNr-1LPmlzCrOMeLPVMit6mLzuwAbGsAMfdEiaix68uFZHBL7giUjiijxVwTHzimYNoK" }}>
+        <PayPalScriptProvider options={{ clientId: "test" }}>
             <PayPalButtons
                 createOrder={(data, actions) => {
                     return actions.order.create({
@@ -76,13 +99,16 @@ const Cart = () => {
                     return actions.order.capture().then((details) => {
                         const name = details.payer.name.given_name;
                         alert(`Transaction completed by ${name}`);
-                    });
+                    }).then(orderHandler);
                 }}
             />
         </PayPalScriptProvider>
         <div className="emptyCart">
-          {/* <Button text='Empty Cart'/> */}
         </div>
+      </div>
+      :<Button onClick={loginHandler} text="Login to checkout"/>}
+      <div className="productsList">
+        {currentCart.map(item => <CartProductCard key={`${item.id}${item.selectedSize}`} product={item}/>)}
       </div>
     </CartContainer>
     </>

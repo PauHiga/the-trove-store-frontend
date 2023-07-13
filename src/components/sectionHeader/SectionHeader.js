@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../reducers/userReducer';
+import { emptyCart } from '../../reducers/cartReducer';
 import styled from 'styled-components';
 import Button from '../Button/Button';
 
@@ -30,6 +31,8 @@ const SectionHeader = ({text, logout=1}) => {
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUserTroveStore');
     dispatch(setUser(''))
+    dispatch(emptyCart())
+
     navigate('/');
   }
 

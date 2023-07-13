@@ -39,7 +39,7 @@ const EditCategories = ({item}) => {
 
   return (
     <StyledEditCategories>
-      <h5 data-bs-toggle="collapse" data-bs-target={"#" + item.category} aria-controls="collapseExample">
+      <h5 data-bs-toggle="collapse" data-bs-target={"#" + item.category} aria-controls="collapse">
       {item.category}
       </h5>
       <div className="collapse" id={item.category}>

@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import SectionHeader from '../../sectionHeader/SectionHeader';
 import AdminCategories from './UserSectionComponents/AdminCategories';
 import AdminProducts from './UserSectionComponents/AdminProducts';
+import AdminOrders from './UserSectionComponents/AdminOrders';
 import UserInfo from './UserSectionComponents/UserInfo';
 
 const UserSectionContainer = styled.div`
@@ -35,6 +36,7 @@ const UserSectionContainer = styled.div`
       <UserSectionContainer>
         {user.role !== 0? 
         <>
+          <AdminOrders/>
           <AdminCategories/>
           <AdminProducts/>
         </>
