@@ -34,21 +34,20 @@ input{
 
 const EditProducts = () => {
 
-    const id = useParams().id
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const user = useSelector(state => state.user)
-    
-    const currentProduct = useSelector(state => state.products.find(item => item.id === id))
+  const id = useParams().id
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const user = useSelector(state => state.user)
+  
+  const currentProduct = useSelector(state => state.products.find(item => item.id === id))
 
-    console.log(currentProduct);
+  console.log(currentProduct);
 
-    const state = useSelector(state => state.products)
+  const state = useSelector(state => state.products)
 
-    console.log("state", state);
+  console.log("state", state);
 
-console.log('currentProduct.category', currentProduct.category );
-
+  const productCategories = currentProduct.category>0 ? currentProduct.category.map(item => item.id) : [];
 
   const [name, setName] = useState(currentProduct.name)
   const [featureImg, setFeatureImg] = useState('')
@@ -60,7 +59,7 @@ console.log('currentProduct.category', currentProduct.category );
   const [stockL, setStockL] = useState(currentProduct.stock.L)
   const [stockXL, setStockXL] = useState(currentProduct.stock.XL)
   const [section, setSection] = useState(currentProduct.section)
-  const [selectedCategories, setSelectedCategories] = useState(currentProduct.category)
+  const [selectedCategories, setSelectedCategories] = useState(productCategories)
   const [discount, setDiscount] = useState(currentProduct.discount)
   const [productWithSize, setProductWithSize] = useState(true)
 
