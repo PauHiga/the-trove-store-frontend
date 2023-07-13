@@ -18,7 +18,7 @@ const UserSectionContainer = styled.div`
   flex-direction: column;
   font-variant: small-caps;
   color: #ce9124;
-  margin-left:30px;
+  margin:30px;
   .displayAllProducts {
     display: flex;
     flex-wrap: wrap;

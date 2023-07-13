@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Button from '../../../Button/Button';
 import { useEffect, useState } from 'react';
 import CryptoJS from 'crypto-js';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AdminOrdersContainer = styled.div`
   margin:50px 0px;
@@ -21,6 +22,10 @@ const AdminOrdersContainer = styled.div`
     padding:20px;
     margin:10px;
     width:90vw;
+    p{
+      font-size:15px;
+      margin:0px;
+    }
   }
   @media (max-width: 480px) { 
     .inline{
@@ -54,8 +59,6 @@ const AdminOrders = () => {
     return bytes.toString(CryptoJS.enc.Utf8)
   }
 
-  console.log('orders', orders)
-
   if (orders === []) {
     return null
   }
@@ -63,24 +66,26 @@ const AdminOrders = () => {
   const handleCompleted = async (order) => {
     const modifiedOrder = { ...order, user: order.user.id, completed: true }
     const edited = await orderService.editOrder(modifiedOrder, order.id)
-    console.log(edited);
     const updatedArray = orders.map((order) => order.id === edited.id ? { ...order, completed: true } : order)
     setOrders(updatedArray)
+    toast.success(`Order ${order.id} is marked as "Complete"`)
   }
 
   const handlePending = async (order) => {
     const modifiedOrder = { ...order, user: order.user.id, completed: false }
     const edited = await orderService.editOrder(modifiedOrder, order.id)
-    console.log(edited);
     const updatedArray = orders.map((order) => order.id === edited.id ? { ...order, completed: false } : order)
     setOrders(updatedArray)
+    toast(`Order ${order.id} is marked as "Pending"`)
   }
+
 
   const OrderCard = (order) => {
     return (
       <div className="orders-section" key={order.id}>
+        <p>Order ID: {order.id}</p>
         <div className="inline-top">
-          <h4>User: {decrypt(order.user.name)}</h4>
+          <h5>User: {decrypt(order.user.name)}</h5>
           <Button onClick={() => handleCompleted(order)} text="Mark as completed" />
         </div>
         <div>
@@ -99,6 +104,7 @@ const AdminOrders = () => {
   const CompletedCard = (order) => {
     return (
       <div className="orders-section" key={order.id}>
+        <p>Order ID: {order.id}</p>
         <div className="inline-top">
           <h4>User: {decrypt(order.user.name)}</h4>
           <Button onClick={() => handlePending(order)} text="Mark as pending" />
@@ -119,6 +125,7 @@ const AdminOrders = () => {
 
   return (
     <>
+      <Toaster />
       <AdminOrdersContainer>
         <h2>Orders</h2>
         <h3>Pending Orders {orders.filter((order) => !order.completed).length}</h3>

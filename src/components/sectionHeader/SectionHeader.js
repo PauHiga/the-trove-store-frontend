@@ -31,7 +31,6 @@ const SectionHeader = ({text, logout=1}) => {
     window.localStorage.removeItem('loggedUserTroveStore');
     dispatch(setUser(''))
     dispatch(emptyCart())
-
     navigate('/');
   }
 

@@ -13,9 +13,11 @@ const StyledAddSubtract = styled.div`
 
 const AddSubtractCart = ({ product }) => {
   const dispatch = useDispatch()
-
+  
   const addOne = () => {
-      dispatch(addAnotherUnitToCart(product))
+      if (product.amount < product.stock[product.selectedSize]){
+        dispatch(addAnotherUnitToCart(product))
+      }
   }
 
   const subtractOne = () => {
@@ -30,9 +32,9 @@ const AddSubtractCart = ({ product }) => {
   return(
     <div key={`${product.id}${product.selectedSize}`}>
       <StyledAddSubtract>
-      <p onClick={() => addOne()}>+</p>
-      {product.amount}
-      <p onClick={()=> subtractOne()}>-</p>
+        <p onClick={() => addOne()}>+</p>
+        {product.amount}
+        <p onClick={()=> subtractOne()}>-</p>
       </StyledAddSubtract>
     </div>
   )

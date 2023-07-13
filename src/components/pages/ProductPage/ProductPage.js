@@ -4,10 +4,10 @@ import { useParams} from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addProductToCart } from '../../../reducers/cartReducer';
-import AddSubtractCart from '../../AddSubtractCart/AddSubtractCart';
 import SectionHeader from '../../sectionHeader/SectionHeader';
 import SectionsBar from '../../SectionsBar/SectionsBar';
 import Button from '../../Button/Button';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ProductPageContainer = styled.div`
   display:flex;
@@ -83,21 +83,23 @@ const ProductPage = () => {
   const dispatch = useDispatch()
   
   const currentProduct = useSelector(state => state.products.find(item => item.id === id))
-  // const cartProduct = useSelector(state => state.cart.find(item => item.id === id))
 
   const handleAddtoCart = () =>{
     if(availableSizes.length < 2){
       dispatch(addProductToCart({...currentProduct, selectedSize:availableSizes[0]}))
+      toast.success(`${currentProduct.name} added to cart`)
       setUserMessage("Product added to cart")
       setTimeout(()=>setUserMessage(''), 2000)
       setSelectedSize('')
     }
     else if (selectedSize === ''){
-      setUserMessage("Please select a size")
+      toast(`Select the size you want to add to the cart`)
+      setUserMessage("Select the size you want to add to the cart")
       setTimeout(()=>setUserMessage(''), 3000)
     }
     else{
       dispatch(addProductToCart({...currentProduct, selectedSize:selectedSize}))
+      toast.success(`${currentProduct.name} added to cart`)
       setUserMessage("Product added to cart")
       setTimeout(()=>setUserMessage(''), 2000)
       setSelectedSize('')
@@ -110,8 +112,12 @@ const ProductPage = () => {
 
   const totalPrice = currentProduct.price-(currentProduct.price*currentProduct.discount/100)
 
+
+
+
   return (
     <div>
+      <Toaster />
       <SectionHeader text={section}/>
       <SectionsBar/>
       <ProductPageContainer>
@@ -131,7 +137,6 @@ const ProductPage = () => {
             <div className="inline"> 
               <Button onClick={handleAddtoCart} text="Add to Cart"/>
               {userMessage}
-              {/* {cartProduct && cartProduct.amount > 0 && (<AddSubtractCart productId={currentProduct.id}/>)} */}
             </div>
             <div className="inline"> 
               <p>Available sizes:</p>

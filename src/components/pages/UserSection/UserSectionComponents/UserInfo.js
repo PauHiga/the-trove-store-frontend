@@ -7,6 +7,7 @@ import userService from '../../../../services/userService';
 import ScrollToTop from '../../../ScrollToTop/ScrollToTop';
 import DisplayUserInfo from './DisplayUserInfo';
 import Button from '../../../Button/Button';
+import toast, { Toaster } from 'react-hot-toast';
 
 const StyledUserInfo = styled.div`
 
@@ -15,7 +16,7 @@ const StyledUserInfo = styled.div`
     width: 100%;
     flex-direction: column;
     align-items: center;
-    padding: 20px 0px 10px 0px;
+    padding: 20px 0px;
   }
 
   min-height: 55vh;
@@ -33,7 +34,7 @@ const StyledUserInfo = styled.div`
 
   `;
   
-  const RegisterForm = styled.form`
+const RegisterForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,7 +55,7 @@ const StyledUserInfo = styled.div`
   }
 `;
 
-  const UserInfo = () => {
+const UserInfo = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -93,6 +94,7 @@ const StyledUserInfo = styled.div`
     const handleSubmit = async (e) => {
       e.preventDefault();
       if (!name || !email || !address || !phone){
+        toast("Please complete all the fields")
         setErrorMessage("Please complete all the fields")
         setTimeout(()=>setErrorMessage(""), 3000)
       }
@@ -111,7 +113,7 @@ const StyledUserInfo = styled.div`
           };
     
           const updatedUser = await userService.editUser(userToUpdate);
-          console.log("updatedUser", updatedUser);
+          toast.success(`User information edited`)
           dispatch(updateUser(updatedUser.data))
   
         } catch (error) {
@@ -126,12 +128,13 @@ const StyledUserInfo = styled.div`
 
     return (
       <>
+        <Toaster />
         <StyledUserInfo>
           <div className="center">
               <ScrollToTop/>
               <h2>User Information</h2>
               <DisplayUserInfo name={name} address={address} phone={phone} email={email}/>
-              <div className="toggle-edit-user" data-bs-toggle="collapse" data-bs-target="#collapse-add-category" aria-controls="collapse-add-category">
+              <div className="toggle-edit-user" data-bs-toggle="collapse" data-bs-target="#collapse-add-category" aria-expanded="false" role="button" aria-controls="collapse-add-category">
                   <Button onClick={null} text={"Edit User"}/>
               </div>
           </div>

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import SectionHeader from '../../sectionHeader/SectionHeader';
 import CategoriesCheckboxes from '../../CategoriesCheckboxes/CategoriesCheckboxes';
 import Button from '../../Button/Button'
+import toast, { Toaster } from 'react-hot-toast';
 
 const AddProductsForm = styled.form`
   display: flex;
@@ -70,10 +71,21 @@ const AddProducts = () => {
 
     const keysArray = Object.keys(stock)
     const stockLargerThanZero = keysArray.reduce((sum, item) => sum + stock[item], 0)
-
-    if(name === '' || featureImg === '' || description=== ''|| stockLargerThanZero === 0 || discount < 0 || discount > 100 ){
-      console.log("please fill name, featureImg, and description. The stock should be larger than 0, the discount should be between 0 and 100")
+    
+    console.log('stockLargerThanZero', stockLargerThanZero);
+    if(name === '' || featureImg === '' || description=== ''){
+      toast("Please add a name, image, and description for the new product.")
     }
+    else if(isNaN(stockLargerThanZero) || stockLargerThanZero <= 0){
+      toast("The total stock should be a number larger than 0")
+    }
+    else if(isNaN(price) || price <= 0){
+      toast("The price should be a number larger than 0")
+    }
+    else if( isNaN(discount) || discount < 0 || discount > 100 ){
+      toast("The discount should be a number between 0 and 100")
+    }
+    
     else{
       try {
         productsService.setToken(user.token)
@@ -87,6 +99,8 @@ const AddProducts = () => {
         formData.append('section', section);
         formData.append('category', selectedCategories);
         formData.append('discount', discount);
+
+        console.log(formData)
         
         const createdProduct = await productsService.createProduct(formData);
         dispatch(createProduct(createdProduct))
@@ -109,6 +123,7 @@ const AddProducts = () => {
   console.log(featureImg);
   return (
     <div>
+      <Toaster />
       <SectionHeader text="Add New Product"/>
       <AddProductsForm onSubmit={handleSubmit}>  
         <div className="form-entry">

@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import SectionHeader from '../../sectionHeader/SectionHeader';
 import CategoriesCheckboxes from '../../CategoriesCheckboxes/CategoriesCheckboxes';
 import Button from '../../Button/Button';
+import toast, { Toaster } from 'react-hot-toast';
 
 const EditProductsForm = styled.form`
 display: flex;
@@ -22,6 +23,10 @@ input{
 }
 .stock{
   display:flex;
+}
+
+.stock-option-disabled{
+  color:#e4e7ed; 
 }
 
 @media (max-width: 480px) { 
@@ -47,7 +52,7 @@ const EditProducts = () => {
 
   console.log("state", state);
 
-  const productCategories = currentProduct.category>0 ? currentProduct.category.map(item => item.id) : [];
+  const productCategories = currentProduct.category.length > 0 ? currentProduct.category.map(item => item.id) : [];
 
   const [name, setName] = useState(currentProduct.name)
   const [featureImg, setFeatureImg] = useState('')
@@ -81,25 +86,25 @@ const EditProducts = () => {
     else{
       stock = {"U": stockU, "S": 0,"M": 0,"L": 0,"XL": 0 }
     }
-
     const keysArray = Object.keys(stock)
     const stockLargerThanZero = keysArray.reduce((sum, item) => sum + stock[item], 0)
-
-    if(name === '' || description=== ''|| stockLargerThanZero === 0){
-      console.log("please fill name, featureImg, description and make stock larger than 0")
+    
+    console.log('stockLargerThanZero', stockLargerThanZero);
+    if(name === ''){
+      toast("Please add a name for the product.")
+    }
+    else if(isNaN(stockLargerThanZero) || stockLargerThanZero <= 0){
+      toast("The total stock should be a number larger than 0")
+    }
+    else if(isNaN(price) || price <= 0){
+      toast("The price should be a number larger than 0")
+    }
+    else if( isNaN(discount) || discount < 0 || discount > 100 ){
+      toast("The discount should be a number between 0 and 100")
     }
     else{
       try {     
         productsService.setToken(user.token)
-
-        let stock = {}
-
-        if (productWithSize) {
-          stock = {"U":0, "S": stockS,"M": stockM,"L": stockL,"XL": stockXL }
-        }
-        else{
-          stock = {"U": stockU, "S": 0,"M": 0,"L": 0,"XL": 0 }
-        }
 
         const formData  = new FormData();
         formData.append('name', name);
@@ -128,10 +133,9 @@ const EditProducts = () => {
     }
   }
 
-  console.log(selectedCategories)
-
   return (
     <div>
+      <Toaster />
       <SectionHeader text="Edit Product"/>
       <EditProductsForm onSubmit={handleSubmit}>
         <div className="form-entry">
@@ -179,7 +183,7 @@ const EditProducts = () => {
           />
         </div>
         <div className="stock">
-          <div className="stock-option" onClick={allowProductWithUniqueSize}>
+          <div className={!productWithSize ? "stock-option" : "stock-option-disabled"} onClick={allowProductWithUniqueSize}>
             <div className="form-entry">
               <label htmlFor="stockU">Product stock: (numbers only)</label>
               <input
@@ -191,7 +195,7 @@ const EditProducts = () => {
               />
             </div>
           </div>
-          <div className="stock-option" onClick={allowProductWithSize}>
+          <div className={productWithSize ? "stock-option" : "stock-option-disabled"} onClick={allowProductWithSize}>
             <div className="form-entry">
               <label htmlFor="stockS">Product stock S: (numbers only)</label>
               <input
