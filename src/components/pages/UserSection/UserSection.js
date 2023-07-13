@@ -3,7 +3,6 @@ import productsService from '../../../services/productsService';
 import categoryService from '../../../services/categoryService';
 import userService from '../../../services/userService';
 import { useSelector } from 'react-redux';
-
 import SectionHeader from '../../sectionHeader/SectionHeader';
 import AdminCategories from './UserSectionComponents/AdminCategories';
 import AdminProducts from './UserSectionComponents/AdminProducts';

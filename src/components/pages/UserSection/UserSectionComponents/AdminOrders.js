@@ -15,7 +15,6 @@ const AdminOrdersContainer = styled.div`
   .inline{
     display: flex;
     justify-content: space-around;
-    font-size:20px
   }
   .orders-section{
     background-color:#f0f3f7;

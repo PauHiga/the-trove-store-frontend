@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import productsService from '../../../services/productsService';
 import { createProduct } from '../../../reducers/productsReducer';
 import { useNavigate } from 'react-router-dom';
+import SectionHeader from '../../sectionHeader/SectionHeader';
 import CategoriesCheckboxes from '../../CategoriesCheckboxes/CategoriesCheckboxes';
 import Button from '../../Button/Button'
 
@@ -11,18 +12,22 @@ const AddProductsForm = styled.form`
   display: flex;
   flex-direction: column;
   max-width: 70vw;
-  margin: 0 auto;
+  margin: 5vh auto;
   .form-entry{
     margin-bottom: 1rem;
   }
   input{
-    padding: 0.5rem;
-    // border: 1px solid #ccc;
-    border-radius: 4px;
+    margin: 1vw;
   }
   .stock{
     display:flex;
+  }
 
+  @media (max-width: 480px) { 
+    .stock{
+      display:flex;
+      flex-direction:column;
+    }
   }
 `;
 
@@ -66,8 +71,8 @@ const AddProducts = () => {
     const keysArray = Object.keys(stock)
     const stockLargerThanZero = keysArray.reduce((sum, item) => sum + stock[item], 0)
 
-    if(name === '' || featureImg === '' || description=== ''|| stockLargerThanZero === 0){
-      console.log("please fill name, featureImg, description and make stock larger than 0")
+    if(name === '' || featureImg === '' || description=== ''|| stockLargerThanZero === 0 || discount < 0 || discount > 100 ){
+      console.log("please fill name, featureImg, and description. The stock should be larger than 0, the discount should be between 0 and 100")
     }
     else{
       try {
@@ -104,8 +109,8 @@ const AddProducts = () => {
   console.log(featureImg);
   return (
     <div>
-      <h2>Add New Product</h2>
-      <AddProductsForm onSubmit={handleSubmit}>
+      <SectionHeader text="Add New Product"/>
+      <AddProductsForm onSubmit={handleSubmit}>  
         <div className="form-entry">
           <label htmlFor="name">Product name:</label>
           <input
@@ -231,7 +236,7 @@ const AddProducts = () => {
           />
         </div>
         <Button type="submit" text="Add product"/>
-        <Button text="Cancel" onClick={()=> handleCancel}/>
+        <Button text="Cancel" onClick={handleCancel}/>
       </AddProductsForm>
 
     </div>

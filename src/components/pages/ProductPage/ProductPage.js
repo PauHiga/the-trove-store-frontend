@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useParams} from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import mock from '../../../images/img1.png'
 import { useDispatch } from 'react-redux';
 import { addProductToCart } from '../../../reducers/cartReducer';
 import AddSubtractCart from '../../AddSubtractCart/AddSubtractCart';
@@ -56,6 +55,21 @@ const ProductPageContainer = styled.div`
       margin-left:10px;
     }
   }
+  @media (max-width: 480px) { 
+    .productContainer{
+      display:flex;
+      flex-direction:column;
+      align-items: center;
+    }
+    .imageContainer{
+      display: flex;
+      justify-content: center;
+    }
+    .productInfo{
+      width:80vw;
+      padding:00px;
+    }
+  }
 `;
 
 const ProductPage = () => {
@@ -66,10 +80,16 @@ const ProductPage = () => {
   const dispatch = useDispatch()
   
   const currentProduct = useSelector(state => state.products.find(item => item.id === id))
-  const cartProduct = useSelector(state => state.cart.find(item => item.id === id))
+  // const cartProduct = useSelector(state => state.cart.find(item => item.id === id))
 
   const handleAddtoCart = () =>{
-    if (selectedSize === ''){
+    if(availableSizes.length < 2){
+      dispatch(addProductToCart({...currentProduct, selectedSize:availableSizes[0]}))
+      setUserMessage("Product added to cart")
+      setTimeout(()=>setUserMessage(''), 2000)
+      setSelectedSize('')
+    }
+    else if (selectedSize === ''){
       setUserMessage("Please select a size")
       setTimeout(()=>setUserMessage(''), 3000)
     }

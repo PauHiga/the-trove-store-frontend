@@ -5,26 +5,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editProduct } from '../../../reducers/productsReducer';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import SectionHeader from '../../sectionHeader/SectionHeader';
 import CategoriesCheckboxes from '../../CategoriesCheckboxes/CategoriesCheckboxes';
 import Button from '../../Button/Button';
 
-const AddProductsForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  max-width: 70vw;
-  margin: 0 auto;
-  .form-entry{
-    margin-bottom: 1rem;
-  }
-  input{
-    padding: 0.5rem;
-    // border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+const EditProductsForm = styled.form`
+display: flex;
+flex-direction: column;
+max-width: 70vw;
+margin: 5vh auto;
+.form-entry{
+  margin-bottom: 1rem;
+}
+input{
+  margin: 1vw;
+}
+.stock{
+  display:flex;
+}
+
+@media (max-width: 480px) { 
   .stock{
     display:flex;
-
+    flex-direction:column;
   }
+}
 `;
 
 const EditProducts = () => {
@@ -128,8 +133,8 @@ console.log('currentProduct.category', currentProduct.category );
 
   return (
     <div>
-      <h2>Add New Product</h2>
-      <AddProductsForm onSubmit={handleSubmit}>
+      <SectionHeader text="Edit Product"/>
+      <EditProductsForm onSubmit={handleSubmit}>
         <div className="form-entry">
           <label htmlFor="name">Product name:</label>
           <input
@@ -255,8 +260,8 @@ console.log('currentProduct.category', currentProduct.category );
           />
         </div>
         <Button type="submit" text="Edit product"/>
-        <Button text="Cancel" onClick={()=> handleCancel}/>
-      </AddProductsForm>
+        <Button text="Cancel" onClick={handleCancel}/>
+      </EditProductsForm>
 
     </div>
   );

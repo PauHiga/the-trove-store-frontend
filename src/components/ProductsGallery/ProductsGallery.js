@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { addProductToCart } from '../../reducers/cartReducer';
 import styled from 'styled-components';
 import ProductCard from '../ProductCard/ProductCard';
-import Button from '../Button/Button';
 
 const StyledProductsGallery = styled.div`
   display: flex;
@@ -18,26 +17,22 @@ const StyledProductsGallery = styled.div`
     text-align:center;
     padding:20px;
   }
+
+  @media (max-width: 480px) { 
+    .product{
+      padding:0px;
+    }
+  }
 `;
 
 const ProductsGallery = ({ products }) => {
-
-  const dispatch = useDispatch()
-
-  const handleAddtoCart = (product) =>{
-    dispatch(addProductToCart(product))
-  }
-
-
   
   return (
     <StyledProductsGallery>
         {products.map(item => {
-          console.log(item)
           return(
           <div className="product" key={item.id}>
             <ProductCard  product={item}/>
-            {/* <Button onClick={()=>handleAddtoCart(item)} text="Add to Cart"/> */}
           </div>
           )
         })

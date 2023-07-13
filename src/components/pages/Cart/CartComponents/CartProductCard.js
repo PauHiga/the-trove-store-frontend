@@ -17,11 +17,9 @@ const StyledCartProductCard = styled.div`
     flex-direction:column;
     padding:10px 20px;
     h4{
-      font-size:20px;
       margin:2px;
     },
     h5{
-      font-size:16px;
       margin:10px 0px;
     }
   }

@@ -27,12 +27,6 @@ const CartContainer = styled.div`
     align-items: center;
     padding-top:40px;
     width:200px;
-    font-size:20px;
-    .emptyCart{
-      display:flex;
-      margin-top:20px;
-      font-size:15px;
-    }
   }
 `;
 
@@ -81,7 +75,7 @@ const Cart = () => {
     <CartContainer>
       {user? 
       <div className="totalCart">
-        Total Cart: $ {total}
+        <h3>Total Cart: $ {total}</h3>
         <PayPalScriptProvider options={{ clientId: "test" }}>
             <PayPalButtons
                 createOrder={(data, actions) => {
@@ -103,8 +97,6 @@ const Cart = () => {
                 }}
             />
         </PayPalScriptProvider>
-        <div className="emptyCart">
-        </div>
       </div>
       :<Button onClick={loginHandler} text="Login to checkout"/>}
       <div className="productsList">

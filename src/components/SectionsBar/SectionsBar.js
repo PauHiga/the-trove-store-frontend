@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 const StyledSectionsBar = styled.div`
   display:flex;
   justify-content: space-around;
-  font-size:23px;
   font-variant: small-caps;
   color: #ce9124;
   padding: 5px;

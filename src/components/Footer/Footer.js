@@ -33,7 +33,6 @@ const StyledFooter = styled.footer`
     margin: 0px 80px 0px 0px;
     padding-left: 50px;
     display: flex;
-    font-size: 20px;
   }
 
   .footer-links div + div {
@@ -62,7 +61,6 @@ const StyledFooter = styled.footer`
   }
 
   .footer-info li {
-    font-size: 14px;
     margin-top: 8px;
   }  
 
@@ -78,7 +76,6 @@ const StyledFooter = styled.footer`
   .footer-content {
     display: flex;
     flex-direction: column;
-    // align-items: flex-start;
     align-items: center;
     padding: 50px 30px 40px 30px;
   }
@@ -103,7 +100,6 @@ const StyledFooter = styled.footer`
     margin: 0px 0px 0px 0px;
     padding-left: 0px;
     display: flex;
-    font-size: 20px;
   }
 
   @media (max-width: 480px) { 
@@ -113,8 +109,6 @@ const StyledFooter = styled.footer`
     padding: 0px 0px 0px 0px;
     display: flex;
     flex-direction: column;
-    font-size: 20px;
-    // border-top: 1px solid black;
   }
 
   .media {

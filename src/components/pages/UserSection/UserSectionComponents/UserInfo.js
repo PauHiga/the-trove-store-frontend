@@ -37,21 +37,20 @@ const StyledUserInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin:20px;
-  font-size:17px;
-  input {
-    margin: 5px;
-  }
+  // margin:20px;
   .form-entry{
     display: flex;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1vh;
+    max-width:100vw;
   }
   label{
-    width:100px;
+    width:20vw;
+    margin-top:10px;
   }
   input{
-    width:250px;
+    width:60vw;
+    margin-top:10px;
   }
 `;
 

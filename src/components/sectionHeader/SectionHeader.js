@@ -14,7 +14,6 @@ const StyledSectionHeader = styled.div`
   justify-content: space-around;
   h1 {
     color: #ce9124;
-    font-size:30px;
     margin:0px;
   }
   width 100%;
