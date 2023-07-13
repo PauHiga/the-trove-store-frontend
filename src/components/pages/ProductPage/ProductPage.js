@@ -55,6 +55,9 @@ const ProductPageContainer = styled.div`
       margin-left:10px;
     }
   }
+  .crossed{
+    text-decoration: line-through
+  }
   @media (max-width: 480px) { 
     .productContainer{
       display:flex;
@@ -105,6 +108,8 @@ const ProductPage = () => {
 
   const availableSizes = Object.keys(currentProduct.stock).filter(key => currentProduct.stock[key] > 0);
 
+  const totalPrice = currentProduct.price-(currentProduct.price*currentProduct.discount/100)
+
   return (
     <div>
       <SectionHeader text={section}/>
@@ -116,7 +121,13 @@ const ProductPage = () => {
           </div>
           <div className="productInfo">
             <h2>{currentProduct.name}</h2>
-            <h3>$ {currentProduct.price}</h3>
+            {currentProduct.discount >0 ? 
+            <>
+              <h3 className='crossed'>${currentProduct.price}</h3>
+            </>
+            : ''
+            }
+            <h3>${totalPrice}</h3>
             <div className="inline"> 
               <Button onClick={handleAddtoCart} text="Add to Cart"/>
               {userMessage}

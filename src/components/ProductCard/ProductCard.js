@@ -16,15 +16,26 @@ const StyledProductCard = styled.nav`
   h4, p {
     margin:0;
   }
+  .crossed{
+    text-decoration: line-through
+  }
 `;
 
 const ProductCard = ({product}) => {
+  const totalPrice = product.price-(product.price*product.discount/100)
+
   return (
       <StyledProductCard>
         <Link to={`/products/${product.id}`}>
           <img src={product.featureImg} alt="" />
           <h4>{product.name}</h4>
-          <p>${product.price}</p>
+          {product.discount >0 ? 
+          <>
+            <p className='crossed'>${product.price}</p>
+          </>
+          : ''
+          }
+          <p>${totalPrice}</p>
         </Link>
       </StyledProductCard>
   )

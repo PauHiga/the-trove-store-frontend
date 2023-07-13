@@ -6,6 +6,7 @@ import SectionHeader from '../../sectionHeader/SectionHeader';
 import CartProductCard from './CartComponents/CartProductCard';
 import EmptyCart from './CartComponents/EmptyCart';
 import Button from '../../Button/Button';
+import ButtonLink from '../../ButtonLink/ButtonLink'
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const CartContainer = styled.div`
@@ -49,7 +50,7 @@ const Cart = () => {
     )
   }
 
-  const total = currentCart.reduce((sum, item) => sum + item.price, 0)
+  const total = currentCart.reduce((sum, item) => sum + item.price-(item.price*item.discount/100), 0)
 
   const loginHandler = () => {
     navigate('/login')
@@ -61,6 +62,7 @@ const Cart = () => {
     })
 
     console.log("user.id",user.id)
+
     const order = {
       products: products,
       completed: false
@@ -76,6 +78,7 @@ const Cart = () => {
       {user? 
       <div className="totalCart">
         <h3>Total Cart: $ {total}</h3>
+        {user.role !== 1 ?
         <PayPalScriptProvider options={{ clientId: "test" }}>
             <PayPalButtons
                 createOrder={(data, actions) => {
@@ -97,10 +100,12 @@ const Cart = () => {
                 }}
             />
         </PayPalScriptProvider>
+        : 'Admin user cannot create an order checkout. Create a user account.'}
       </div>
       :<Button onClick={loginHandler} text="Login to checkout"/>}
       <div className="productsList">
         {currentCart.map(item => <CartProductCard key={`${item.id}${item.selectedSize}`} product={item}/>)}
+      <ButtonLink url="/category/all-products" text="Go Shopping"/>
       </div>
     </CartContainer>
     </>

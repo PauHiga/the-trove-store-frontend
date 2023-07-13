@@ -23,15 +23,26 @@ const StyledCartProductCard = styled.div`
       margin:10px 0px;
     }
   }
+  .crossed{
+    text-decoration: line-through
+  }
 `;
 
 const CartProductCard = ({product}) => {
+
+  const totalPrice = product.price-(product.price*product.discount/100)
   return (
     <StyledCartProductCard>
         <img src={product.featureImg} alt={product.name} />
         <div className="cardDetails">
           <h4>{product.name}</h4>
-          <h4>$ {product.price}</h4>
+          {product.discount >0 ? 
+          <>
+            <h4 className='crossed'>${product.price}</h4>
+          </>
+          : ''
+          }
+          <h4>${totalPrice}</h4>
           <h5>Size: {product.selectedSize}</h5>
           <AddSubtractCart product={product}/>
         </div>
