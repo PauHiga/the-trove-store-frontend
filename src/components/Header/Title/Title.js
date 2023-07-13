@@ -13,15 +13,28 @@ const StyledTitle = styled.div`
   a {
   display: flex;
   }
+
   img {
     width: 30px;
     height: 30px;
-    margin: 7px 10px 0px 0px;
+    margin: 4px 10px 0px 0px;
   }
+  
   h1 {
     margin: 0;
     padding: 5px 0px 0px 0px;
   }
+
+
+  @media (max-width: 340px) { /* Apply styles for mobile devices */
+  h1 {
+    display: none
+  }
+
+  img {
+    margin: 0px 10px 0px 0px;
+  }  
+
 `;
 
 const Title = () => {

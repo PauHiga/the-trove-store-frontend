@@ -20,6 +20,7 @@ const StyledNavBar = styled.nav`
     display: flex;
     align-items: center;
     margin:0px;
+    padding:0px;
     li {
       height:40px;
       a {
@@ -47,7 +48,6 @@ const StyledNavBar = styled.nav`
   .navbar-label {
     display: none
   }
-
 `;
 
 const NavBar = () => {
