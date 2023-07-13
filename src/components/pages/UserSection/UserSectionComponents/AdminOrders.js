@@ -1,0 +1,129 @@
+import styled from 'styled-components';
+import orderService from '../../../../services/orderService';
+import { useSelector } from 'react-redux';
+import Button from '../../../Button/Button';
+import { useEffect, useState } from 'react';
+import CryptoJS from 'crypto-js';
+
+const AdminOrdersContainer = styled.div`
+  margin:50px 0px;
+  .inline-top{
+    display: flex;
+    justify-content: space-between;
+  }
+  .inline{
+    display: flex;
+    justify-content: space-around;
+    font-size:20px
+  }
+  .orders-section{
+    background-color:#f0f3f7;
+    padding:20px;
+    margin:10px;
+    width:90vw;
+  }
+  button{
+  }
+  `;
+  
+  const AdminOrders = () => {
+
+    const user = useSelector(state => state.user)
+    orderService.setToken(user.token)
+    
+    const [orders, setOrders] = useState([])
+
+    useEffect(() => {
+      const getOrders = () => {
+        orderService.getAllOrders().then(data => setOrders(data))
+      }
+      getOrders()
+    }, [])
+
+    const decrypt = (string) => {
+      const bytes = CryptoJS.AES.decrypt(string,'TroveStore')
+      return bytes.toString(CryptoJS.enc.Utf8)
+    }
+
+    console.log('orders', orders)
+
+    if(orders === []){
+      return null
+    }
+
+    const handleCompleted = async (order) => {
+      const modifiedOrder = {...order, user: order.user.id, completed:true}
+      const edited = await orderService.editOrder(modifiedOrder, order.id)
+      console.log(edited);
+      const updatedArray = orders.map((order)=> order.id === edited.id ? {...order, completed:true} : order)
+      setOrders(updatedArray)
+    }
+
+    const handlePending = async (order) => {
+      const modifiedOrder = {...order, user: order.user.id, completed:false}
+      const edited = await orderService.editOrder(modifiedOrder, order.id)
+      console.log(edited);
+      const updatedArray = orders.map((order)=> order.id === edited.id ? {...order, completed:false} : order)
+      setOrders(updatedArray)
+    }
+
+    const OrderCard = (order) => {
+      return(
+        <div className="orders-section" key={order.id}>
+          <div className="inline-top">
+            <h4>User: {decrypt(order.user.name)}</h4>
+            <Button onClick={()=>handleCompleted(order)} text="Mark as completed"/>
+          </div>
+          <div>
+            {order.products.map((product)=> <div key={product}>- {product}</div>)}
+            <div>Created  {order.createdAt.substring(0, 10)}</div>
+          </div>
+          <div className="inline">
+            <div>Deliver to: {decrypt(order.user.address)}</div>
+            <div>Phone: {decrypt(order.user.phone)}</div>
+            <div>Email: {decrypt(order.user.email)}</div>
+          </div>
+        </div>
+      )
+    }
+
+    const CompletedCard = (order) => {
+      return(
+        <div className="orders-section" key={order.id}>
+          <div className="inline-top">
+            <h4>User: {decrypt(order.user.name)}</h4>
+            <Button onClick={()=>handlePending(order)} text="Mark as pending"/>
+          </div>
+          <div>
+            {order.products.map((product)=> <div key={product}>- {product}</div>)}
+            <div>Created  {order.createdAt.substring(0, 10)}</div>
+          </div>
+          <div className="inline">
+            <div>Deliver to: {decrypt(order.user.address)}</div>
+            <div>Phone: {decrypt(order.user.phone)}</div>
+            <div>Email: {decrypt(order.user.email)}</div>
+          </div>
+        </div>
+      )
+    }
+
+
+   return (
+    <>
+        <AdminOrdersContainer>
+          <h2>Orders</h2>
+          <h3>Pending Orders {orders.filter((order) => !order.completed).length}</h3>
+            {orders.map((order) => order.completed ? null : OrderCard(order))}
+          
+          <h3 data-bs-toggle="collapse" data-bs-target="#completed-orders" aria-controls="collapseExample">Completed Orders {orders.filter((order) => order.completed).length}</h3>
+            <div className="collapse" id="completed-orders" >
+              {orders.map((order) => order.completed ? CompletedCard(order) : null)}
+            </div>
+        </AdminOrdersContainer>
+    </>
+
+
+  );
+};
+
+export default AdminOrders

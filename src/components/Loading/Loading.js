@@ -17,7 +17,7 @@ const Loading = () => {
     <StyledLoading>
       <h3>The Trove Store</h3>
       <div className="spinner-grow text-warning" role="status">
-        <span class="sr-only"></span>
+        <span className="sr-only"></span>
       </div>
     </StyledLoading>
   )

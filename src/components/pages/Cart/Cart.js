@@ -62,13 +62,17 @@ const Cart = () => {
   }
 
   const orderHandler = async () => {
-    const products = currentCart.map((item)=> `${item.name - item.selectedSize}`)
+    const products = currentCart.map((item)=> {
+      return `${item.name} - ${item.selectedSize}`
+    })
+
+    console.log("user.id",user.id)
     const order = {
-      user: user.username,
       products: products,
       completed: false
     }
-    await orderService.createOrder(order)
+    const placedOrder = await orderService.createOrder(order)
+    console.log('placedOrder', placedOrder)
   }
 
   return (
@@ -92,12 +96,10 @@ const Cart = () => {
                     });
                 }}
                 onApprove={(data, actions) => {
-                    return actions.order.capture()
-                    .then((details) => {
+                    return actions.order.capture().then((details) => {
                         const name = details.payer.name.given_name;
                         alert(`Transaction completed by ${name}`);
-                    })
-                    .then(()=>orderHandler);
+                    }).then(orderHandler);
                 }}
             />
         </PayPalScriptProvider>

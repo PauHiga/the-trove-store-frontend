@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import AddSubtractCart from '../../../AddSubtractCart/AddSubtractCart';
-import ButtonLink from '../../../ButtonLink/ButtonLink'
-import mock from '../../../../images/img1.png'
 
 const StyledCartProductCard = styled.div`
   display: flex;
@@ -32,7 +30,7 @@ const StyledCartProductCard = styled.div`
 const CartProductCard = ({product}) => {
   return (
     <StyledCartProductCard>
-        <img src={mock} alt={product.name} />
+        <img src={product.featureImg} alt={product.name} />
         <div className="cardDetails">
           <h4>{product.name}</h4>
           <h4>$ {product.price}</h4>

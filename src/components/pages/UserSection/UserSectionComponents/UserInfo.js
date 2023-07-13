@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CryptoJS from 'crypto-js';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getUserInfo, updateUser } from '../../../../reducers/userReducer';
 import userService from '../../../../services/userService';
 import ScrollToTop from '../../../ScrollToTop/ScrollToTop';
