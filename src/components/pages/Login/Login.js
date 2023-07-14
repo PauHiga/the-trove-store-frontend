@@ -60,7 +60,7 @@ const Login = () => {
       ) 
       dispatch(setUser(user.data))
 
-      navigate('/');
+      navigate(-1);
       setTimeout(() => {
         setIncorrectCredentials('');
       }, 4000);

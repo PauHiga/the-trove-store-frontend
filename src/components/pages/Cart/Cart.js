@@ -29,6 +29,12 @@ const CartContainer = styled.div`
     padding-top:40px;
     width:200px;
   }
+
+  @media (max-width: 480px) { 
+    .totalCart{
+      padding-top:5px;
+    }
+  }
 `;
 
 const Cart = () => {
@@ -75,34 +81,36 @@ const Cart = () => {
     <>
     <SectionHeader text="Cart"/>
     <CartContainer>
-      {user? 
       <div className="totalCart">
-        <h3>Total Cart: $ {total}</h3>
-        {user.role !== 1 ?
-        <PayPalScriptProvider options={{ clientId: "test" }}>
-            <PayPalButtons
-                createOrder={(data, actions) => {
-                    return actions.order.create({
-                        purchase_units: [
-                            {
-                                amount: {
-                                    value: total,
-                                },
-                            },
-                        ],
-                    });
-                }}
-                onApprove={(data, actions) => {
-                    return actions.order.capture().then((details) => {
-                        const name = details.payer.name.given_name;
-                        alert(`Transaction completed by ${name}`);
-                    }).then(orderHandler);
-                }}
-            />
-        </PayPalScriptProvider>
-        : 'Admin user cannot create an order checkout. Create a user account.'}
+      {user? 
+          <>
+          <h3>Total Cart: $ {total}</h3>
+          {user.role !== 1 ?
+          <PayPalScriptProvider options={{ clientId: "test" }}>
+              <PayPalButtons
+                  createOrder={(data, actions) => {
+                      return actions.order.create({
+                          purchase_units: [
+                              {
+                                  amount: {
+                                      value: total,
+                                  },
+                              },
+                          ],
+                      });
+                  }}
+                  onApprove={(data, actions) => {
+                      return actions.order.capture().then((details) => {
+                          const name = details.payer.name.given_name;
+                          alert(`Transaction completed by ${name}`);
+                      }).then(orderHandler);
+                  }}
+              />
+          </PayPalScriptProvider>
+          : 'Admin user cannot create an order checkout. Create a user account.'}
+          </>
+        :<Button onClick={loginHandler} text="Login to checkout"/>}
       </div>
-      :<Button onClick={loginHandler} text="Login to checkout"/>}
       <div className="productsList">
         {currentCart.map(item => <CartProductCard key={`${item.id}${item.selectedSize}`} product={item}/>)}
       <ButtonLink url="/category/all-products" text="Go Shopping"/>

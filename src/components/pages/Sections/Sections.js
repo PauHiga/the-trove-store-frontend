@@ -25,19 +25,12 @@ import NoProducts from './NoProducts/NoProducts';
   }
 
   @media (max-width: 480px) { 
-    display:flex;
     flex-direction:column;
-    margin-top:10px;
     .allCategories{
-      font-variant: small-caps;
-      color: #ce9124;
       padding: 0px;
-      li{
-        margin-top:15px;
-      }
     }
     .displayProducts{
-      display:flex;
+      justify-content: center;
       margin:0px 0px;
     }
     }
