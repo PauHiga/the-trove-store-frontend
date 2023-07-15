@@ -20,14 +20,19 @@ const StyledTitle = styled.div`
     margin: 4px 10px 0px 0px;
   }
   
-  h1 {
+  #main-title {
     margin: 0;
     padding: 5px 0px 0px 0px;
   }
 
 
+  @media (max-width: 480px) { 
+  #main-title {
+    font-size: 30px;
+  }
+
   @media (max-width: 340px) { 
-  h1 {
+  #main-title {
     display: none
   }
 
@@ -41,7 +46,7 @@ const Title = () => {
   return (
     <StyledTitle>
       <Link to="/"><img src={logo} alt="icon search" />
-        <h1>The Trove Store</h1></Link>
+        <h1 id='main-title'>The Trove Store</h1></Link>
     </StyledTitle>
   )
 }
