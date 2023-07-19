@@ -16,7 +16,6 @@
     "axios": "^1.4.0",
     "bootstrap": "^4.6.0",
     "crypto-js": "^4.1.1",
-    "dotenv": "^16.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
@@ -31,7 +30,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint": "eslint .",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -50,5 +51,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "cypress": "^12.17.1",
+    "cypress-file-upload": "^5.0.8",
+    "eslint": "^8.45.0",
+    "eslint-plugin-cypress": "^2.13.3",
+    "prettier": "3.0.0"
   }
 }

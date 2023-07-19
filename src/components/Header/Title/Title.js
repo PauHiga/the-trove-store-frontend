@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from 'styled-components';
-import { Link } from 'react-router-dom'
-import logo from './images/logo.svg'
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import logo from "./images/logo.svg";
 
 const StyledTitle = styled.div`
   font-family: 'Zeyada', cursive;
@@ -39,11 +39,13 @@ const StyledTitle = styled.div`
 
 const Title = () => {
   return (
-    <StyledTitle>
-      <Link to="/"><img src={logo} alt="icon search" />
-        <h1>The Trove Store</h1></Link>
+    <StyledTitle id="the-trove-store-home">
+      <Link to="/">
+        <img src={logo} alt="icon search" />
+        <h1>The Trove Store</h1>
+      </Link>
     </StyledTitle>
-  )
-}
+  );
+};
 
-export default Title
+export default Title;

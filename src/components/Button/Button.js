@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const StyledButton = styled.button`
   font-variant: small-caps;
@@ -8,13 +8,15 @@ const StyledButton = styled.button`
   color: white;
   border: none;
   padding: 5px 10px 5px 10px;
-  margin:3px;
+  margin: 3px;
 `;
 
-const Button = ({type="button", onClick=null, text}) => {
+const Button = ({ type = "button", onClick = null, text }) => {
   return (
-    <StyledButton type={type} onClick={onClick}>{text}</StyledButton>
-  )
-}
+    <StyledButton type={type} onClick={onClick}>
+      {text}
+    </StyledButton>
+  );
+};
 
-export default Button
+export default Button;

@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const StyledLoading = styled.div`
   width: 100vw;
@@ -20,7 +20,7 @@ const Loading = () => {
         <span className="sr-only"></span>
       </div>
     </StyledLoading>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;

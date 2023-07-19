@@ -1,131 +1,128 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import productsService from '../../../services/productsService';
-import { createProduct } from '../../../reducers/productsReducer';
-import { useNavigate } from 'react-router-dom';
-import SectionHeader from '../../sectionHeader/SectionHeader';
-import CategoriesCheckboxes from '../../CategoriesCheckboxes/CategoriesCheckboxes';
-import Button from '../../Button/Button'
-import toast, { Toaster } from 'react-hot-toast';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import productsService from "../../../services/productsService";
+import { createProduct } from "../../../reducers/productsReducer";
+import { useNavigate } from "react-router-dom";
+import SectionHeader from "../../sectionHeader/SectionHeader";
+import CategoriesCheckboxes from "../../CategoriesCheckboxes/CategoriesCheckboxes";
+import Button from "../../Button/Button";
+import toast, { Toaster } from "react-hot-toast";
 
 const AddProductsForm = styled.form`
   display: flex;
   flex-direction: column;
   max-width: 70vw;
   margin: 5vh auto;
-  .form-entry{
+  .form-entry {
     margin-bottom: 1rem;
   }
-  input{
+  input {
     margin: 1vw;
   }
-  .stock{
-    display:flex;
+  .stock {
+    display: flex;
   }
 
-  @media (max-width: 480px) { 
-    .stock{
-      display:flex;
-      flex-direction:column;
+  @media (max-width: 480px) {
+    .stock {
+      display: flex;
+      flex-direction: column;
     }
   }
 `;
 
 const AddProducts = () => {
+  const [name, setName] = useState("");
+  const [featureImg, setFeatureImg] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [stockU, setStockU] = useState(0);
+  const [stockS, setStockS] = useState(0);
+  const [stockM, setStockM] = useState(0);
+  const [stockL, setStockL] = useState(0);
+  const [stockXL, setStockXL] = useState(0);
+  const [section, setSection] = useState("women");
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [discount, setDiscount] = useState(0);
+  const [productWithSize, setProductWithSize] = useState(true);
 
-  const [name, setName] = useState('')
-  const [featureImg, setFeatureImg] = useState('')
-  const [description, setDescription] = useState('')
-  const [price, setPrice] = useState(0)
-  const [stockU, setStockU] = useState(0)
-  const [stockS, setStockS] = useState(0)
-  const [stockM, setStockM] = useState(0)
-  const [stockL, setStockL] = useState(0)
-  const [stockXL, setStockXL] = useState(0)
-  const [section, setSection] = useState('women')
-  const [selectedCategories, setSelectedCategories] = useState([])
-  const [discount, setDiscount] = useState(0)
-  const [productWithSize, setProductWithSize] = useState(true)
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const user = useSelector(state => state.user)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
   const allowProductWithSize = () => {
-    setProductWithSize(true)
-  }
+    setProductWithSize(true);
+  };
   const allowProductWithUniqueSize = () => {
-    setProductWithSize(false)
-  }
+    setProductWithSize(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let stock = {}
+    let stock = {};
     if (productWithSize) {
-      stock = {"U":0, "S": stockS,"M": stockM,"L": stockL,"XL": stockXL }
-    }
-    else{
-      stock = {"U": stockU, "S": 0,"M": 0,"L": 0,"XL": 0 }
+      stock = { U: 0, S: stockS, M: stockM, L: stockL, XL: stockXL };
+    } else {
+      stock = { U: stockU, S: 0, M: 0, L: 0, XL: 0 };
     }
 
-    const keysArray = Object.keys(stock)
-    const stockLargerThanZero = keysArray.reduce((sum, item) => sum + stock[item], 0)
-    
-    console.log('stockLargerThanZero', stockLargerThanZero);
-    if(name === '' || featureImg === '' || description=== ''){
-      toast("Please add a name, image, and description for the new product.")
-    }
-    else if(isNaN(stockLargerThanZero) || stockLargerThanZero <= 0){
-      toast("The total stock should be a number larger than 0")
-    }
-    else if(isNaN(price) || price <= 0){
-      toast("The price should be a number larger than 0")
-    }
-    else if( isNaN(discount) || discount < 0 || discount > 100 ){
-      toast("The discount should be a number between 0 and 100")
-    }
-    
-    else{
+    const keysArray = Object.keys(stock);
+    const stockLargerThanZero = keysArray.reduce(
+      (sum, item) => sum + stock[item],
+      0,
+    );
+
+    console.log("stockLargerThanZero", stockLargerThanZero);
+    if (name === "" || featureImg === "" || description === "") {
+      toast("Please add a name, image, and description for the new product.");
+    } else if (isNaN(stockLargerThanZero) || stockLargerThanZero <= 0) {
+      toast("The total stock should be a number larger than 0");
+    } else if (isNaN(price) || price <= 0) {
+      toast("The price should be a number larger than 0");
+    } else if (isNaN(discount) || discount < 0 || discount > 100) {
+      toast("The discount should be a number between 0 and 100");
+    } else {
       try {
-        productsService.setToken(user.token)
-          
-        const formData  = new FormData();
-        formData.append('name', name);
-        formData.append('featureImg', featureImg);
-        formData.append('description', description);
-        formData.append('price', price);
-        formData.append('stock', JSON.stringify(stock));
-        formData.append('section', section);
-        formData.append('category', selectedCategories);
-        formData.append('discount', discount);
+        productsService.setToken(user.token);
 
-        console.log(formData)
-        
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("featureImg", featureImg);
+        formData.append("description", description);
+        formData.append("price", price);
+        formData.append("stock", JSON.stringify(stock));
+        formData.append("section", section);
+        formData.append("category", selectedCategories);
+        formData.append("discount", discount);
+
+        console.log(formData);
+
         const createdProduct = await productsService.createProduct(formData);
-        dispatch(createProduct(createdProduct))
+        dispatch(createProduct(createdProduct));
         console.log("createdProduct", createdProduct);
-        navigate('/user-section')
+        navigate("/user-section");
       } catch (error) {
         console.log(error);
-      }  
+      }
     }
-    
   };
-  
+
   const handleCancel = () => {
-    const confirm = window.confirm("Are you sure you want to cancel? No changes will be submitted")
-    if(confirm){
-      navigate('/user-section')
+    const confirm = window.confirm(
+      "Are you sure you want to cancel? No changes will be submitted",
+    );
+    if (confirm) {
+      navigate("/user-section");
     }
-  }
+  };
 
   console.log(featureImg);
   return (
     <div>
       <Toaster />
-      <SectionHeader text="Add New Product"/>
-      <AddProductsForm onSubmit={handleSubmit}>  
+      <SectionHeader text="Add New Product" />
+      <AddProductsForm onSubmit={handleSubmit}>
         <div className="form-entry">
           <label htmlFor="name">Product name:</label>
           <input
@@ -136,20 +133,25 @@ const AddProducts = () => {
           />
         </div>
         <div className="form-entry">
-          <label htmlFor="featureImg">Image url:
-          {featureImg ? featureImg.name : " Upload image"}
-          <input
-            type="file"
-            id="featureImg"
-            accept="image/*"
-            onChange={(e) => setFeatureImg(e.target.files[0])}
-            hidden
-          />
+          <label htmlFor="featureImg">
+            Image url:
+            {featureImg ? featureImg.name : " Upload image"}
+            <input
+              type="file"
+              id="featureImg"
+              accept="image/*"
+              onChange={(e) => setFeatureImg(e.target.files[0])}
+              hidden
+            />
           </label>
           <div>
-            {featureImg &&
-            <img src={URL.createObjectURL(featureImg)} alt="product_photo" height={'200px'} />
-            }
+            {featureImg && (
+              <img
+                src={URL.createObjectURL(featureImg)}
+                alt="product_photo"
+                height={"200px"}
+              />
+            )}
           </div>
         </div>
         <div className="form-entry">
@@ -177,7 +179,7 @@ const AddProducts = () => {
               <input
                 disabled={productWithSize}
                 type="text"
-                id="price"
+                id="stockU"
                 value={stockU}
                 onChange={(e) => setStockU(e.target.value)}
               />
@@ -189,17 +191,17 @@ const AddProducts = () => {
               <input
                 disabled={!productWithSize}
                 type="text"
-                id="price"
+                id="stockS"
                 value={stockS}
                 onChange={(e) => setStockS(e.target.value)}
               />
             </div>
             <div className="form-entry">
-              <label htmlFor="stockS">Product stock M: (numbers only)</label>
+              <label htmlFor="stockM">Product stock M: (numbers only)</label>
               <input
                 disabled={!productWithSize}
                 type="text"
-                id="price"
+                id="stockM"
                 value={stockM}
                 onChange={(e) => setStockM(e.target.value)}
               />
@@ -207,9 +209,9 @@ const AddProducts = () => {
             <div className="form-entry">
               <label htmlFor="stockL">Product stock L: (numbers only)</label>
               <input
-                disabled={!productWithSize}              
+                disabled={!productWithSize}
                 type="text"
-                id="price"
+                id="stockL"
                 value={stockL}
                 onChange={(e) => setStockL(e.target.value)}
               />
@@ -217,9 +219,9 @@ const AddProducts = () => {
             <div className="form-entry">
               <label htmlFor="stockXL">Product stock XL: (numbers only)</label>
               <input
-                disabled={!productWithSize}              
+                disabled={!productWithSize}
                 type="text"
-                id="price"
+                id="stockXL"
                 value={stockXL}
                 onChange={(e) => setStockXL(e.target.value)}
               />
@@ -236,12 +238,14 @@ const AddProducts = () => {
         </div>
         <div className="form-entry">
           <label htmlFor="selectedCategories">Select categories:</label>
-          <CategoriesCheckboxes selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
+          <CategoriesCheckboxes
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+          />
         </div>
         <div className="form-entry">
           <div>
-          <label htmlFor="name">Discount: (numbers only)</label>
-
+            <label htmlFor="name">Discount: (numbers only)</label>
           </div>
           <input
             type="text"
@@ -250,13 +254,11 @@ const AddProducts = () => {
             onChange={(e) => setDiscount(e.target.value)}
           />
         </div>
-        <Button type="submit" text="Add product"/>
-        <Button text="Cancel" onClick={handleCancel}/>
+        <Button type="submit" text="Add Product" />
+        <Button text="Cancel" onClick={handleCancel} />
       </AddProductsForm>
-
     </div>
-
   );
 };
 
-export default AddProducts
+export default AddProducts;
