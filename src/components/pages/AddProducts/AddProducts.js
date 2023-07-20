@@ -4,25 +4,31 @@ import styled from 'styled-components';
 import productsService from '../../../services/productsService';
 import { createProduct } from '../../../reducers/productsReducer';
 import { useNavigate } from 'react-router-dom';
+import SectionHeader from '../../sectionHeader/SectionHeader';
 import CategoriesCheckboxes from '../../CategoriesCheckboxes/CategoriesCheckboxes';
 import Button from '../../Button/Button'
+import toast, { Toaster } from 'react-hot-toast';
 
 const AddProductsForm = styled.form`
   display: flex;
   flex-direction: column;
   max-width: 70vw;
-  margin: 0 auto;
+  margin: 5vh auto;
   .form-entry{
     margin-bottom: 1rem;
   }
   input{
-    padding: 0.5rem;
-    // border: 1px solid #ccc;
-    border-radius: 4px;
+    margin: 1vw;
   }
   .stock{
     display:flex;
+  }
 
+  @media (max-width: 480px) { 
+    .stock{
+      display:flex;
+      flex-direction:column;
+    }
   }
 `;
 
@@ -65,10 +71,21 @@ const AddProducts = () => {
 
     const keysArray = Object.keys(stock)
     const stockLargerThanZero = keysArray.reduce((sum, item) => sum + stock[item], 0)
-
-    if(name === '' || featureImg === '' || description=== ''|| stockLargerThanZero === 0){
-      console.log("please fill name, featureImg, description and make stock larger than 0")
+    
+    console.log('stockLargerThanZero', stockLargerThanZero);
+    if(name === '' || featureImg === '' || description=== ''){
+      toast("Please add a name, image, and description for the new product.")
     }
+    else if(isNaN(stockLargerThanZero) || stockLargerThanZero <= 0){
+      toast("The total stock should be a number larger than 0")
+    }
+    else if(isNaN(price) || price <= 0){
+      toast("The price should be a number larger than 0")
+    }
+    else if( isNaN(discount) || discount < 0 || discount > 100 ){
+      toast("The discount should be a number between 0 and 100")
+    }
+    
     else{
       try {
         productsService.setToken(user.token)
@@ -82,6 +99,8 @@ const AddProducts = () => {
         formData.append('section', section);
         formData.append('category', selectedCategories);
         formData.append('discount', discount);
+
+        console.log(formData)
         
         const createdProduct = await productsService.createProduct(formData);
         dispatch(createProduct(createdProduct))
@@ -104,8 +123,9 @@ const AddProducts = () => {
   console.log(featureImg);
   return (
     <div>
-      <h2>Add New Product</h2>
-      <AddProductsForm onSubmit={handleSubmit}>
+      <Toaster />
+      <SectionHeader text="Add New Product"/>
+      <AddProductsForm onSubmit={handleSubmit}>  
         <div className="form-entry">
           <label htmlFor="name">Product name:</label>
           <input
@@ -231,7 +251,7 @@ const AddProducts = () => {
           />
         </div>
         <Button type="submit" text="Add product"/>
-        <Button text="Cancel" onClick={()=> handleCancel}/>
+        <Button text="Cancel" onClick={handleCancel}/>
       </AddProductsForm>
 
     </div>

@@ -17,7 +17,6 @@ const StyledRegister = styled.div`
   flex-direction: column;
   font-variant: small-caps;
   margin:20px;
-  font-size: 20px;
   h2{
     color: #ce9124;
   }  

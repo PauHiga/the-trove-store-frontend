@@ -1,33 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import productsService from '../services/productsService'
 
-const initial = [
-  {
-  name: "Summer Dress",
-  featureImg: "img01",
-  description: "Summer dress",
-  price: 10,
-  stock: {
-  S: "10",
-  M: "10",
-  L: "10",
-  XL: "10"
-  },
-  section: "women",
-  category: [
-  {
-  category: "Dress",
-  id: "649f540c198131e81471f8fd"
-  }
-  ],
-  discount: 10,
-  id: "6496266fbbb32abc3047758d"
-  }
-  ]
-
 const productSlice = createSlice({
   name: "products", 
-  initialState: initial,
+  initialState: [],
   reducers: {
     setAllProducts(state, action){
       return action.payload
@@ -53,6 +29,7 @@ const productSlice = createSlice({
 export const initializeProducts = () => {
   return async (dispatch) => {
     const allProducts = await productsService.getAll()
+    console.log(allProducts)
     dispatch(setAllProducts(allProducts))
   }
 }

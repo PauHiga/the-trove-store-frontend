@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import categoryService from '../../../../services/categoryService';
 import { editCategoryReducer } from '../../../../reducers/categoriesReducer';
 import Button from '../../../Button/Button';
+import toast, { Toaster } from 'react-hot-toast';
 
 const StyledEditCategories = styled.div`
   margin: 10px;
@@ -30,8 +31,10 @@ const EditCategories = ({item}) => {
         const successfullyEditedCategory = await categoryService.editCategory(categoryToEdit, category.id)
         dispatch(editCategoryReducer(successfullyEditedCategory))
         setEditedCategory('')
+        toast.success(`Category edited`)
       }
       catch (error){
+        toast(`There was an error editing this category`)
         console.log(error)
       }
     }
@@ -39,7 +42,8 @@ const EditCategories = ({item}) => {
 
   return (
     <StyledEditCategories>
-      <h5 data-bs-toggle="collapse" data-bs-target={"#" + item.category} aria-controls="collapseExample">
+      <Toaster />
+      <h5 data-bs-toggle="collapse" data-bs-target={"#" + item.category} aria-controls="collapse">
       {item.category}
       </h5>
       <div className="collapse" id={item.category}>

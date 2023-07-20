@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 const ButtonLink = ({url, text}) => {
 
-  console.log(url)
-
   const navigate = useNavigate()
 
   const buttonHandler = () => {

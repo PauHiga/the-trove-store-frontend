@@ -14,16 +14,27 @@ const StyledServicesBar = styled.div`
   display: flex;
   justify-content: space-evenly;
   color: black;
+
   img {
     width: 40px;
     height: 40px;
     margin: 5px;
   }
+
   div {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    margin: 5px;
   }
+
+  @media (max-width: 480px) { 
+  flex-wrap: wrap;
+
+  div {
+    flex-basis: calc(50% - 10px);
+  }  
 `;
 
 const ServicesBar = () => {

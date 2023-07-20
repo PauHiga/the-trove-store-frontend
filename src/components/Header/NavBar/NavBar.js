@@ -20,6 +20,7 @@ const StyledNavBar = styled.nav`
     display: flex;
     align-items: center;
     margin:0px;
+    padding:0px;
     li {
       height:40px;
       a {
@@ -43,35 +44,34 @@ const StyledNavBar = styled.nav`
     }
   }
 
-  @media (max-width: 480px) { /* Apply styles for mobile devices */
-  p {
+  @media (max-width: 480px) { 
+  .navbar-label {
     display: none
   }
-
 `;
 
 const NavBar = () => {
   const user = useSelector(state => state.user)
   const currentCart = useSelector(state => state.cart)
-  const amountItemsInCart = currentCart.reduce((sum, item)=> sum + item.amount, 0)
+  const amountItemsInCart = currentCart.reduce((sum, item) => sum + item.amount, 0)
   return (
-      <StyledNavBar>
-        <div>
-          <ul>
-            <li>
-              {user ? 
-              <Link to="/user-section"><img src={iconLogin} alt="icon search" /><p>{user.username} logged in</p></Link>           
-              : <Link to="/login"><img src={iconLogin} alt="icon search" /><p>Login</p></Link>           
-              }
-            </li>
-            <li>
-              <Badge count={amountItemsInCart} color='#ce9124' offset={[-10,0]}>
-              <Link to="/cart"><img src={iconCart} alt="icon search" /><p>Cart</p></Link>           
+    <StyledNavBar>
+      <div>
+        <ul>
+          <li>
+            {user ?
+              <Link to="/user-section"><img src={iconLogin} alt="icon search" /><span className='navbar-label'>{user.username} logged in</span></Link>
+              : <Link to="/login"><img src={iconLogin} alt="icon search" /><span className='navbar-label'>Login</span></Link>
+            }
+          </li>
+          <li>
+            <Badge count={amountItemsInCart} color='#ce9124' offset={[-10, 0]}>
+              <Link to="/cart"><img src={iconCart} alt="icon search" /><span className='navbar-label'>Cart</span></Link>
             </Badge>
-            </li>
-          </ul>
-        </div>
-      </StyledNavBar>
+          </li>
+        </ul>
+      </div>
+    </StyledNavBar>
   )
 }
 

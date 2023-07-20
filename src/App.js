@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { initializeProducts } from './reducers/productsReducer'
@@ -15,9 +16,9 @@ import UserSection from './components/pages/UserSection/UserSection';
 import ProductPage from './components/pages/ProductPage/ProductPage'
 import Cart from './components/pages/Cart/Cart'
 import { setUser } from './reducers/userReducer';
-import userService from './services/userService';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Register from './components/pages/Register/Register';
+import Loading from './components/Loading/Loading';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,8 +33,6 @@ function App() {
         if (localUser) {
           const parseUser = JSON.parse(localUser);
           dispatch(setUser(parseUser))
-          // userService.setToken(parseUser.token);
-          // await dispatch(getUserInfo());
         }
         setIsLoading(false);
       } catch (error) {
@@ -47,7 +46,7 @@ function App() {
   // console.log(productsState)
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
   
   return (

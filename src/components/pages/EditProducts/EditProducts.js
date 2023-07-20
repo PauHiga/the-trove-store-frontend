@@ -5,47 +5,54 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editProduct } from '../../../reducers/productsReducer';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import SectionHeader from '../../sectionHeader/SectionHeader';
 import CategoriesCheckboxes from '../../CategoriesCheckboxes/CategoriesCheckboxes';
 import Button from '../../Button/Button';
+import toast, { Toaster } from 'react-hot-toast';
 
-const AddProductsForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  max-width: 70vw;
-  margin: 0 auto;
-  .form-entry{
-    margin-bottom: 1rem;
-  }
-  input{
-    padding: 0.5rem;
-    // border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+const EditProductsForm = styled.form`
+display: flex;
+flex-direction: column;
+max-width: 70vw;
+margin: 5vh auto;
+.form-entry{
+  margin-bottom: 1rem;
+}
+input{
+  margin: 1vw;
+}
+.stock{
+  display:flex;
+}
+
+.stock-option-disabled{
+  color:#e4e7ed; 
+}
+
+@media (max-width: 480px) { 
   .stock{
     display:flex;
-
+    flex-direction:column;
   }
+}
 `;
 
 const EditProducts = () => {
 
-    const id = useParams().id
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const user = useSelector(state => state.user)
-    
-    const currentProduct = useSelector(state => state.products.find(item => item.id === id))
+  const id = useParams().id
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const user = useSelector(state => state.user)
+  
+  const currentProduct = useSelector(state => state.products.find(item => item.id === id))
 
-    console.log(currentProduct);
+  console.log(currentProduct);
 
-    const state = useSelector(state => state.products)
+  const state = useSelector(state => state.products)
 
-    console.log("state", state);
+  console.log("state", state);
 
-    const arrayOfCategoriesID = currentProduct.category.map(item=> item.id)
-    
-console.log('currentProduct.category', currentProduct.category );
-console.log('arrayOfCategoriesID', arrayOfCategoriesID );
+  const productCategories = currentProduct.category.length > 0 ? currentProduct.category.map(item => item.id) : [];
 
   const [name, setName] = useState(currentProduct.name)
   const [featureImg, setFeatureImg] = useState('')
@@ -57,7 +64,7 @@ console.log('arrayOfCategoriesID', arrayOfCategoriesID );
   const [stockL, setStockL] = useState(currentProduct.stock.L)
   const [stockXL, setStockXL] = useState(currentProduct.stock.XL)
   const [section, setSection] = useState(currentProduct.section)
-  const [selectedCategories, setSelectedCategories] = useState(arrayOfCategoriesID)
+  const [selectedCategories, setSelectedCategories] = useState(productCategories)
   const [discount, setDiscount] = useState(currentProduct.discount)
   const [productWithSize, setProductWithSize] = useState(true)
 
@@ -79,25 +86,25 @@ console.log('arrayOfCategoriesID', arrayOfCategoriesID );
     else{
       stock = {"U": stockU, "S": 0,"M": 0,"L": 0,"XL": 0 }
     }
-
     const keysArray = Object.keys(stock)
     const stockLargerThanZero = keysArray.reduce((sum, item) => sum + stock[item], 0)
-
-    if(name === '' || featureImg === '' || description=== ''|| stockLargerThanZero === 0){
-      console.log("please fill name, featureImg, description and make stock larger than 0")
+    
+    console.log('stockLargerThanZero', stockLargerThanZero);
+    if(name === ''){
+      toast("Please add a name for the product.")
+    }
+    else if(isNaN(stockLargerThanZero) || stockLargerThanZero <= 0){
+      toast("The total stock should be a number larger than 0")
+    }
+    else if(isNaN(price) || price <= 0){
+      toast("The price should be a number larger than 0")
+    }
+    else if( isNaN(discount) || discount < 0 || discount > 100 ){
+      toast("The discount should be a number between 0 and 100")
     }
     else{
       try {     
         productsService.setToken(user.token)
-
-        let stock = {}
-
-        if (productWithSize) {
-          stock = {"U":0, "S": stockS,"M": stockM,"L": stockL,"XL": stockXL }
-        }
-        else{
-          stock = {"U": stockU, "S": 0,"M": 0,"L": 0,"XL": 0 }
-        }
 
         const formData  = new FormData();
         formData.append('name', name);
@@ -126,12 +133,11 @@ console.log('arrayOfCategoriesID', arrayOfCategoriesID );
     }
   }
 
-  console.log(selectedCategories)
-
   return (
     <div>
-      <h2>Add New Product</h2>
-      <AddProductsForm onSubmit={handleSubmit}>
+      <Toaster />
+      <SectionHeader text="Edit Product"/>
+      <EditProductsForm onSubmit={handleSubmit}>
         <div className="form-entry">
           <label htmlFor="name">Product name:</label>
           <input
@@ -177,7 +183,7 @@ console.log('arrayOfCategoriesID', arrayOfCategoriesID );
           />
         </div>
         <div className="stock">
-          <div className="stock-option" onClick={allowProductWithUniqueSize}>
+          <div className={!productWithSize ? "stock-option" : "stock-option-disabled"} onClick={allowProductWithUniqueSize}>
             <div className="form-entry">
               <label htmlFor="stockU">Product stock: (numbers only)</label>
               <input
@@ -189,7 +195,7 @@ console.log('arrayOfCategoriesID', arrayOfCategoriesID );
               />
             </div>
           </div>
-          <div className="stock-option" onClick={allowProductWithSize}>
+          <div className={productWithSize ? "stock-option" : "stock-option-disabled"} onClick={allowProductWithSize}>
             <div className="form-entry">
               <label htmlFor="stockS">Product stock S: (numbers only)</label>
               <input
@@ -257,8 +263,8 @@ console.log('arrayOfCategoriesID', arrayOfCategoriesID );
           />
         </div>
         <Button type="submit" text="Edit product"/>
-        <Button text="Cancel" onClick={()=> handleCancel}/>
-      </AddProductsForm>
+        <Button text="Cancel" onClick={handleCancel}/>
+      </EditProductsForm>
 
     </div>
   );
