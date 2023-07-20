@@ -15,14 +15,6 @@ const ScrollToTop = () => {
     }, 100);
   }, [pathname]);
   
-  
-  // useEffect(() => {
-  //   console.log("useEffect")
-  //   window.scrollTo({
-  //     top: 0,
-  //     behavior: 'smooth',
-  // });
-  // }, [pathname]);
 }
 
 export default ScrollToTop;
