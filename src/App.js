@@ -42,9 +42,6 @@ function App() {
     fetchData();
   }, [dispatch]);
   
-  // let productsState = useSelector(state => state)
-  // console.log(productsState)
-
   if (isLoading) {
     return <Loading/>;
   }

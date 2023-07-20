@@ -38,7 +38,6 @@ const RegisterForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  // margin:20px;
   .form-entry{
     display: flex;
     align-items: center;
