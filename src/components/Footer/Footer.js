@@ -72,7 +72,7 @@ const StyledFooter = styled.footer`
     padding-right:20px;
   }
 
-  @media (max-width: 820px) { 
+  @media (max-width: 1000px) { 
   .footer-content {
     display: flex;
     flex-direction: column;
