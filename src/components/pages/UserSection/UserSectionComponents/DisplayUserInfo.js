@@ -9,7 +9,6 @@ gap: 10px;
 width: max-content;
 margin: 10px auto 20px auto;
 grid-column-gap: 25px;
-font-size:20px;
 
 .line{
   display: grid;
@@ -27,14 +26,11 @@ const DisplayUserInfo = ({name, address, phone, email}) => {
         <div className="userInfoKey">Name</div>
         <div className="userInfoValue">{name}</div>
 
-
         <div className="userInfoKey">E-mail</div>
         <div className="userInfoValue">{email}</div>
 
-
         <div className="userInfoKey">Address</div>
         <div className="userInfoValue">{address}</div>
-
 
         <div className="userInfoKey">Phone</div>
         <div className="userInfoValue">{phone}</div>

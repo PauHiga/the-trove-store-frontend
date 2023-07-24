@@ -11,7 +11,6 @@ const cartSlice = createSlice({
       console.log("ap", action.payload)
       const newCartItemId = action.payload.id
       const newCartItemSize = action.payload.selectedSize
-      // const isRepeated = state.find(item => item.id === newCartItemId && item.selectedSize === newCartItemSize)
       const isRepeated = state.find(item => {
         if (item.id === newCartItemId && item.selectedSize ===  newCartItemSize){
           return true

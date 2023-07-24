@@ -26,7 +26,6 @@ const AdminProductsContainer = styled.div`
   `;
   
   const AdminProducts = () => {
-
     const user = useSelector(state => state.user)
     productsService.setToken(user.token)
     categoryService.setToken(user.token)
@@ -48,8 +47,6 @@ const AdminProductsContainer = styled.div`
     navigate(`/edit-products/${id}`);
   }
 
-
-
    return (
     <>
         <AdminProductsContainer>
@@ -70,8 +67,6 @@ const AdminProductsContainer = styled.div`
             </div>
         </AdminProductsContainer>
     </>
-
-
   );
 };
 

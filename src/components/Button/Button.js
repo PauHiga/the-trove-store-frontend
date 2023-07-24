@@ -11,9 +11,9 @@ const StyledButton = styled.button`
   margin:3px;
 `;
 
-const Button = ({onClick, text}) => {
+const Button = ({type="button", onClick=null, text}) => {
   return (
-    <StyledButton onClick={onClick}>{text}</StyledButton>
+    <StyledButton type={type} onClick={onClick}>{text}</StyledButton>
   )
 }
 

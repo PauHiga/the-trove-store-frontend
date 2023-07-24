@@ -6,6 +6,7 @@ import { createCategoryReducer} from '../../../../reducers/categoriesReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../Button/Button';
 import EditCategories from './EditCategories';
+import toast, { Toaster } from 'react-hot-toast';
 
 const StyledAdminCategories = styled.div`
   label {
@@ -31,7 +32,7 @@ const StyledAdminCategories = styled.div`
   }
   `;
   
-  const AdminCategories = (id) => {
+  const AdminCategories = () => {
 
     const[newCategory, setNewCategory] = useState('')
     const[errorMessage, setErrorMessage] = useState('')
@@ -46,7 +47,8 @@ const StyledAdminCategories = styled.div`
   
   const handleAddCategory = async () => {
     if(newCategory.length === 0){
-      setErrorMessage('The category name cannot be empty! Please add a name for the category.')
+      toast('The category name cannot be empty. Please add a name for the new category.')
+      setErrorMessage('The category name cannot be empty. Add a name for the new category.')
       setTimeout(()=> setErrorMessage(''), 3000)
     }
     else {
@@ -55,42 +57,40 @@ const StyledAdminCategories = styled.div`
         const addedCategory = await categoryService.createCategory(categoryToAdd)
         dispatch(createCategoryReducer(addedCategory))
         setNewCategory('')
+        toast.success(`Category created`)
       }
       catch (error){
         console.log(error)
-        if (newCategory === ''){
-          
-        }
       }
     }
   }
 
    return (
     <div>
-        <StyledAdminCategories>
-          <div>
-            <div className="inline">
-              <h2>Categories</h2>
-              <div className="toggle-add-category" data-bs-toggle="collapse" data-bs-target="#collapse-add-category" aria-controls="collapse-add-category">
-                <Button onClick={handleAddCategory} text={"Add New Category"}/>
-              </div>
-            </div>
-            <div className="collapse" id="collapse-add-category">
-              <div>
-                <input type="text" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} />
-                <Button onClick={handleAddCategory} text={"Add Category"}/>
-                <p>{errorMessage}</p>
-              </div>
-            </div>
-            <div>
-              <h4>Current Categories</h4>
-              <ul>
-                {categories.map(item => <EditCategories item={item} key={item.id}/>)}
-              </ul>
+      <Toaster />
+      <StyledAdminCategories>
+        <div>
+          <div className="inline">
+            <h2>Categories</h2>
+            <div className="toggle-add-category" data-bs-toggle="collapse" data-bs-target="#collapse-add-category" aria-controls="collapse-add-category">
+              <Button text={"Add New Category"}/>
             </div>
           </div>
-        </StyledAdminCategories>  
-
+          <div className="collapse" id="collapse-add-category">
+            <div>
+              <input type="text" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} />
+              <Button onClick={handleAddCategory} text={"Add Category"}/>
+              <p>{errorMessage}</p>
+            </div>
+          </div>
+          <div>
+            <h4>Current Categories</h4>
+            <ul>
+              {categories.map(item => <EditCategories item={item} key={item.id}/>)}
+            </ul>
+          </div>
+        </div>
+      </StyledAdminCategories>  
     </div>
   );
 };

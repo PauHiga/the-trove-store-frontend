@@ -12,7 +12,6 @@ import NoProducts from './NoProducts/NoProducts';
   display:flex;
   margin-top:10px;
   .allCategories{
-    font-size:20px;
     font-variant: small-caps;
     color: #ce9124;
     padding: 10px;
@@ -24,6 +23,17 @@ import NoProducts from './NoProducts/NoProducts';
     display:flex;
     margin:10px 40px;
   }
+
+  @media (max-width: 480px) { 
+    flex-direction:column;
+    .allCategories{
+      padding: 0px;
+    }
+    .displayProducts{
+      justify-content: center;
+      margin:0px 0px;
+    }
+    }
   `;
 
   const AdminProducts = () => {
@@ -54,6 +64,8 @@ import NoProducts from './NoProducts/NoProducts';
     let uniqueCategories = allCategories.filter((category, index, array) => array.indexOf(category) === index);
     uniqueCategories.unshift("All categories")
 
+    console.log(uniqueCategories)
+
     let filteredProducts = categoryProducts
     if (sectionFilter !== "All categories"){
       filteredProducts = categoryProducts.filter(item => item.category.map(item=> item.category).includes(sectionFilter))
@@ -68,15 +80,18 @@ import NoProducts from './NoProducts/NoProducts';
     {filteredProducts.length === 0
     ? <NoProducts/>
     : <CategoriesContainer>
-      <div className="allCategories">
-        <ul>
-          {uniqueCategories.map(item => <li key={item} onClick={()=>setSectionFilter(item)}>{item}</li>)}
-        </ul>
-      </div>
-      <div className="displayProducts">
-        <ProductsGallery products={filteredProducts}/>
-      </div>
-    </CategoriesContainer>
+        <div className="allCategories">
+          {uniqueCategories.length > 2 ? 
+          <ul>
+            {uniqueCategories.map(item => <li key={item} onClick={()=>setSectionFilter(item)}>{item}</li>)}
+          </ul>
+          : ''
+          }
+        </div>
+        <div className="displayProducts">
+          <ProductsGallery products={filteredProducts}/>
+        </div>
+      </CategoriesContainer>
     }
     </>
 

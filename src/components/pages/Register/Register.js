@@ -17,7 +17,6 @@ const StyledRegister = styled.div`
   flex-direction: column;
   font-variant: small-caps;
   margin:20px;
-  font-size: 20px;
   h2{
     color: #ce9124;
   }  
@@ -137,7 +136,7 @@ const Register = () => {
           <div className="form-entry">
             <label htmlFor="email">E-mail:</label>
             <input
-              type="text"
+              type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -155,7 +154,7 @@ const Register = () => {
           <div className="form-entry">
             <label htmlFor="phone">Phone:</label>
             <input
-              type="text"
+              type="tel"
               id="phone"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}

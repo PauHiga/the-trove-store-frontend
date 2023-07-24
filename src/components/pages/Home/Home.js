@@ -4,6 +4,7 @@ import ServicesBar from '../../ServicesBar/ServicesBar'
 import FeaturedCategories from './FeaturedCategories/FeaturedCategories';
 import ProductsGallery from '../../ProductsGallery/ProductsGallery';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import ScrollToTop from '../../ScrollToTop/ScrollToTop';
 
@@ -28,7 +29,9 @@ const Home = () => {
   return (
     <StyledHome>
       <ScrollToTop />
-      <Hero/>
+      <Link to='category/all-products'>
+        <Hero/>
+      </Link>
       <ServicesBar/>
       <FeaturedCategories/>
       <div className='bar'></div>
