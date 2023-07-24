@@ -42,10 +42,8 @@ const Cart = () => {
   const user = useSelector(state => state.user)
   orderService.setToken(user.token)
 
-  console.log('user', user);
 
   const currentCart = useSelector(state => state.cart)
-  console.log("currentCart", currentCart)
 
   if(currentCart.length === 0){
     return(
@@ -67,14 +65,12 @@ const Cart = () => {
       return `${item.name} - ${item.selectedSize}`
     })
 
-    console.log("user.id",user.id)
 
     const order = {
       products: products,
       completed: false
     }
-    const placedOrder = await orderService.createOrder(order)
-    console.log('placedOrder', placedOrder)
+    await orderService.createOrder(order)
   }
 
   return (

@@ -31,7 +31,6 @@ const AdminProductsContainer = styled.div`
     categoryService.setToken(user.token)
     
   const allProducts = useSelector(state => state.products)
-  console.log("allProducts", allProducts);
   const dispatch = useDispatch()
   const navigate = useNavigate()
 

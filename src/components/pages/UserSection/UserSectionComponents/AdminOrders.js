@@ -59,10 +59,7 @@ const AdminOrders = () => {
     return bytes.toString(CryptoJS.enc.Utf8)
   }
 
-  if (orders === []) {
-    return null
-  }
-
+  
   const handleCompleted = async (order) => {
     const modifiedOrder = { ...order, user: order.user.id, completed: true }
     const edited = await orderService.editOrder(modifiedOrder, order.id)
@@ -79,6 +76,10 @@ const AdminOrders = () => {
     toast(`Order ${order.id} is marked as "Pending"`)
   }
 
+  
+  if (orders === []) {
+    return null
+  }
 
   const OrderCard = (order) => {
     return (

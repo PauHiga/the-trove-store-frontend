@@ -64,13 +64,11 @@ import NoProducts from './NoProducts/NoProducts';
     let uniqueCategories = allCategories.filter((category, index, array) => array.indexOf(category) === index);
     uniqueCategories.unshift("All categories")
 
-    console.log(uniqueCategories)
 
     let filteredProducts = categoryProducts
     if (sectionFilter !== "All categories"){
       filteredProducts = categoryProducts.filter(item => item.category.map(item=> item.category).includes(sectionFilter))
     }
-    console.log(filteredProducts)
 
    return (
      <>

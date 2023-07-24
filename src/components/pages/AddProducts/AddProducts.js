@@ -72,7 +72,6 @@ const AddProducts = () => {
     const keysArray = Object.keys(stock)
     const stockLargerThanZero = keysArray.reduce((sum, item) => sum + stock[item], 0)
     
-    console.log('stockLargerThanZero', stockLargerThanZero);
     if(name === '' || featureImg === '' || description=== ''){
       toast("Please add a name, image, and description for the new product.")
     }
@@ -99,12 +98,9 @@ const AddProducts = () => {
         formData.append('section', section);
         formData.append('category', selectedCategories);
         formData.append('discount', discount);
-
-        console.log(formData)
         
         const createdProduct = await productsService.createProduct(formData);
         dispatch(createProduct(createdProduct))
-        console.log("createdProduct", createdProduct);
         navigate('/user-section')
       } catch (error) {
         console.log(error);
@@ -120,7 +116,6 @@ const AddProducts = () => {
     }
   }
 
-  console.log(featureImg);
   return (
     <div>
       <Toaster />

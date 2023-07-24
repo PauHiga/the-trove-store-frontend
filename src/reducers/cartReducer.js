@@ -8,7 +8,6 @@ const cartSlice = createSlice({
       return []
     },
     addProductToCart(state, action){
-      console.log("ap", action.payload)
       const newCartItemId = action.payload.id
       const newCartItemSize = action.payload.selectedSize
       const isRepeated = state.find(item => {
@@ -19,13 +18,11 @@ const cartSlice = createSlice({
           return false
         }
       })
-      console.log(isRepeated)
       if(isRepeated){
         return state.map(item => item.id !== newCartItemId && item.selectedSize !==  newCartItemSize ? item : {...item, amount:item.amount + 1})
       }
       else {
         const content = {...action.payload, amount:1}
-        console.log("cart", content)
         state.push(
           content
         )

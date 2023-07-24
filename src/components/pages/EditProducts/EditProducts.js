@@ -46,13 +46,7 @@ const EditProducts = () => {
   
   const currentProduct = useSelector(state => state.products.find(item => item.id === id))
 
-  console.log(currentProduct);
-
-  const state = useSelector(state => state.products)
-
-  console.log("state", state);
-
-  const productCategories = currentProduct.category.length > 0 ? currentProduct.category.map(item => item.id) : [];
+  const productCategories = currentProduct.category.length > 0 ? currentProduct.category.map(item => item.id? item.id : item) : [];
 
   const [name, setName] = useState(currentProduct.name)
   const [featureImg, setFeatureImg] = useState('')
@@ -68,7 +62,6 @@ const EditProducts = () => {
   const [discount, setDiscount] = useState(currentProduct.discount)
   const [productWithSize, setProductWithSize] = useState(true)
 
-  console.log('selectedCategories', selectedCategories );
 
   const allowProductWithSize = () => {
     setProductWithSize(true)
@@ -89,7 +82,6 @@ const EditProducts = () => {
     const keysArray = Object.keys(stock)
     const stockLargerThanZero = keysArray.reduce((sum, item) => sum + stock[item], 0)
     
-    console.log('stockLargerThanZero', stockLargerThanZero);
     if(name === ''){
       toast("Please add a name for the product.")
     }

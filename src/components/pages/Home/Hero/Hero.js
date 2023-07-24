@@ -4,11 +4,6 @@ import heroImage from '../../../../images/hero-banner-05.jpg';
 import heroImageM from '../../../../images/hero-banner-06.jpg';
 
 const StyledHero = styled.div`
-  // background-image: url(${heroImage});
-  // background-position: center;
-  // height:500px;
-  // width:1100px;
-
   .mobile {
     display: none;
     width: 100vw;
@@ -20,11 +15,6 @@ const StyledHero = styled.div`
     height: auto;  
   }
   
-  @media (max-width: 480px) { 
-  // background-image: url(${heroImageM});
-  // height:600px;
-  // width:400px;
-
   .wide {
     display: none;
   }

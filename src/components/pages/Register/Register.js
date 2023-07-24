@@ -89,7 +89,6 @@ const Register = () => {
         };
   
         const createdUser = await userService.register(newUser);
-        console.log("userCreated", createdUser);
         window.localStorage.setItem(
           'loggedUserTroveStore', JSON.stringify(createdUser.data)
         ) 

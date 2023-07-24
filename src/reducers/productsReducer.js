@@ -10,13 +10,11 @@ const productSlice = createSlice({
     },
     createProduct(state, action){
       const content = action.payload
-      console.log('createProduct content', content);
       state.push({...content})
     },
     editProduct(state, action){
       const editedProduct = action.payload
       const newProductsArray = state.map(item => item.id !== editedProduct.id ? item : editedProduct)
-      console.log("newProductsArray", newProductsArray)
       return newProductsArray
     },
     deleteProduct(state, action){
@@ -29,7 +27,6 @@ const productSlice = createSlice({
 export const initializeProducts = () => {
   return async (dispatch) => {
     const allProducts = await productsService.getAll()
-    console.log(allProducts)
     dispatch(setAllProducts(allProducts))
   }
 }
