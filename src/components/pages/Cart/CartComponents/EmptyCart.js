@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import ButtonLink from '../../../ButtonLink/ButtonLink'
+import styled from "styled-components";
+import ButtonLink from "../../../ButtonLink/ButtonLink";
 
 const StyledEmptyCart = styled.div`
   display: flex;
@@ -12,12 +12,12 @@ const StyledEmptyCart = styled.div`
 `;
 
 const EmptyCart = () => {
-  return(
+  return (
     <StyledEmptyCart>
       <h3>The cart is empty</h3>
-      <ButtonLink url="/category/all-products" text="Go Shopping"/>
+      <ButtonLink url="/category/all-products" text="Go Shopping" />
     </StyledEmptyCart>
-  )
-}
+  );
+};
 
-export default EmptyCart
+export default EmptyCart;

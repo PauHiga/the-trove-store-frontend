@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components';
-import Logout from '../Logout/Logout';
+import React from "react";
+import styled from "styled-components";
+import Logout from "../Logout/Logout";
 
 const StyledSectionHeader = styled.div`
   display:flex;
@@ -19,14 +19,13 @@ const StyledSectionHeader = styled.div`
   }
 `;
 
-const SectionHeader = ({text, logout=1}) => {
-
+const SectionHeader = ({ text, logout = 1 }) => {
   return (
-    <StyledSectionHeader>
+    <StyledSectionHeader id="section-header">
       <h1>{text}</h1>
-      {logout ==="0" ? <Logout/> : ""}
+      {logout === "0" ? <Logout /> : ""}
     </StyledSectionHeader>
-  )
-}
+  );
+};
 
-export default SectionHeader
+export default SectionHeader;

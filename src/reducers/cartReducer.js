@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
-  name: "cart", 
+  name: "cart",
   initialState: [],
   reducers: {
-    emptyCart(state, action){
-      return []
+    emptyCart(state, action) {
+      return [];
     },
     addProductToCart(state, action){
       const newCartItemId = action.payload.id
@@ -28,45 +28,57 @@ const cartSlice = createSlice({
         )
       }
     },
-    addAnotherUnitToCart(state, action){   
-      const newCartItemId = action.payload.id
-      const newCartItemSize = action.payload.selectedSize
-      return state.map(item => {
-        if (item.id === newCartItemId && item.selectedSize ===  newCartItemSize){
-          return {...item, amount:item.amount + 1}
+    addAnotherUnitToCart(state, action) {
+      const newCartItemId = action.payload.id;
+      const newCartItemSize = action.payload.selectedSize;
+      return state.map((item) => {
+        if (
+          item.id === newCartItemId &&
+          item.selectedSize === newCartItemSize
+        ) {
+          return { ...item, amount: item.amount + 1 };
+        } else {
+          return item;
         }
-        else{
-          return item
-        }
-      })
+      });
     },
-    subtractUnitFromCart(state, action){   
-      const newCartItemId = action.payload.id
-      const newCartItemSize = action.payload.selectedSize
-      return state.map(item => {
-        if (item.id === newCartItemId && item.selectedSize ===  newCartItemSize){
-          return {...item, amount:item.amount - 1}
+    subtractUnitFromCart(state, action) {
+      const newCartItemId = action.payload.id;
+      const newCartItemSize = action.payload.selectedSize;
+      return state.map((item) => {
+        if (
+          item.id === newCartItemId &&
+          item.selectedSize === newCartItemSize
+        ) {
+          return { ...item, amount: item.amount - 1 };
+        } else {
+          return item;
         }
-        else{
-          return item
-        }
-      })
+      });
     },
 
-    removeFromCart(state, action){
-      const newCartItemId = action.payload.id
-      const newCartItemSize = action.payload.selectedSize
-      return state.filter(item => {
-        if (item.id === newCartItemId && item.selectedSize ===  newCartItemSize){
-          return false
+    removeFromCart(state, action) {
+      const newCartItemId = action.payload.id;
+      const newCartItemSize = action.payload.selectedSize;
+      return state.filter((item) => {
+        if (
+          item.id === newCartItemId &&
+          item.selectedSize === newCartItemSize
+        ) {
+          return false;
+        } else {
+          return true;
         }
-        else{
-          return true
-        }
-      })
-    }
+      });
+    },
   },
-})
+});
 
-export const { emptyCart, addProductToCart, addAnotherUnitToCart, subtractUnitFromCart, removeFromCart } = cartSlice.actions
-export default cartSlice.reducer
+export const {
+  emptyCart,
+  addProductToCart,
+  addAnotherUnitToCart,
+  subtractUnitFromCart,
+  removeFromCart,
+} = cartSlice.actions;
+export default cartSlice.reducer;
