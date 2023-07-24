@@ -14,12 +14,13 @@ const StyledHero = styled.div`
     max-width: 100%;
     height: auto;  
   }
-  
-  .wide {
-    display: none;
-  }
-  .mobile {
-    display: inline;
+  @media (max-width: 480px) {   
+    .wide {
+      display: none;
+    }
+    .mobile {
+      display: inline;
+    }
   }
 `;
 
