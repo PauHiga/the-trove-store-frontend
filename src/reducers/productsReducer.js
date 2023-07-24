@@ -30,3 +30,6 @@ export const initializeProducts = () => {
     dispatch(setAllProducts(allProducts))
   }
 }
+
+export const { setAllProducts, createProduct, editProduct, deleteProduct } = productSlice.actions
+export default productSlice.reducer

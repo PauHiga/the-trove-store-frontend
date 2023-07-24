@@ -159,7 +159,7 @@ describe("Trove Store Frontend", function () {
           cy.reload()
         })
     });
-    it("Unregistered user can add items to the cart and is asked to login", function () {
+    it("Unregistered user can add items to the cart and is asked to login", { scrollBehavior: false }, function () {
       cy.get('#login')
       cy.get('#hero-banner').click()
       cy.contains('Test Product').click()
