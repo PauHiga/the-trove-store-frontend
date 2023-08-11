@@ -27,8 +27,8 @@ const StyledHero = styled.div`
 const Title = () => {
   return (
     <StyledHero id="hero-banner">
-      <img className='wide' src={heroImage} alt="Photo by Mark Mook from Pixabay"></img>
-      <img className='mobile' src={heroImageM} alt="Photo by Mark Mook from Pixabay"></img>
+      <img className='wide' src={heroImage} alt="Hero banner - Photo by Mark Mook from Pixabay"></img>
+      <img className='mobile' src={heroImageM} alt="Hero banner - Photo by Mark Mook from Pixabay"></img>
     </StyledHero>
   )
 }

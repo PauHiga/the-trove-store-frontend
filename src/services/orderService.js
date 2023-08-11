@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/api/orders";
+const baseUrl = "https://the-trove-store-backend.cyclic.app/api/orders";
 
 let token = null;
 
