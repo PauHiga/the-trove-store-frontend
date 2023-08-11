@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const StyledNotFound = styled.div`
   height: 70vh;
@@ -16,7 +16,7 @@ const NotFound = () => {
       <h2>404 not found</h2>
       <p>This content doesn't exist!</p>
     </StyledNotFound>
-  )
-}
+  );
+};
 
-export default NotFound
+export default NotFound;

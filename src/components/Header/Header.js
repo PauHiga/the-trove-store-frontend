@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from 'styled-components';
-import NavBar from './NavBar/NavBar'
-import Title from './Title/Title';
+import React from "react";
+import styled from "styled-components";
+import NavBar from "./NavBar/NavBar";
+import Title from "./Title/Title";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -9,7 +9,7 @@ const StyledHeader = styled.header`
   position: sticky;
   top: 0;
   z-index: 1000;
-  width = 100vw;
+  width = 100%;
   height:50px;
   background-color: white;
 
@@ -29,7 +29,7 @@ const Header = () => {
         <NavBar />
       </StyledHeader>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

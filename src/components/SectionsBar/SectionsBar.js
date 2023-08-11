@@ -1,17 +1,17 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const StyledSectionsBar = styled.div`
-  display:flex;
+  display: flex;
   justify-content: space-around;
   font-variant: small-caps;
   color: #ce9124;
   padding: 5px;
-  width:100%;
-  `;
+  width: 100%;
+`;
 
-  const SectionsBar = () => {
-   return (
+const SectionsBar = () => {
+  return (
     <StyledSectionsBar>
       <Link to="/category/women">Women</Link>
       <Link to="/category/girls">Girls</Link>
@@ -21,4 +21,4 @@ const StyledSectionsBar = styled.div`
   );
 };
 
-export default SectionsBar
+export default SectionsBar;

@@ -1,12 +1,12 @@
-import axios from 'axios'
+import axios from "axios";
 
-const baseUrl = 'http://localhost:3001/api/login'
+const baseUrl = "https://the-trove-store-backend.cyclic.app/api/login";
 
 const login = async (credentials) => {
-  const userLogged = await axios.post(baseUrl, credentials)
-  return userLogged
-}
+  const userLogged = await axios.post(baseUrl, credentials);
+  return userLogged;
+};
 
-const loginService = { login }
+const loginService = { login };
 
-export default loginService
+export default loginService;

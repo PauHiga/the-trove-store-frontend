@@ -14,20 +14,21 @@ const StyledHero = styled.div`
     max-width: 100%;
     height: auto;  
   }
-  
-  .wide {
-    display: none;
-  }
-  .mobile {
-    display: inline;
+  @media (max-width: 480px) {   
+    .wide {
+      display: none;
+    }
+    .mobile {
+      display: inline;
+    }
   }
 `;
 
 const Title = () => {
   return (
-    <StyledHero>
-      <img className='wide' src={heroImage}alt="Photo by Mark Mook from Pixabay"></img>
-      <img className='mobile' src={heroImageM}alt="Photo by Mark Mook from Pixabay"></img>
+    <StyledHero id="hero-banner">
+      <img className='wide' src={heroImage} alt="Hero banner - Photo by Mark Mook from Pixabay"></img>
+      <img className='mobile' src={heroImageM} alt="Hero banner - Photo by Mark Mook from Pixabay"></img>
     </StyledHero>
   )
 }

@@ -1,18 +1,15 @@
-import React from 'react'
-import Button from '../Button/Button';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import Button from "../Button/Button";
+import { useNavigate } from "react-router-dom";
 
-const ButtonLink = ({url, text}) => {
-
-  const navigate = useNavigate()
+const ButtonLink = ({ url, text }) => {
+  const navigate = useNavigate();
 
   const buttonHandler = () => {
-    navigate(url)
-  }
+    navigate(url);
+  };
 
-  return (
-    <Button text={text} onClick={buttonHandler}/>
-  )
-}
+  return <Button text={text} onClick={buttonHandler} />;
+};
 
-export default ButtonLink
+export default ButtonLink;

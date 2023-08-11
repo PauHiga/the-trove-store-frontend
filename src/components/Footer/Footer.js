@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChain } from '@fortawesome/free-solid-svg-icons'
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChain } from "@fortawesome/free-solid-svg-icons";
 
 const StyledFooter = styled.footer`
   .footer-content {
@@ -138,8 +138,8 @@ const StyledFooter = styled.footer`
 const Footer = () => {
   return (
     <StyledFooter>
-      <div className='footer-content'>
-        <div className='footer-info'>
+      <div className="footer-content">
+        <div className="footer-info">
           <h4>The Trove Store</h4>
           <ul>
             <li>Av. Avenue 1234</li>
@@ -147,34 +147,56 @@ const Footer = () => {
             <li>contact@thetrovestore.com</li>
           </ul>
         </div>
-        <div className='footer-links'>
+        <div className="footer-links">
           <div>
             <ul>
-              <li><Link to='/about'>About Us</Link></li>
-              <li><Link to='/'>Collection</Link></li>
-              <li><Link to='/contact'>Contact</Link></li>
-              <li><Link to='/shop-policies'>Shop Policies</Link></li>
+              <li>
+                <Link to="/about">About Us</Link>
+              </li>
+              <li>
+                <Link to="/">Collection</Link>
+              </li>
+              <li>
+                <Link to="/contact">Contact</Link>
+              </li>
+              <li>
+                <Link to="/shop-policies">Shop Policies</Link>
+              </li>
             </ul>
           </div>
           <div>
             <ul>
-              <li><Link to='/FAQ'>FAQ</Link></li>
-              <li><Link to='/legals'>Legals</Link></li>
-              <li><Link to='/privacy-policies'>Privacy Policies</Link></li>
+              <li>
+                <Link to="/FAQ">FAQ</Link>
+              </li>
+              <li>
+                <Link to="/legals">Legals</Link>
+              </li>
+              <li>
+                <Link to="/privacy-policies">Privacy Policies</Link>
+              </li>
             </ul>
           </div>
         </div>
-        <div className='media'>
+        <div className="media">
           <div>
-            <a href="https://www.youtube.com/"><FontAwesomeIcon icon={faChain} /></a>
-            <a href="https://www.youtube.com/"><FontAwesomeIcon icon={faChain} /></a>
-            <a href="https://www.youtube.com/"><FontAwesomeIcon icon={faChain} /></a>
-            <a href="https://www.youtube.com/"><FontAwesomeIcon icon={faChain} /></a>
+            <a href="https://www.youtube.com/">
+              <FontAwesomeIcon icon={faChain} />
+            </a>
+            <a href="https://www.youtube.com/">
+              <FontAwesomeIcon icon={faChain} />
+            </a>
+            <a href="https://www.youtube.com/">
+              <FontAwesomeIcon icon={faChain} />
+            </a>
+            <a href="https://www.youtube.com/">
+              <FontAwesomeIcon icon={faChain} />
+            </a>
           </div>
         </div>
       </div>
     </StyledFooter>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
