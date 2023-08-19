@@ -7,6 +7,7 @@ import ProductsGallery from "../../ProductsGallery/ProductsGallery";
 import ScrollToTop from "../../ScrollToTop/ScrollToTop";
 import SectionsBar from "../../SectionsBar/SectionsBar";
 import NoProducts from "./NoProducts/NoProducts";
+import { useEffect } from "react";
 
 const CategoriesContainer = styled.div`
   display: flex;
@@ -43,6 +44,11 @@ const AdminProducts = () => {
   let categoryProducts = [];
 
   let section = useParams().section;
+
+  useEffect(() => {
+    setSectionFilter("All categories")
+  }, [section])
+  
 
   const sections = ["women", "girls", "accessories"];
 
