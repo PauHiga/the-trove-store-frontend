@@ -11,7 +11,7 @@ const StyledProductsGallery = styled.div`
   font-variant: small-caps;
   color: #ce9124;
   padding-bottom: 20px;
-  max-width: 1400px;
+  width: 100%;
 
   .product {
     text-align: center;

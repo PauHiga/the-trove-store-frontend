@@ -12,7 +12,9 @@ import { useEffect } from "react";
 const CategoriesContainer = styled.div`
   display: flex;
   margin-top: 10px;
-  .allCategories {
+  .allCategoriesColumn {
+
+    width:15%;
     font-variant: small-caps;
     color: #ce9124;
     padding: 10px;
@@ -20,17 +22,20 @@ const CategoriesContainer = styled.div`
       margin-top: 15px;
     }
   }
-  .displayProducts {
+  .displayProductsColumn {
+    width:85%;
     display: flex;
-    margin: 10px 40px;
+    justify-content: center;
+    margin: 10px;
   }
 
   @media (max-width: 480px) {
     flex-direction: column;
-    .allCategories {
+    .allCategoriesColumn {
       padding: 0px;
+      
     }
-    .displayProducts {
+    .displayProductsColumn {
       justify-content: center;
       margin: 0px 0px;
     }
@@ -63,10 +68,10 @@ const AdminProducts = () => {
     categoryProducts = allProducts;
   }
 
-  const allCategories = categoryProducts.flatMap((obj) =>
+  const allCategoriesColumn = categoryProducts.flatMap((obj) =>
     obj.category.map((item) => item.category),
   );
-  let uniqueCategories = allCategories.filter(
+  let uniqueCategories = allCategoriesColumn.filter(
     (category, index, array) => array.indexOf(category) === index,
   );
   uniqueCategories.unshift("All categories");
@@ -86,7 +91,7 @@ const AdminProducts = () => {
         <NoProducts />
       ) : (
         <CategoriesContainer>
-          <div className="allCategories">
+          <div className="allCategoriesColumn">
             {uniqueCategories.length > 2 ? (
               <ul>
                 {uniqueCategories.map((item) => (
@@ -99,7 +104,7 @@ const AdminProducts = () => {
               ""
             )}
           </div>
-          <div className="displayProducts">
+          <div className="displayProductsColumn">
             <ProductsGallery products={filteredProducts} />
           </div>
         </CategoriesContainer>
